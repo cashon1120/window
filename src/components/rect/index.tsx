@@ -23,11 +23,12 @@ interface Props {
     maxHeight?: number;
     minWidth?: number;
     minHeight?: number;
+    barWidth?: number;
   };
 }
 
 const Rect = (props: Props) => {
-  const { params: { width, height, top = 0, left = 0, maxWidth = 1000, maxHeight = 1000, minWidth = 50, minHeight = 50 }, name, threeD, onChange } = props;
+  const { params: { width, height, top = 0, left = 0, barWidth, maxWidth = 1000, maxHeight = 1000, minWidth = 50, minHeight = 50 }, name, threeD, onChange } = props;
   const eventAttr = useRef({
     width,
     height,
@@ -177,7 +178,7 @@ const Rect = (props: Props) => {
   }, [threeD]);
 
   return (
-    <div className="rect_box" id="box" style={{ width, height, left, top }}>
+    <div className="rect_box" id="box" style={{ width, height, left, top, borderWidth: barWidth }}>
       <div className="size left">
         <span>{heightValue}</span>
         <div className="line"></div>
@@ -186,10 +187,10 @@ const Rect = (props: Props) => {
         <span id="width_value">{widthValue}</span>
         <div className="line"></div>
       </div>
-      <div className="drag top" id="top" onMouseDown={onMouseDown} data-type="top"></div>
-      <div className="drag right" id="right" onMouseDown={onMouseDown} data-type="right"></div>
-      <div className="drag bottom" id="bottom" onMouseDown={onMouseDown} data-type="bottom"></div>
-      <div className="drag left" id="left" onMouseDown={onMouseDown} data-type="left"></div>
+      <div className="drag top" style={{ height: barWidth, top: (barWidth || 2) * -1 }} id="top" onMouseDown={onMouseDown} data-type="top"></div>
+      <div className="drag right" style={{ width: barWidth,right: (barWidth || 2) * -1  }} id="right" onMouseDown={onMouseDown} data-type="right"></div>
+      <div className="drag bottom" style={{ height: barWidth, bottom: (barWidth || 2) * -1 }} id="bottom" onMouseDown={onMouseDown} data-type="bottom"></div>
+      <div className="drag left" style={{ width: barWidth,left: (barWidth || 2) * -1  }} id="left" onMouseDown={onMouseDown} data-type="left"></div>
     </div>
   );
 };
