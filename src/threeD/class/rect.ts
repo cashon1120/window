@@ -1,12 +1,12 @@
 import Bar from "./bar";
 import * as THREE from "three";
 
-interface Props {
+export interface RectProps {
   group: THREE.Group;
   width: number;
   height: number;
   barWidth: number; // 这个决定了边框的宽度或者高度
-  barDepth: number;
+  barDepth: number; // 边框的厚度
   x?: number;
   y?: number;
   z?: number;
@@ -40,7 +40,7 @@ class Rect {
   left: number;
   right: number;
   bottom: number;
-  constructor(params: Props) {
+  constructor(params: RectProps) {
     const {
       width,
       height,

@@ -1,0 +1,142 @@
+.rect_outer {
+  position: fixed;
+  bottom: 5px;
+  left: 50%;
+  width: 500px;
+  height: 200px;
+  transform: translateX(-50%);
+}
+.rect_box {
+  position: absolute;
+  z-index: 999;
+  box-sizing: border-box;
+  border: 2px solid #888;
+}
+.rect_box .drag {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: #333;
+  cursor: row-resize;
+}
+.rect_box .drag.top {
+  top: -4px;
+  left: 50%;
+  width: 15px;
+  transform: translateX(-50%);
+}
+.rect_box .drag.bottom {
+  bottom: -4px;
+  left: 50%;
+  width: 15px;
+  transform: translateX(-50%);
+}
+.rect_box .drag.left {
+  top: 50%;
+  left: -4px;
+  height: 15px;
+  transform: translateY(-50%);
+  cursor: col-resize;
+  line-height-step: 10px;
+}
+.rect_box .drag.right {
+  top: 50%;
+  right: -4px;
+  height: 15px;
+  transform: translateY(-50%);
+  cursor: col-resize;
+}
+.rect_box .size {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  font-size: 12px;
+}
+.rect_box .size::after,
+.rect_box .size::before {
+  position: absolute;
+  display: block;
+  content: "";
+}
+.rect_box .size span {
+  position: relative;
+  z-index: 9;
+  display: block;
+  box-sizing: border-box;
+  height: 18px;
+  padding: 0 5px;
+  line-height: 18px;
+  background-color: #bcbcbc;
+  border-radius: 5px;
+}
+.rect_box .size .line {
+  position: absolute;
+}
+.rect_box .size.top,
+.rect_box .size.bottom {
+  right: -2px;
+  left: -2px;
+  height: 20px;
+}
+.rect_box .size.bottom {
+  bottom: -30px;
+}
+.rect_box .size.top::before,
+.rect_box .size.top:after,
+.rect_box .size.bottom::before,
+.rect_box .size.bottom:after {
+  top: 50%;
+  width: 1px;
+  height: 10px;
+  background-color: #333;
+  transform: translateY(-50%);
+}
+.rect_box .size.top::before,
+.rect_box .size.bottom::before {
+  left: 0;
+}
+.rect_box .size.top::after,
+.rect_box .size.bottom::after {
+  right: 0;
+}
+.rect_box .size.top .line,
+.rect_box .size.bottom .line {
+  top: 50%;
+  width: 100%;
+  height: 1px;
+  background-color: #333;
+  transform: translateY(-50%);
+}
+.rect_box .size.top {
+  top: -25px;
+  text-align: center;
+}
+.rect_box .size.left {
+  top: -2px;
+  bottom: -2px;
+  left: -30px;
+}
+.rect_box .size.left .line {
+  width: 1px;
+  height: 100%;
+  background-color: #333;
+}
+.rect_box .size.left span {
+  transform: rotate(-90deg);
+}
+.rect_box .size.left::before,
+.rect_box .size.left:after {
+  left: 50%;
+  width: 10px;
+  height: 1px;
+  background-color: #333;
+  transform: translateX(-50%);
+}
+.rect_box .size.left::before {
+  top: 0;
+}
+.rect_box .size.left::after {
+  bottom: 0;
+}

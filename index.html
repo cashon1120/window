@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -7,19 +7,9 @@
     <title>Demo</title>
   </head>
   <body>
+    <!-- 用来渲染3D -->
+    <div id="threeD"></div>
     <div id="root"></div>
-    <div class="outer">
-      <div class="box" id="box">
-        <!-- <div class="size top"><span>top</span><div class="line"></div></div> -->
-        <div class="size left"><span id="height_value"></span><div class="line"></div></div>
-        <!-- <div class="size right"><span>right</span><div class="line"></div></div> -->
-        <div class="size bottom"><span id="width_value"></span><div class="line"></div></div>
-        <div class="drag top" id="top" data-type="top"></div>
-        <div class="drag right" id="right" data-type="right"></div>
-        <div class="drag bottom" id="bottom" data-type="bottom"></div>
-        <div class="drag left" id="left" data-type="left"></div>
-      </div>
-    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

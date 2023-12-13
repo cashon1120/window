@@ -1,17 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Rect from "./class/rect";
+import Rect from "../../threeD/class/rect";
 
 const getById = (id: string) => {
   return document.getElementById(id);
 };
+
+interface EventProps {
+  width: number;
+  height: number;
+  left: number;
+  top: number;
+}
 
 const initEvent = (rect: Rect) => {
   const MAX_WIDTH = 500;
   const MAX_HEIGHT = 200;
   const MIN_WIDTH = 50;
   const MIN_HEIGHT = 50;
-  let left = 150;
-  let top = 50;
+  let left = 0;
+  let top = 0;
   let height = 100;
   let width = 200;
   const box = getById("box");
