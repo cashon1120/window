@@ -10,11 +10,29 @@ const createCoordinate = () => {
     "fonts/optimer_regular.typeface.json",
     // onLoad callback
     function (font) {
+      const textAttr = {
+        font,
+        // 文本大小
+        size: 2.5,
+        // 文本厚度
+        height: 0.1,
+        // 文本曲线上点的数量, 默认12
+        curveSegments: 12,
+        // 是否开启斜角
+        bevelEnabled: false,
+        // 斜角的深度
+        bevelThickness: 0,
+        // 表示斜角与原始文本轮廓之间的延伸距离
+        bevelSize: 0,
+        bevelOffset: 0,
+        // 斜角的分段数，默认值3
+        bevelSegments: 0,
+      };
       for (let i = -500; i <= 500; i++) {
         let _value_x = 2;
-        let _value_y = -2
+        let _value_y = -2;
         if (i % 10 === 0) {
-          _value_x = 4
+          _value_x = 4;
           _value_y = -4;
           const materials = [
             new THREE.MeshBasicMaterial({
@@ -23,27 +41,11 @@ const createCoordinate = () => {
           ];
 
           if (i !== 0) {
-            const geometry = new TextGeometry(i.toString(), {
-              font,
-              // 文本大小
-              size: 2.5,
-              // 文本厚度
-              height: 0.1,
-              // 文本曲线上点的数量, 默认12
-              curveSegments: 12,
-              // 是否开启斜角
-              bevelEnabled: false,
-              // 斜角的深度
-              bevelThickness: 0,
-              // 表示斜角与原始文本轮廓之间的延伸距离
-              bevelSize: 0,
-              bevelOffset: 0,
-              // 斜角的分段数，默认值3
-              bevelSegments: 0,
-            });
-            const textMesh1 = new THREE.Mesh(geometry, materials);
+            const geometry1 = new TextGeometry(i.toString(), textAttr);
+            const geometry2 = new TextGeometry((-i).toString(), textAttr);
+            const textMesh1 = new THREE.Mesh(geometry1, materials);
             textMesh1.position.set(i - 2, 5, 0);
-            const textMesh2 = new THREE.Mesh(geometry, materials);
+            const textMesh2 = new THREE.Mesh(geometry2, materials);
             textMesh2.position.set(-10, i - 1, 0);
             scene.add(textMesh1);
             scene.add(textMesh2);

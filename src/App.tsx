@@ -25,8 +25,8 @@ function App() {
     },
     in: {
       type: "Rect",
-      left: 10,
-      top: 15,
+      left: 11,
+      top: 16,
       width: 100,
       height: 50,
       barWidth: 5,
