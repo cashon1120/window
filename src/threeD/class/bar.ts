@@ -89,6 +89,7 @@ class Bar {
         this.innerGroup.translateX(this.width / 2);
         break;
     }
+    console.log(this.x, this.y)
     this.group.position.set(this.x, this.y, this.z);
     this.group.add(this.innerGroup);
     if (this.parentGroup) {

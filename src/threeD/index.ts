@@ -54,7 +54,9 @@ const init = (params: Params) => {
   });
 
   scene.add(group);
-  camera.position.set(0, 0, 300);
+  camera.position.set(100, -50, 280);
+  camera.lookAt(100, -50, 0);
+  controls.target.copy(new THREE.Vector3(100, -50, 0));
   controls.update();
 
   return obj;

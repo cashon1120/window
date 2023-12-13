@@ -11,9 +11,11 @@ const createCoordinate = () => {
     // onLoad callback
     function (font) {
       for (let i = -500; i <= 500; i++) {
-        let _value = -2;
+        let _value_x = 2;
+        let _value_y = -2
         if (i % 10 === 0) {
-          _value = -4;
+          _value_x = 4
+          _value_y = -4;
           const materials = [
             new THREE.MeshBasicMaterial({
               color: 0xffffff,
@@ -40,7 +42,7 @@ const createCoordinate = () => {
               bevelSegments: 0,
             });
             const textMesh1 = new THREE.Mesh(geometry, materials);
-            textMesh1.position.set(i - 2, -7, 0);
+            textMesh1.position.set(i - 2, 5, 0);
             const textMesh2 = new THREE.Mesh(geometry, materials);
             textMesh2.position.set(-10, i - 1, 0);
             scene.add(textMesh1);
@@ -50,11 +52,11 @@ const createCoordinate = () => {
 
         const xPointsArr = [
           new THREE.Vector3(i, 0, 0),
-          new THREE.Vector3(i, _value, 0),
+          new THREE.Vector3(i, _value_x, 0),
         ];
 
         const yPointsArr = [
-          new THREE.Vector3(_value, i, 0),
+          new THREE.Vector3(_value_y, i, 0),
           new THREE.Vector3(0, i, 0),
         ];
 

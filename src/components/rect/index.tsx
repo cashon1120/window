@@ -39,6 +39,7 @@ const Rect = (props: Props) => {
       x: 0,
       y: 0,
     },
+    // 拖动过程中缓存一些参数
     _tempTop: top,
     _tempWidth: width,
     _tempHeight: height,

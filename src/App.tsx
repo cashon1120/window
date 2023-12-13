@@ -11,32 +11,32 @@ function App() {
   const [data, setData] = useState<any>({
     outer: {
       type: "Rect",
-      left: 0,
-      top: 0,
+      left: 5,
+      top: 10,
       width: 200,
       height: 100,
-      barWidth: 4,
-      barDepth: 8,
+      barWidth: 5,
+      barDepth: 10,
       maxWidth: 500,
       maxHeight: 500,
       minWidth: 50,
       minHeight: 50,
       color: "#f29e4b",
     },
-    // in: {
-    //   type: "Rect",
-    //   left: 0,
-    //   top: 0,
-    //   width: 100,
-    //   height: 50,
-    //   barWidth: 4,
-    //   barDepth: 8,
-    //   maxWidth: 500,
-    //   maxHeight: 500,
-    //   minWidth: 50,
-    //   minHeight: 50,
-    //   color: "#f29e4b",
-    // }
+    in: {
+      type: "Rect",
+      left: 10,
+      top: 15,
+      width: 100,
+      height: 50,
+      barWidth: 5,
+      barDepth: 10,
+      maxWidth: 500,
+      maxHeight: 500,
+      minWidth: 50,
+      minHeight: 50,
+      color: "#f29e4b",
+    }
   });
 
   const updateData = (key: string, params: ChangeProps) => {

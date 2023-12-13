@@ -7,8 +7,8 @@ export interface RectProps {
   height: number;
   barWidth: number; // 这个决定了边框的宽度或者高度
   barDepth: number; // 边框的厚度
-  x?: number;
-  y?: number;
+  left?: number;
+  top?: number;
   z?: number;
   leftBar?: Bar;
   topBar?: Bar;
@@ -24,7 +24,7 @@ interface TranformProps {
 }
 
 /**
- * 矩形框，有4个边
+ * 矩形框，有4个边, 默认左上角的坐标设置为0，0，0
  */
 class Rect {
   leftBar: Bar;
@@ -47,8 +47,8 @@ class Rect {
       group,
       barWidth,
       barDepth = 2,
-      x = 0,
-      y = 0,
+      left = 0,
+      top = 0,
       z = 0,
       leftBar,
       topBar,
@@ -59,18 +59,18 @@ class Rect {
     this.width = width;
     this.height = height;
     this.barDepth = barDepth;
-    this.top = height / 2;
-    this.bottom = -height / 2;
-    this.left = -width / 2;
-    this.right = width / 2;
+    this.top = -top;
+    this.bottom = -height - top;
+    this.left = left;
+    this.right = width + left;
     this.barWidth = barWidth;
     this.topBar =
       topBar ||
       new Bar({
         width: width,
         height: barWidth,
-        x: 0,
-        y: this.height / 2,
+        x: width / 2 + left,
+        y: -top,
         align: "top",
         depth: barDepth,
         color,
@@ -80,8 +80,8 @@ class Rect {
       new Bar({
         width: barWidth,
         height: height,
-        x: this.width / 2,
-        y: 0,
+        x: this.width + left,
+        y: -this.height / 2 - top,
         align: "right",
         depth: barDepth,
         color,
@@ -91,7 +91,8 @@ class Rect {
       new Bar({
         width: barWidth,
         height: height,
-        x: -this.width / 2,
+        x: left,
+        y: -this.height / 2 - top,
         depth: barDepth,
         color,
         align: "left",
@@ -101,13 +102,15 @@ class Rect {
       new Bar({
         width: width,
         height: barWidth,
-        y: -this.height / 2,
+        y: -this.height - top,
+        x:  width / 2 + left,
         align: "bottom",
         depth: barDepth,
         color,
       });
     this.group = new THREE.Group();
-    this.group.position.set(x, y, z);
+    console.log(left, top);
+    this.group.position.set(0, 0, z);
     this.group.add(this.topBar.group);
     this.group.add(this.rightBar.group);
     this.group.add(this.bottomBar.group);
