@@ -1,17 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./style.less";
 
-const getById = (id: string) => {
-  return document.getElementById(id);
-};
+export interface ChangeProps {
+  left?: number;
+  top?: number;
+  height?: number;
+  width?: number;
+}
 
 interface Props {
-  onChange: (nameKey: string, valueKey: string, value: number) => void
+  onChange: (key: string, params: ChangeProps) => void
   threeD: any;
   name: string;
-
   params: {
     width: number;
     height: number;
@@ -25,194 +27,168 @@ interface Props {
 }
 
 const Rect = (props: Props) => {
-  const {params: { width, height, top = 0, left = 0, maxWidth, maxHeight, minWidth, minHeight }, name, threeD, onChange} = props;
-
-
-  useEffect(() => {
-    if(!threeD) return
-    const MAX_WIDTH = 500;
-    const MAX_HEIGHT = 200;
-    const MIN_WIDTH = 50;
-    const MIN_HEIGHT = 50;
-    let left = 0;
-    let top = 0;
-    let height = 100;
-    let width = 200;
-    const box = getById("box");
-    const topBar = getById("top");
-    const rightBar = getById("right");
-    const bottomBar = getById("bottom");
-    const leftBar = getById("left");
-    const widthValue = getById("width_value");
-    const heightValue = getById("height_value");
-  
-    let mousedown = false;
-    let _tempTop = top;
-    let _tempHeight = height;
-    let _tempLeft = left;
-    let _maxLeft = 0;
-    let _maxTop = 0;
-    let _minLeft = 0;
-    let _minTop = 0;
-    let _tempWidth = width;
-    let type: "top" | "left" | "right" | "bottom" = "top";
-    const begin = {
+  const { params: { width, height, top = 0, left = 0, maxWidth = 1000, maxHeight = 1000, minWidth = 50, minHeight = 50 }, name, threeD, onChange } = props;
+  const eventAttr = useRef({
+    width,
+    height,
+    left,
+    top,
+    type: "top",
+    mousedown: false,
+    begin: {
       x: 0,
       y: 0,
-    };
-  
-    const setHeightValue = (value: number) => {
-      if (heightValue) {
-        heightValue.innerHTML = value + "";
-      }
-    };
-  
-    const setWidthValue = (value: number) => {
-      if (widthValue) {
-        widthValue.innerHTML = value + "";
-      }
-    };
-  
-    const setBoxStyle = (params: any) => {
-      Object.keys(params).forEach((key: any) => {
-        if (box) {
-          box.style[key] = params[key] + "px";
+    },
+    _tempTop: top,
+    _tempWidth: width,
+    _tempHeight: height,
+    _tempLeft: left,
+    _maxTop: 0,
+    _maxLeft: 0,
+    _minLeft: 0,
+    _minTop: 0,
+  })
+  const [widthValue, setWidthValue] = useState(width)
+  const [heightValue, setHeightValue] = useState(height)
+  const threeDInstance = useRef(threeD)
+  const onMouseMove = (e: MouseEvent) => {
+    const { current } = eventAttr
+    const { mousedown, type, top, left, height, width, begin } = current;
+    if (!mousedown) {
+      return;
+    }
+    const { clientX, clientY } = e;
+    let offset = 0;
+    switch (type) {
+      case "top":
+        offset = begin.y - clientY;
+        current._tempTop = top - offset;
+        current._tempHeight = height + offset;
+        current._minTop = 0;
+        current._maxTop = 0;
+        if (current._tempHeight < minHeight) {
+          current._tempHeight = minHeight;
+          current._minTop = height - minHeight + top;
+          setHeightValue(minHeight);
+          return;
         }
+        if (current._tempHeight > maxHeight) {
+          current._tempHeight = maxHeight;
+          current._maxTop = height - maxHeight + top;
+          setHeightValue(maxHeight);
+          return;
+        }
+        setHeightValue(current._tempHeight);
+        onChange(name, { top: current._tempTop, height: current._tempHeight })
+        break;
+
+      case "bottom":
+        offset = clientY - begin.y;
+        current._tempHeight = height + offset;
+        current._tempHeight = Math.min(Math.max(current._tempHeight, minHeight), maxHeight);
+        setHeightValue(current._tempHeight);
+        onChange(name, { height: current._tempHeight })
+        break;
+
+      case "left":
+        offset = begin.x - clientX;
+        current._tempLeft = left - offset;
+        current._tempWidth = width + offset;
+        current._minLeft = 0;
+        current._maxLeft = 0;
+        if (current._tempWidth < minWidth) {
+          current._tempWidth = minWidth;
+          current._minLeft = width - minWidth + left;
+          setWidthValue(minWidth);
+          return;
+        }
+        if (current._tempWidth > maxWidth) {
+          current._tempWidth = maxWidth;
+          current._maxLeft = width - maxWidth + left;
+          setWidthValue(maxWidth);
+          return;
+        }
+        setWidthValue(current._tempWidth);
+        onChange(name, { left: current._tempLeft, width: current._tempWidth })
+        break;
+
+      case "right":
+        offset = clientX - begin.x;
+        current._tempWidth = width + offset;
+        current._tempWidth = Math.min(Math.max(current._tempWidth, minWidth), maxWidth);
+        setWidthValue(current._tempWidth);
+        onChange(name, { width: current._tempWidth })
+
+        break;
+    }
+  };
+
+  const onMouseDown = (e: any) => {
+    const { current } = eventAttr
+    const { type, begin } = current;
+    current.mousedown = true;
+    current.type = e.target.dataset.type;
+    // 设置鼠标样式， onMouseUp的时候恢复成默认
+    if (type === "left" || type == "right") {
+      document.body.className = "col";
+    } else {
+      document.body.className = "row";
+    }
+    const { clientX, clientY } = e;
+    begin.x = clientX;
+    begin.y = clientY;
+    // 动态绑定和移除相关事件，以免其它组件触发
+    document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener('mouseup', onMouseUp)
+  };
+
+  const onMouseUp = () => {
+    document.removeEventListener("mousemove", onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp)
+    document.body.className = "";
+    const { mousedown, type, _tempLeft, _tempTop, _tempWidth, _tempHeight, _maxTop, _maxLeft, _minLeft, _minTop } = eventAttr.current;
+    eventAttr.current = {
+      ...eventAttr.current,
+      left: _maxLeft || _minLeft || _tempLeft,
+      top: _maxTop || _minTop || _tempTop,
+      _tempTop: _maxTop || _minTop || _tempTop,
+      _tempLeft: _maxLeft || _minLeft || _tempLeft,
+      width: _tempWidth,
+      height: _tempHeight,
+      _maxLeft: 0,
+      _maxTop: 0,
+      _minLeft: 0,
+      _minTop: 0,
+      mousedown: false,
+    }
+    // 注意这里的引用关系，不要直接取current.xxxx
+    onChange(name, { height: _tempHeight, width: _tempWidth, top: eventAttr.current._tempTop, left: eventAttr.current._tempLeft })
+    if (mousedown) {
+      threeDInstance.current[name].transform({
+        type,
+        value: type === "bottom" || type === "top" ? _tempHeight : _tempWidth,
       });
-    };
-  
-    setHeightValue(height);
-    setWidthValue(width);
-  
-    const onMouseMove = (e: MouseEvent) => {
-      if (!mousedown) {
-        return;
-      }
-      const { clientX, clientY } = e;
-      let offset = 0;
-      if (box) {
-        switch (type) {
-          case "top":
-            offset = begin.y - clientY;
-            _tempTop = top - offset;
-            _tempHeight = height + offset;
-            _minTop = 0;
-            _maxTop = 0;
-            if (_tempHeight < MIN_HEIGHT) {
-              _tempHeight = MIN_HEIGHT;
-              _minTop = height - MIN_HEIGHT + top;
-              setHeightValue(MIN_HEIGHT);
-              return;
-            }
-            if (_tempHeight > MAX_HEIGHT) {
-              _tempHeight = MAX_HEIGHT;
-              _maxTop = height - MAX_HEIGHT + top;
-              setHeightValue(MAX_HEIGHT);
-              return;
-            }
-            setHeightValue(_tempHeight);
-            setBoxStyle({ top: _tempTop, height: _tempHeight });
-            break;
-  
-          case "bottom":
-            offset = clientY - begin.y;
-            _tempHeight = height + offset;
-            _tempHeight = Math.min(Math.max(_tempHeight, MIN_HEIGHT), MAX_HEIGHT);
-            setHeightValue(_tempHeight);
-            setBoxStyle({ height: _tempHeight });
-            break;
-  
-          case "left":
-            offset = begin.x - clientX;
-            _tempLeft = left - offset;
-            _tempWidth = width + offset;
-            _minLeft = 0;
-            _maxLeft = 0;
-            if (_tempWidth < MIN_WIDTH) {
-              _tempWidth = MIN_WIDTH;
-              _minLeft = width - MIN_WIDTH + left;
-              setWidthValue(MIN_WIDTH);
-              return;
-            }
-            if (_tempWidth > MAX_WIDTH) {
-              _tempWidth = MAX_WIDTH;
-              _maxLeft = width - MAX_WIDTH + left;
-              setWidthValue(MAX_WIDTH);
-              return;
-            }
-            setWidthValue(_tempWidth);
-            setBoxStyle({ left: _tempLeft, width: _tempWidth });
-            break;
-  
-          case "right":
-            offset = clientX - begin.x;
-            _tempWidth = width + offset;
-            _tempWidth = Math.min(Math.max(_tempWidth, MIN_WIDTH), MAX_WIDTH);
-            setWidthValue(_tempWidth);
-            setBoxStyle({ width: _tempWidth });
-            break;
-        }
-      }
-    };
-  
-    const onMouseDown = (e: any) => {
-      mousedown = true;
-      type = e.target.dataset.type;
-      if (type === "left" || type == "right") {
-        document.body.className = "col";
-      } else {
-        document.body.className = "row";
-      }
-      const { clientX, clientY } = e;
-      begin.x = clientX;
-      begin.y = clientY;
-      document.addEventListener("mousemove", onMouseMove);
-    };
-  
-    const onMouseup = () => {
-      document.removeEventListener("mousemove", onMouseMove);
-      document.body.className = "";
-      height = _tempHeight;
-      top = _tempTop;
-      left = _tempLeft;
-      width = _tempWidth;
-      _tempTop = _maxTop || _minTop || _tempTop;
-      _tempLeft = _maxLeft || _minLeft || _tempLeft;
-      _maxLeft = 0;
-      _maxTop = 0;
-      _minLeft = 0;
-      _minTop = 0;
-      if (mousedown) {
-        console.log(threeD)
-        threeD[name].transform({
-          type,
-          value: type === "bottom" || type === "top" ? height : width,
-        });
-      }
-      mousedown = false;
-    };
-  
-    topBar?.addEventListener("mousedown", onMouseDown);
-    bottomBar?.addEventListener("mousedown", onMouseDown);
-    leftBar?.addEventListener("mousedown", onMouseDown);
-    rightBar?.addEventListener("mousedown", onMouseDown);
-    document.addEventListener("mouseup", onMouseup);
+    }
+  };
+  useEffect(() => {
+    if (!threeD) return
+    threeDInstance.current = threeD
   }, [threeD]);
-  
+
   return (
     <div className="rect_box" id="box" style={{ width, height, left, top }}>
       <div className="size left">
-        <span id="height_value"></span>
+        <span>{heightValue}</span>
         <div className="line"></div>
       </div>
       <div className="size bottom">
-        <span id="width_value"></span>
+        <span id="width_value">{widthValue}</span>
         <div className="line"></div>
       </div>
-      <div className="drag top" id="top" data-type="top"></div>
-      <div className="drag right" id="right" data-type="right"></div>
-      <div className="drag bottom" id="bottom" data-type="bottom"></div>
-      <div className="drag left" id="left" data-type="left"></div>
+      <div className="drag top" id="top" onMouseDown={onMouseDown} data-type="top"></div>
+      <div className="drag right" id="right" onMouseDown={onMouseDown} data-type="right"></div>
+      <div className="drag bottom" id="bottom" onMouseDown={onMouseDown} data-type="bottom"></div>
+      <div className="drag left" id="left" onMouseDown={onMouseDown} data-type="left"></div>
     </div>
   );
 };

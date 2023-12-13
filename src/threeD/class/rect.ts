@@ -119,7 +119,6 @@ class Rect {
     if (typeof value !== "number" || !value) {
       throw new Error(`请输入数字`);
     }
-    console.log(value);
     switch (type) {
       case "top":
         if (this.height === value) {

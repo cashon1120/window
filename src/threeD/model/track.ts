@@ -116,7 +116,6 @@ class Bar {
     //   targetValue = value + currentY;
     // }
     console.log(target.position);
-    console.log(value);
     const tween = new TWEEN.Tween(target.position)
       .to({ [translateType]: targetValue }, time)
       .start();
