@@ -3,10 +3,15 @@
 import { useEffect, useState, useRef } from "react";
 import "../style/style.less";
 
-import { ChangeProps } from "../types";
+export interface ChangeProps {
+  left?: number;
+  top?: number;
+  height?: number;
+  width?: number;
+}
 
 interface Props {
-  onChange: (key: string, params: ChangeProps) => void;
+  onChange: (key: string, params: ChangeProps) => void
   threeD: any;
   name: string;
   params: {
@@ -22,23 +27,8 @@ interface Props {
   };
 }
 
-const Rect = (props: Props) => {
-  const {
-    params: {
-      width,
-      height,
-      top = 0,
-      left = 0,
-      barWidth,
-      maxWidth = 1000,
-      maxHeight = 1000,
-      minWidth = 50,
-      minHeight = 50,
-    },
-    name,
-    threeD,
-    onChange,
-  } = props;
+const HorizontalBar = (props: Props) => {
+  const { params: { width, height, top = 0, left = 0, barWidth, maxWidth = 1000, maxHeight = 1000, minWidth = 50, minHeight = 50 }, name, threeD, onChange } = props;
   const eventAttr = useRef({
     width,
     height,
@@ -59,12 +49,12 @@ const Rect = (props: Props) => {
     _maxLeft: 0,
     _minLeft: 0,
     _minTop: 0,
-  });
-  const [widthValue, setWidthValue] = useState(width);
-  const [heightValue, setHeightValue] = useState(height);
-  const threeDInstance = useRef(threeD);
+  })
+  const [widthValue, setWidthValue] = useState(width)
+  const [heightValue, setHeightValue] = useState(height)
+  const threeDInstance = useRef(threeD)
   const onMouseMove = (e: MouseEvent) => {
-    const { current } = eventAttr;
+    const { current } = eventAttr
     const { mousedown, type, top, left, height, width, begin } = current;
     if (!mousedown) {
       return;
@@ -91,18 +81,15 @@ const Rect = (props: Props) => {
           return;
         }
         setHeightValue(current._tempHeight);
-        onChange(name, { top: current._tempTop, height: current._tempHeight });
+        onChange(name, { top: current._tempTop, height: current._tempHeight })
         break;
 
       case "bottom":
         offset = clientY - begin.y;
         current._tempHeight = height + offset;
-        current._tempHeight = Math.min(
-          Math.max(current._tempHeight, minHeight),
-          maxHeight
-        );
+        current._tempHeight = Math.min(Math.max(current._tempHeight, minHeight), maxHeight);
         setHeightValue(current._tempHeight);
-        onChange(name, { height: current._tempHeight });
+        onChange(name, { height: current._tempHeight })
         break;
 
       case "left":
@@ -124,25 +111,22 @@ const Rect = (props: Props) => {
           return;
         }
         setWidthValue(current._tempWidth);
-        onChange(name, { left: current._tempLeft, width: current._tempWidth });
+        onChange(name, { left: current._tempLeft, width: current._tempWidth })
         break;
 
       case "right":
         offset = clientX - begin.x;
         current._tempWidth = width + offset;
-        current._tempWidth = Math.min(
-          Math.max(current._tempWidth, minWidth),
-          maxWidth
-        );
+        current._tempWidth = Math.min(Math.max(current._tempWidth, minWidth), maxWidth);
         setWidthValue(current._tempWidth);
-        onChange(name, { width: current._tempWidth });
+        onChange(name, { width: current._tempWidth })
 
         break;
     }
   };
 
   const onMouseDown = (e: any) => {
-    const { current } = eventAttr;
+    const { current } = eventAttr
     const { type, begin } = current;
     current.mousedown = true;
     current.type = e.target.dataset.type;
@@ -157,25 +141,14 @@ const Rect = (props: Props) => {
     begin.y = clientY;
     // 动态绑定和移除相关事件，以免其它组件触发
     document.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("mouseup", onMouseUp);
+    document.addEventListener('mouseup', onMouseUp)
   };
 
   const onMouseUp = () => {
     document.removeEventListener("mousemove", onMouseMove);
-    document.removeEventListener("mouseup", onMouseUp);
+    document.removeEventListener('mouseup', onMouseUp)
     document.body.className = "";
-    const {
-      mousedown,
-      type,
-      _tempLeft,
-      _tempTop,
-      _tempWidth,
-      _tempHeight,
-      _maxTop,
-      _maxLeft,
-      _minLeft,
-      _minTop,
-    } = eventAttr.current;
+    const { mousedown, type, _tempLeft, _tempTop, _tempWidth, _tempHeight, _maxTop, _maxLeft, _minLeft, _minTop } = eventAttr.current;
     eventAttr.current = {
       ...eventAttr.current,
       left: _maxLeft || _minLeft || _tempLeft,
@@ -189,14 +162,9 @@ const Rect = (props: Props) => {
       _minLeft: 0,
       _minTop: 0,
       mousedown: false,
-    };
+    }
     // 注意这里的引用关系，不要直接取current.xxxx
-    onChange(name, {
-      height: _tempHeight,
-      width: _tempWidth,
-      top: eventAttr.current._tempTop,
-      left: eventAttr.current._tempLeft,
-    });
+    onChange(name, { height: _tempHeight, width: _tempWidth, top: eventAttr.current._tempTop, left: eventAttr.current._tempLeft })
     if (mousedown) {
       threeDInstance.current[name].transform({
         type,
@@ -205,16 +173,12 @@ const Rect = (props: Props) => {
     }
   };
   useEffect(() => {
-    if (!threeD) return;
-    threeDInstance.current = threeD;
+    if (!threeD) return
+    threeDInstance.current = threeD
   }, [threeD]);
 
   return (
-    <div
-      className="rect_box"
-      id="box"
-      style={{ width, height, left, top, borderWidth: barWidth }}
-    >
+    <div className="rect_box" id="box" style={{ width, height, left, top, borderWidth: barWidth }}>
       <div className="size left">
         <span>{heightValue}</span>
         <div className="line"></div>
@@ -223,35 +187,11 @@ const Rect = (props: Props) => {
         <span id="width_value">{widthValue}</span>
         <div className="line"></div>
       </div>
-      <div
-        className="drag top"
-        style={{ height: barWidth, top: (barWidth || 2) * -1 }}
-        id="top"
-        onMouseDown={onMouseDown}
-        data-type="top"
-      ></div>
-      <div
-        className="drag right"
-        style={{ width: barWidth, right: (barWidth || 2) * -1 }}
-        id="right"
-        onMouseDown={onMouseDown}
-        data-type="right"
-      ></div>
-      <div
-        className="drag bottom"
-        style={{ height: barWidth, bottom: (barWidth || 2) * -1 }}
-        id="bottom"
-        onMouseDown={onMouseDown}
-        data-type="bottom"
-      ></div>
-      <div
-        className="drag left"
-        style={{ width: barWidth, left: (barWidth || 2) * -1 }}
-        id="left"
-        onMouseDown={onMouseDown}
-        data-type="left"
-      ></div>
+      <div className="drag top" style={{ height: barWidth, top: (barWidth || 2) * -1 }} id="top" onMouseDown={onMouseDown} data-type="top"></div>
+      <div className="drag right" style={{ width: barWidth,right: (barWidth || 2) * -1  }} id="right" onMouseDown={onMouseDown} data-type="right"></div>
+      <div className="drag bottom" style={{ height: barWidth, bottom: (barWidth || 2) * -1 }} id="bottom" onMouseDown={onMouseDown} data-type="bottom"></div>
+      <div className="drag left" style={{ width: barWidth,left: (barWidth || 2) * -1  }} id="left" onMouseDown={onMouseDown} data-type="left"></div>
     </div>
   );
 };
-export default Rect;
+export default HorizontalBar;

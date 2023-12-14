@@ -4,23 +4,22 @@
   left: 50%;
   width: 500px;
   height: 200px;
+  z-index: 999;
   transform: translateX(-50%);
 }
 .rect_box {
   position: absolute;
-  z-index: 999;
   box-sizing: border-box;
   border: 2px solid #888;
 }
 .rect_box .drag {
   position: absolute;
-  width: 6px;
-  height: 6px;
+  width: 2px;
+  height: 2px;
   background-color: #333;
   cursor: row-resize;
 }
 .rect_box .drag.top {
-  top: -4px;
   left: 50%;
   width: 15px;
   transform: translateX(-50%);
@@ -139,4 +138,19 @@
 }
 .rect_box .size.left::after {
   bottom: 0;
+}
+.vertical_bar {
+  width: 2px;
+  background-color: #888;
+  position: absolute;
+  z-index: 10;
+}
+.vertical_bar .drag {
+  position: absolute;
+  width: 2px;
+  height: 15px;
+  background-color: #333;
+  cursor: col-resize;
+  top: 50%;
+  transform: translateY(-50%);
 }

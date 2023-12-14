@@ -37,9 +37,9 @@ const init3D = (params: Params) => {
 
   // 根据传入的数据渲染3D
   Object.keys(object).forEach((key) => {
-    const modelName = object[key].type as keyof typeof Models;
+    const modelName = object[key].model as keyof typeof Models;
     if (Models[modelName]) {
-      ThreeD[key] = new Models[modelName]({ ...object[key], group: mainGroup });
+      ThreeD[key] = new Models[modelName]({ ...object[key].attribute, group: mainGroup });
     }
   });
 

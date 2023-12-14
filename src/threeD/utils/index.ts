@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as THREE from "three";
 
 /**
@@ -76,3 +77,17 @@ export const transformPosition = (params: TransformPositionParams) => {
     y: -params.top - params.height / 2,
   };
 };
+
+/**
+ * 根据初始数据计算各模型之间的关系
+*/
+export const getRelation = (data: any) => {
+  // const main = data['main'];
+  Object.keys(data).forEach(key => {
+    switch(data[key].model){
+      case 'VerticalBar':
+      break;
+    }
+  })
+  return data
+}

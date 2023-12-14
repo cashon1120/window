@@ -4,12 +4,12 @@
   left: 50%;
   width: 500px;
   height: 200px;
+  z-index: 999;
   transform: translateX(-50%);
 }
 
 .rect_box {
   position: absolute;
-  z-index: 999;
   box-sizing: border-box;
   border: 2px solid #888;
   .drag {
@@ -143,3 +143,20 @@
     }
   }
 }
+
+.vertical_bar{
+  width: 2px;
+  background-color: #888;
+  position: absolute;
+  z-index: 10;
+  .drag {
+    position: absolute;
+    width: 2px;
+    height: 15px;
+    background-color: #333;
+    cursor: col-resize;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
