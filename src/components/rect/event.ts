@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Rect from "../../threeD/class/rect";
+import Rect from "../../threeD/basicModel/Rect";
 
 const getById = (id: string) => {
   return document.getElementById(id);

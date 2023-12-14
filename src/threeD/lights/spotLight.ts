@@ -25,8 +25,8 @@ const createSpotLight = (props: Props) => {
     showHelper,
     showGui,
     castShadow = false,
-    intensity = 10000,
-    angle = Math.PI / 4,
+    intensity = 500,
+    angle = Math.PI / 2,
     decay = 2.0,
     target,
     name = "聚光源",
@@ -47,7 +47,7 @@ const createSpotLight = (props: Props) => {
 
   scene.add(light);
 
-  if (showGui) {
+  if (!showGui) {
     const pointFolder = gui.addFolder(name);
     pointFolder.close();
     pointFolder.add(light, "intensity", 0, 10000).name(name);

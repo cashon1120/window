@@ -3,12 +3,12 @@ import * as THREE from "three";
 import TWEEN from "@tweenjs/tween.js";
 import { scene, camera, renderer } from "../common";
 
-type AlignType = "right" | "top" | "left" | "bottom" | "center";
+export type AlignType = "right" | "top" | "left" | "bottom" | "center";
 
 interface Props {
-  width: number; //模型的宽度
-  height: number; // 模型的高度
-  depth: number; // 模型的厚度
+  width?: number; //模型的宽度
+  height?: number; // 模型的高度
+  depth?: number; // 模型的厚度
   color?: string;
   group?: THREE.Group;
   x?: number;
@@ -30,6 +30,11 @@ interface transformProps extends Params {
   bottom: number;
 }
 
+/**
+ * @Class Bar
+ * @method translate 实现上、下、左、右平移;
+ * @method transform 实现宽高的变化
+*/
 class Bar {
   innerGroup: THREE.Group;
   group: THREE.Group;
@@ -42,10 +47,8 @@ class Bar {
   z: number;
   constructor(params: Props) {
     const {
-      width,
-      height,
-      depth,
-      color = "#eee",
+      width = 10,
+      height = 10,
       x = 0,
       y = 0,
       z = 0,
@@ -62,19 +65,19 @@ class Bar {
     this.group = new THREE.Group();
     this.innerGroup = new THREE.Group();
 
-    const geometry = new THREE.BoxGeometry(width, height, depth);
-    const material = new THREE.MeshPhysicalMaterial({
-      color,
-      //渲染为线条
-      wireframe: false,
-      metalness: 0.5,
-      roughness: 0.5,
-    });
-    const mesh = new THREE.Mesh(geometry, material);
-    this.innerGroup.add(mesh);
-    this.init();
+    // const geometry = new THREE.BoxGeometry(width, height, depth);
+    // const material = new THREE.MeshPhysicalMaterial({
+    //   color,
+    //   //渲染为线条
+    //   wireframe: false,
+    //   metalness: 0.5,
+    //   roughness: 0.5,
+    // });
+    // const mesh = new THREE.Mesh(geometry, material);
+    // this.innerGroup.add(mesh);
   }
   init() {
+    console.log(this.align)
     switch (this.align) {
       case "top":
         this.innerGroup.translateY(-this.height / 2);
@@ -89,7 +92,6 @@ class Bar {
         this.innerGroup.translateX(this.width / 2);
         break;
     }
-    console.log(this.x, this.y)
     this.group.position.set(this.x, this.y, this.z);
     this.group.add(this.innerGroup);
     if (this.parentGroup) {

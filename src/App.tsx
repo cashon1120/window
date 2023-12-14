@@ -5,38 +5,34 @@ import { init } from "./threeD/index";
 import Rect, {ChangeProps} from "./components/rect";
 import "./index.less";
 
-
-
 function App() {
   const [data, setData] = useState<any>({
     outer: {
-      type: "Rect",
-      left: 5,
-      top: 10,
+      type: "Frame",
+      left: 0,
+      top: 0,
       width: 200,
       height: 100,
-      barWidth: 5,
-      barDepth: 10,
       maxWidth: 500,
       maxHeight: 500,
       minWidth: 50,
       minHeight: 50,
       color: "#f29e4b",
     },
-    in: {
-      type: "Rect",
-      left: 10,
-      top: 15,
-      width: 100,
-      height: 50,
-      barWidth: 5,
-      barDepth: 10,
-      maxWidth: 500,
-      maxHeight: 500,
-      minWidth: 50,
-      minHeight: 50,
-      color: "#f29e4b",
-    }
+    // in: {
+    //   type: "Rect",
+    //   left: 10,
+    //   top: 15,
+    //   width: 100,
+    //   height: 50,
+    //   barWidth: 5,
+    //   barDepth: 10,
+    //   maxWidth: 500,
+    //   maxHeight: 500,
+    //   minWidth: 50,
+    //   minHeight: 50,
+    //   color: "#f29e4b",
+    // }
   });
 
   const updateData = (key: string, params: ChangeProps) => {
@@ -56,7 +52,7 @@ function App() {
     <>
       <div className="rect_wrapper">
         {Object.keys(data).map((key) =>
-          data[key].type === "Rect" ? <Rect key={key} name={key} params={data[key]} threeD={threeD} onChange={updateData} /> : null
+          data[key].type === "Frame" ? <Rect key={key} name={key} params={data[key]} threeD={threeD} onChange={updateData} /> : null
         )}
       </div>
     </>

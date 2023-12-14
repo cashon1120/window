@@ -11,32 +11,38 @@ interface Props {
   showHelper?: boolean;
   showGui?: boolean;
   castShadow?: boolean;
-  distance?: number;
-  deacy?: number; //衰减
-  name?: string;
 }
 
 const createPointLight = (props: Props) => {
-  const { x, y, z, showHelper, name = '点光源',showGui, color='#ffffff', castShadow = false, distance = 0, intensity = 1000, deacy = 2, } = props;
+  const { x, y, z, showHelper, showGui, color='#ffffff', castShadow = false, intensity = 100 } = props;
   // 创建点光源
-  const light = new THREE.PointLight(color, intensity, distance);
+  const light = new THREE.DirectionalLight(color, intensity);
   light.position.set(x, y, z);
   light.castShadow = castShadow;
-  light.decay = deacy
-  scene.add(light);
-  
+  light.shadow.radius = 5;
+  light.shadow.mapSize.set(2048, 2048);
+  // 设置三维场景计算阴影的范围
+  // light.shadow.camera.left = -50;
+  // light.shadow.camera.right = 50;
+  // light.shadow.camera.top = 200;
+  // light.shadow.camera.bottom = -200;
+  // light.shadow.camera.near = 0.5;
+  // light.shadow.camera.far = 1000;
+
   if (!showHelper) {
-    const helper = new THREE.PointLightHelper(light, 5);
+    const helper = new THREE.DirectionalLightHelper(light, 5);
     scene.add(helper);
   }
 
+  scene.add(light);
+
   if (showGui) {
-    const pointFolder = gui.addFolder(name);
+    const pointFolder = gui.addFolder("平行光源");
     pointFolder.close();
-    pointFolder.add(light, "intensity", 0, 10000).name(name);
+    pointFolder.add(light, "intensity", 0, 10000).name("平行光源");
     guiPosition({
       mesh: light,
-      name,
+      name: "平行光源",
       min: -400,
       max: 400,
       folder: pointFolder,
