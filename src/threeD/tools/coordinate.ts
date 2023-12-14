@@ -28,18 +28,17 @@ const createCoordinate = () => {
         // 斜角的分段数，默认值3
         bevelSegments: 0,
       };
+      const materials = [
+        new THREE.MeshBasicMaterial({
+          color: 0xffffff,
+        }),
+      ];
       for (let i = -500; i <= 500; i++) {
         let _value_x = 2;
         let _value_y = -2;
         if (i % 10 === 0) {
           _value_x = 4;
           _value_y = -4;
-          const materials = [
-            new THREE.MeshBasicMaterial({
-              color: 0xffffff,
-            }),
-          ];
-
           if (i !== 0) {
             const geometry1 = new TextGeometry(i.toString(), textAttr);
             const geometry2 = new TextGeometry((-i).toString(), textAttr);

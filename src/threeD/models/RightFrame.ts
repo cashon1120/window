@@ -13,7 +13,7 @@ interface Props {
   align?: AlignType;
 }
 /**
- * 模型的宽度和厚度按
+ * 框架右侧
 */
 class RightFrame extends Bar {
   constructor(params: Props) {

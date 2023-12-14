@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
-import { init } from "./threeD/index";
+import { init3D } from "./threeD/index";
 import Rect, {ChangeProps} from "./components/rect";
 import "./index.less";
 
@@ -19,6 +19,17 @@ function App() {
       minHeight: 50,
       color: "#f29e4b",
     },
+    // horzontalBar: {
+    //   type: "HorzontalBar",
+    //   left: 0,
+    //   top: 0,
+    //   width: 200,
+    //   height: 100,
+    //   maxWidth: 500,
+    //   maxHeight: 500,
+    //   minWidth: 50,
+    //   minHeight: 50,
+    // },
     // in: {
     //   type: "Rect",
     //   left: 10,
@@ -46,7 +57,7 @@ function App() {
   const [threeD, setThreeD] = useState<any>()
 
   useEffect(() => {
-    setThreeD(init({ width: 200, height: 100, object: data, container: "threeD" }));
+    setThreeD(init3D({ width: 200, height: 100, object: data, container: "threeD" }));
   }, []);
   return (
     <>

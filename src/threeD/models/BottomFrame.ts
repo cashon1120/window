@@ -13,12 +13,12 @@ interface Props {
   align?: AlignType;
 }
 /**
- * 模型的宽度和厚度按
+ * 框架底部，可能会有轨道之类的元素
 */
-class TopFrame extends Bar {
+class BottomFrame extends Bar {
   constructor(params: Props) {
     params.height = params.height || 5
-    params.align = params.align || 'top'
+    params.align = params.align || 'bottom'
     super(params);
     const { height = 5, width, depth = 10, color = "#eee" } = params;
     const geometry = new THREE.BoxGeometry(width, height, depth);
@@ -33,17 +33,17 @@ class TopFrame extends Bar {
 
     const geometry2 = new THREE.BoxGeometry(width - 10, 1, 5);
     const material2 = new THREE.MeshPhysicalMaterial({
-      color: '#ffffff',
+      color: '#000',
       wireframe: false,
       metalness: 0.5,
       roughness: 0.5,
     });
     const mesh2 = new THREE.Mesh(geometry2, material2); 
-    mesh2.translateY(-2.4)
+    mesh2.translateY(3)
     this.innerGroup.add(mesh);
     this.innerGroup.add(mesh2);
     this.init()
   }
 }
 
-export default TopFrame;
+export default BottomFrame;
