@@ -1,11 +1,15 @@
 import * as THREE from "three";
 
-// 指定范围随机数
+/**
+ * 指定范围随机数
+*/
 export const random = (min = 0, max = 1) => {
   return Math.floor(Math.random() * (max - min)) + min;
 };
 
-// 屏幕坐标转设备坐标
+/**
+ * 屏幕坐标转设备坐标
+*/
 export const getMousePosition = (
   event: MouseEvent,
   renderer: THREE.Renderer
@@ -20,12 +24,16 @@ export const getMousePosition = (
   return { x, y };
 };
 
-// 计算两点距离
+/**
+ * 计算两点距离
+*/
 export const distance = (a: THREE.Vector3, b: THREE.Vector3) => {
   return a.distanceTo(b);
 };
 
-// 绘制一个自定义矩形, 中心坐标在原点
+/**
+ * 绘制一个自定义矩形, 中心坐标在原点
+*/
 export const drawRect = (width: number, height: number): THREE.Shape => {
   const pointsArr = [
     new THREE.Vector2(-width / 2, -height / 2),
@@ -37,9 +45,34 @@ export const drawRect = (width: number, height: number): THREE.Shape => {
   return shape;
 };
 
-// 获取大小
+/**
+ * 获取传入模型的大小
+*/
 export const getSize = (mesh: THREE.Mesh) => {
   const box = new THREE.Box3();
   box.expandByObject(mesh);
   return box.getSize(new THREE.Vector3());
+};
+
+/**
+ * 输入指定角度，返回对应的PI值
+*/
+export const angleToPI = (angle: number) => {
+  return (Math.PI * 2 * angle) / 360;
+};
+
+interface TransformPositionParams {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+}
+/**
+ * 根据指定的坐标和宽高，转换为以左上角也0，0的坐标
+*/
+export const transformPosition = (params: TransformPositionParams) => {
+  return {
+    x: params.left,
+    y: -params.top - params.height / 2,
+  };
 };

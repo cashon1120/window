@@ -64,20 +64,9 @@ class Bar {
     this.parentGroup = group || new THREE.Group();
     this.group = new THREE.Group();
     this.innerGroup = new THREE.Group();
-
-    // const geometry = new THREE.BoxGeometry(width, height, depth);
-    // const material = new THREE.MeshPhysicalMaterial({
-    //   color,
-    //   //渲染为线条
-    //   wireframe: false,
-    //   metalness: 0.5,
-    //   roughness: 0.5,
-    // });
-    // const mesh = new THREE.Mesh(geometry, material);
-    // this.innerGroup.add(mesh);
   }
   init() {
-    console.log(this.align)
+    // 根据align设置模型的位置，不是每个模型都需要偏移
     switch (this.align) {
       case "top":
         this.innerGroup.translateY(-this.height / 2);

@@ -39,7 +39,7 @@ class TopFrame extends Bar {
       roughness: 0.5,
     });
     const mesh2 = new THREE.Mesh(geometry2, material2); 
-    mesh2.translateY(-2.4)
+    mesh2.translateY(-3)
     this.innerGroup.add(mesh);
     this.innerGroup.add(mesh2);
     this.init()

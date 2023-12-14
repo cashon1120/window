@@ -29,7 +29,7 @@ const createPointLight = (props: Props) => {
   // light.shadow.camera.near = 0.5;
   // light.shadow.camera.far = 1000;
 
-  if (!showHelper) {
+  if (showHelper) {
     const helper = new THREE.DirectionalLightHelper(light, 5);
     scene.add(helper);
   }

@@ -24,8 +24,8 @@ const createPointLight = (props: Props) => {
   light.castShadow = castShadow;
   light.decay = deacy
   scene.add(light);
-  
-  if (!showHelper) {
+
+  if (showHelper) {
     const helper = new THREE.PointLightHelper(light, 5);
     scene.add(helper);
   }
