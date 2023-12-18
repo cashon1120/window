@@ -39,7 +39,10 @@ const init3D = (params: Params) => {
   Object.keys(object).forEach((key) => {
     const modelName = object[key].model as keyof typeof Models;
     if (Models[modelName]) {
-      ThreeD[key] = new Models[modelName]({ ...object[key].attribute, group: mainGroup });
+      ThreeD[key] = new Models[modelName]({
+        ...object[key].attribute,
+        group: mainGroup,
+      });
     }
   });
 
@@ -80,6 +83,8 @@ const init3D = (params: Params) => {
   camera.lookAt(100, -50, 0);
   controls.target.copy(new THREE.Vector3(100, -50, 0));
   controls.update();
+
+
 
   // 返回所有对象集合，响应外部事件
   return ThreeD;

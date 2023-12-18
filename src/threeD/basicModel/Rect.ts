@@ -79,19 +79,11 @@ class Rect {
         });
         this.leftBar?.transform({
           type,
-          left: this.left,
-          right: this.right,
-          top: this.top,
-          bottom: this.bottom,
           value,
           time,
         });
         this.rightBar?.transform({
           type,
-          left: this.left,
-          right: this.right,
-          top: this.top,
-          bottom: this.bottom,
           value,
           time,
         });
@@ -105,25 +97,14 @@ class Rect {
         this.rightBar?.translate({
           type,
           value: this.right,
-          time,
         });
         this.topBar?.transform({
           type,
-          left: this.left,
-          right: this.right,
-          top: this.top,
-          bottom: this.bottom,
           value: value,
-          time,
         });
         this.bottomBar?.transform({
           type,
-          left: this.left,
-          right: this.right,
-          top: this.top,
-          bottom: this.bottom,
           value,
-          time,
         });
         this.width = value;
         break;
@@ -135,26 +116,15 @@ class Rect {
         this.bottomBar?.translate({
           type,
           value: this.bottom,
-          time,
         });
         this.leftBar?.transform({
           type,
-          left: this.left,
-          right: this.right,
-          top: this.top,
-          bottom: this.bottom,
           value,
-          time,
         });
 
         this.rightBar?.transform({
           type,
-          left: this.left,
-          right: this.right,
-          top: this.top,
-          bottom: this.bottom,
           value,
-          time,
         });
         this.height = value;
         break;
@@ -171,19 +141,11 @@ class Rect {
         });
         this.topBar?.transform({
           type,
-          left: this.left,
-          right: this.right,
-          top: this.top,
-          bottom: this.bottom,
           value,
           time,
         });
         this.bottomBar?.transform({
           type,
-          left: this.left,
-          right: this.right,
-          top: this.top,
-          bottom: this.bottom,
           value,
           time,
         });

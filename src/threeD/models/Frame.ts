@@ -30,27 +30,27 @@ class Frame extends Rect {
     } = params;
     // 分别创建四个边框，每个边框可以自己的基础model
     this.topBar = new TopFrame({
-      width: width,
-      x: width / 2 + left,
-      y: -top,
+      width,
+      x: left,
+      y: top,
       color: '#e09647'
     });
     this.rightBar = new RightFrame({
-      height: height,
+      height,
       x: this.width + left,
-      y: -this.height / 2 - top,
+      y: top,
       color: '#e09647'
     });
     this.leftBar = new LeftFrame({
-      height: height,
+      height,
       x: left,
-      y: -this.height / 2 - top,
+      y: top,
       color: '#e09647'
     });
     this.bottomBar = new BottomFrame({
-      width: width,
-      y: -this.height - top,
-      x: width / 2 + left,
+      width,
+      y: this.height + top,
+      x: left,
       color: '#e09647',
     });
     this.init();

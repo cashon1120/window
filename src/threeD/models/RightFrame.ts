@@ -18,7 +18,7 @@ interface Props {
 class RightFrame extends Bar {
   constructor(params: Props) {
     params.width = params.width || 5
-    params.align = params.align || 'right'
+    params.align = params.align || 'right-top'
     super(params);
     const { height, width = 5, depth = 10, color = "#eee" } = params;
     const geometry = new THREE.BoxGeometry(width, height, depth);

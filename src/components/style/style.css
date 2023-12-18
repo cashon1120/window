@@ -10,7 +10,8 @@
 .rect_box {
   position: absolute;
   box-sizing: border-box;
-  border: 2px solid #888;
+  border-color: #888;
+  border-left-width: 5px;
 }
 .rect_box .drag {
   position: absolute;

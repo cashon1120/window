@@ -18,7 +18,7 @@ interface Props {
 class TopFrame extends Bar {
   constructor(params: Props) {
     params.height = params.height || 5
-    params.align = params.align || 'top'
+    params.align = params.align || 'left-top'
     super(params);
     const { height = 5, width, depth = 10, color = "#eee" } = params;
     const geometry = new THREE.BoxGeometry(width, height, depth);
@@ -30,8 +30,8 @@ class TopFrame extends Bar {
       roughness: 0.5,
     });
     const mesh = new THREE.Mesh(geometry, material);
-
-    const geometry2 = new THREE.BoxGeometry(width - 10, 1, 5);
+    // 为了两边不重叠，稍微短一点
+    const geometry2 = new THREE.BoxGeometry(width - 0.05, 1, 5);
     const material2 = new THREE.MeshPhysicalMaterial({
       color: '#ffffff',
       wireframe: false,

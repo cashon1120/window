@@ -10,14 +10,14 @@ function App() {
   const [data, setData] = useState<any>(getRelation({
     main: {
       model: "Frame",
-      relation: {
-        top: ['horzontalBar'],
-        bottom: ['horzontalBar'],
-        height: ['horzontalBar']
-      },
+      // relation: {
+      //   top: ['horzontalBar'],
+      //   bottom: ['horzontalBar'],
+      //   height: ['horzontalBar']
+      // },
       attribute: {
-        left: 0,
-        top: 0,
+        left: 15,
+        top: 15,
         width: 200,
         height: 100,
         maxWidth: 500,
@@ -31,9 +31,9 @@ function App() {
       model: "VerticalBar",
       attribute: {
         left: 100,
-        top: 0,
+        top: 20,
         width: 5,
-        height: 100,
+        height: 90,
       }
     },
   }));
@@ -44,17 +44,16 @@ function App() {
       ...data[key].attribute,
       ...params,
     };
-    if(data[key].relation){
-      Object.keys(data[key].relation).forEach((relationKey) => {
-        const newValue = params[relationKey as keyof ChangeProps]
-        if(newValue !== undefined){
-          console.log(123)
-          data[key].relation[relationKey].forEach((model: string) => {
-            data[model].attribute[relationKey] = newValue
-          })
-        }
-      })
-    }
+    // if(data[key].relation){
+    //   Object.keys(data[key].relation).forEach((relationKey) => {
+    //     const newValue = params[relationKey as keyof ChangeProps]
+    //     if(newValue !== undefined){
+    //       data[key].relation[relationKey].forEach((model: string) => {
+    //         data[model].attribute[relationKey] = newValue
+    //       })
+    //     }
+    //   })
+    // }
     setData({ ...data });
   };
 

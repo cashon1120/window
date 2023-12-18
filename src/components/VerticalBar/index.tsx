@@ -99,7 +99,7 @@ const HorizontalBar = (props: Props) => {
     });
     if (mousedown) {
       threeDInstance.current[name].translate({
-        type: "left",
+        type: "left", // 左右移动
         value: _tempLeft,
       });
     }
@@ -117,20 +117,20 @@ const HorizontalBar = (props: Props) => {
       _tempTop: top,
     };
     if (threeDInstance.current) {
-      console.log(left, top, height)
+      // console.log(left, top, height)
       // threeDInstance.current[name].translate({
       //   type: "left",
       //   value: left,
       // });
-      console.log(-top)
+      // console.log(-top)
       // threeDInstance.current[name].translate({
       //   type: "top",
       //   value: -top,
       // });
-      threeDInstance.current[name].transform({
-        type: "top",
-        value: height,
-      });
+      // threeDInstance.current[name].transform({
+      //   type: "top",
+      //   value: height,
+      // });
     }
   }, [height, top, left]);
 

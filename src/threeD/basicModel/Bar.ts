@@ -3,7 +3,12 @@ import * as THREE from "three";
 import TWEEN from "@tweenjs/tween.js";
 import { scene, camera, renderer } from "../common";
 
-export type AlignType = "right" | "top" | "left" | "bottom" | "center";
+// threejs中是默认坐标在模型的中心点，这里根据 AlighType 进行偏移
+export type AlignType =
+  | "left-top"
+  | "right-top"
+  | "left-bottom"
+  | "right-bottom";
 
 interface Props {
   width?: number; //模型的宽度
@@ -23,25 +28,27 @@ interface Params {
   time?: number;
 }
 
-interface transformProps extends Params {
-  left: number;
-  right: number;
-  top: number;
-  bottom: number;
-}
-
 /**
  * @Class Bar
  * @method translate 实现上、下、左、右平移;
  * @method transform 实现宽高的变化
-*/
+ */
 class Bar {
   innerGroup: THREE.Group;
   group: THREE.Group;
   parentGroup: THREE.Group;
   width: number;
   height: number;
+  bottom: number;
+  top: number;
+  left: number;
+  right: number;
   align?: AlignType;
+  // 根据 align 产生的偏移量
+  offset: {
+    x: number;
+    y: number;
+  };
   x: number;
   y: number;
   z: number;
@@ -53,10 +60,15 @@ class Bar {
       y = 0,
       z = 0,
       group,
-      align = "center",
+      align = "left-top",
     } = params;
     this.width = width;
     this.height = height;
+    this.top = y;
+    this.left = x;
+    this.right = x + width;
+    this.bottom = y + height;
+    // threejs中的坐标，这里先存一下，在init的时候会根据 align 的类型进行换算
     this.x = x;
     this.y = y;
     this.z = z;
@@ -64,22 +76,34 @@ class Bar {
     this.parentGroup = group || new THREE.Group();
     this.group = new THREE.Group();
     this.innerGroup = new THREE.Group();
+    this.offset = {
+      x: 0,
+      y: 0,
+    };
   }
   init() {
-    // 根据align设置模型的位置，不是每个模型都需要偏移
     switch (this.align) {
-      case "top":
-        this.innerGroup.translateY(-this.height / 2);
+      case "left-top":
+        this.offset.x = this.width / 2;
+        this.offset.y = -this.height / 2;
+        this.x = this.width / 2 + this.x;
+        this.y = -this.height / 2 - this.y;
         break;
-      case "right":
-        this.innerGroup.translateX(-this.width / 2);
+      case "right-top":
+        this.offset.x = -this.width / 2;
+        this.offset.y = -this.height / 2;
+        this.x = -this.width / 2 + this.x;
+        this.y = -this.height / 2 - this.y;
         break;
-      case "bottom":
-        this.innerGroup.translateY(this.height / 2);
+      case "left-bottom":
+        this.offset.x = this.width / 2;
+        this.offset.y = this.height / 2;
+        this.x = this.width / 2 + this.x;
+        this.y = this.height / 2 - this.y;
         break;
-      case "left":
-        this.innerGroup.translateX(this.width / 2);
-        break;
+      case "right-bottom":
+        // 貌似用不上这种类型，前面3个暂时够用了
+        break;    
     }
     this.group.position.set(this.x, this.y, this.z);
     this.group.add(this.innerGroup);
@@ -90,10 +114,9 @@ class Bar {
   translate = (params: Params) => {
     const { type, value, time = 300 } = params;
     const target = this.group;
-    const isHorizontal = type === "right" || type === "left";
-    const translateType = isHorizontal ? "x" : "y";
+    const attr = type === "left" || type === "right" ? "x" : "y";
     const tween = new TWEEN.Tween(target.position)
-      .to({ [translateType]: value }, time)
+      .to({ [attr]: value + this.offset[attr] }, time)
       .start();
     let isEnd = false;
     tween.onComplete(() => {
@@ -108,8 +131,9 @@ class Bar {
     };
     render();
   };
-  transform = (params: transformProps) => {
-    const { type, value, left, right, top, bottom, time = 300 } = params;
+
+  transform = (params: Params) => {
+    const { type, value, time = 300 } = params;
     if (!type) {
       throw new Error("请输入变化方向, 如: left | right | top | bottom");
     }
@@ -117,17 +141,35 @@ class Bar {
     const _height = this.height;
     const _width = this.width;
     const isHorizontal = type === "right" || type === "left";
-    let positionTween: any;
-    if (type === "top" || type === "bottom") {
-      positionTween = new TWEEN.Tween(target.position)
-        .to({ y: (top + bottom ) / 2 }, time)
-        .start();
-    }
+    let positionTween = new TWEEN.Tween();
+    switch (type) {
+      case "top":
+        this.top = this.bottom - value;
+        positionTween = new TWEEN.Tween(target.position)
+          .to({ y: -(this.top + this.bottom) / 2 }, time)
+          .start();
+        break;
 
-    if (type === "right" || type === "left") {
-      positionTween = new TWEEN.Tween(target.position)
-        .to({ x: (right + left ) / 2 }, time)
-        .start();
+      case "bottom":
+        this.bottom = value + this.top;
+        positionTween = new TWEEN.Tween(target.position)
+          .to({ y: -(this.top + this.bottom) / 2 }, time)
+          .start();
+        break;
+
+      case "left":
+        this.left = this.right - value;
+        positionTween = new TWEEN.Tween(target.position)
+          .to({ x: (this.right + this.left) / 2 }, time)
+          .start();
+        break;
+
+      case "right":
+        this.right = value + this.left;
+        positionTween = new TWEEN.Tween(target.position)
+          .to({ x: (this.right + this.left) / 2 }, time)
+          .start();
+        break;
     }
 
     const scaleType = isHorizontal ? "x" : "y";
