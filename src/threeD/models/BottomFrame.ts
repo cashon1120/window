@@ -7,6 +7,8 @@ interface Props {
   color?: string;
   group?: THREE.Group;
   depth?: number; // 模型的厚度
+  left: number;
+  top: number;
   x?: number;
   y?: number;
   z?: number;
@@ -18,7 +20,9 @@ interface Props {
 class BottomFrame extends Bar {
   constructor(params: Props) {
     params.height = params.height || 5;
-    params.align = params.align || "left-bottom";
+    // params.align = params.align || "left-bottom";
+    params.x = params.left
+    params.y = params.top
     super(params);
     const { height = 5, width, depth = 10, color = "#eee" } = params;
     const geometry = new THREE.BoxGeometry(width, height, depth);

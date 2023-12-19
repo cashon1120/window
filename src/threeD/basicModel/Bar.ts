@@ -82,6 +82,7 @@ class Bar {
     };
   }
   init() {
+    // 根据偏类型进行平移
     switch (this.align) {
       case "left-top":
         this.offset.x = this.width / 2;
@@ -103,7 +104,7 @@ class Bar {
         break;
       case "right-bottom":
         // 貌似用不上这种类型，前面3个暂时够用了
-        break;    
+        break;
     }
     this.group.position.set(this.x, this.y, this.z);
     this.group.add(this.innerGroup);
@@ -115,8 +116,24 @@ class Bar {
     const { type, value, time = 300 } = params;
     const target = this.group;
     const attr = type === "left" || type === "right" ? "x" : "y";
+    // 这里注意坐标系的不同，threejs中 y 轴向下是负的，所以要反过来
+    let targetValue = 0;
+    switch (type) {
+      case "left":
+        targetValue = value + this.offset[attr];
+        break;
+      case "right":
+        targetValue = value + this.offset[attr];
+        break;
+      case "top":
+        targetValue = value - this.offset[attr];
+        break;
+      case "bottom":
+        targetValue = value + this.offset[attr];
+        break;
+    }
     const tween = new TWEEN.Tween(target.position)
-      .to({ [attr]: value + this.offset[attr] }, time)
+      .to({ [attr]: targetValue * (attr === "x" ? 1 : -1) }, time)
       .start();
     let isEnd = false;
     tween.onComplete(() => {

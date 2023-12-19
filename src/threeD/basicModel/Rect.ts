@@ -9,6 +9,18 @@ export interface RectProps {
   top?: number;
   z?: number;
   color?: string;
+  topBar?: {
+    height: 5,
+  };
+  rightBar?: {
+    width: 5,
+  }
+  bottomBar?: {
+    height: 5,
+  }
+  leftBar?: {
+    width: 5,
+  }
 }
 
 interface TranformProps {

@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import "../style/style.less";
 
 import { ChangeProps } from "../types";
 
 interface Props {
   onChange: (key: string, params: ChangeProps) => void;
-  threeD: any;
+  onComplete: (key: string, params: ChangeProps) => void;
   name: string;
   params: {
     width: number;
@@ -19,6 +19,18 @@ interface Props {
     minWidth?: number;
     minHeight?: number;
     barWidth?: number;
+    topBar?: {
+      height: 5,
+    };
+    rightBar?: {
+      width: 5,
+    }
+    bottomBar?: {
+      height: 5,
+    }
+    leftBar?: {
+      width: 5,
+    }
   };
 }
 
@@ -34,10 +46,14 @@ const Rect = (props: Props) => {
       maxHeight = 1000,
       minWidth = 50,
       minHeight = 50,
+      topBar = { height: 5 },
+      leftBar = { width: 5 },
+      rightBar = { width: 5 },
+      bottomBar = { height: 5 },
     },
     name,
-    threeD,
     onChange,
+    // onComplete
   } = props;
   const eventAttr = useRef({
     width,
@@ -62,7 +78,6 @@ const Rect = (props: Props) => {
   });
   const [widthValue, setWidthValue] = useState(width);
   const [heightValue, setHeightValue] = useState(height);
-  const threeDInstance = useRef(threeD);
   const onMouseMove = (e: MouseEvent) => {
     const { current } = eventAttr;
     const { mousedown, type, top, left, height, width, begin } = current;
@@ -139,6 +154,7 @@ const Rect = (props: Props) => {
 
         break;
     }
+    
   };
 
   const onMouseDown = (e: any) => {
@@ -166,7 +182,6 @@ const Rect = (props: Props) => {
     document.body.className = "";
     const {
       mousedown,
-      type,
       _tempLeft,
       _tempTop,
       _tempWidth,
@@ -191,29 +206,28 @@ const Rect = (props: Props) => {
       mousedown: false,
     };
     // 注意这里的引用关系，不要直接取current.xxxx
-    onChange(name, {
-      height: _tempHeight,
-      width: _tempWidth,
-      top: eventAttr.current._tempTop,
-      left: eventAttr.current._tempLeft,
-    });
+    // onChange(name, {
+    //   height: _tempHeight,
+    //   width: _tempWidth,
+    //   top: eventAttr.current._tempTop,
+    //   left: eventAttr.current._tempLeft,
+    // });
+
     if (mousedown) {
-      threeDInstance.current[name].transform({
-        type,
-        value: type === "bottom" || type === "top" ? _tempHeight : _tempWidth,
-      });
+      // threeDInstance.current[name].transform({
+      //   type,
+      //   value: type === "bottom" || type === "top" ? _tempHeight : _tempWidth,
+      // });
+      // onComplete && onComplete();
     }
+   
   };
-  useEffect(() => {
-    if (!threeD) return;
-    threeDInstance.current = threeD;
-  }, [threeD]);
 
   return (
     <div
       className="rect_box"
       id="box"
-      style={{ width, height, left, top, borderWidth: barWidth }}
+      style={{ width, height, left, top, borderTopWidth: topBar?.height, borderLeftWidth: leftBar?.width, borderRightWidth: rightBar?.width, borderBottomWidth: bottomBar?.height }}
     >
       <div className="size left">
         <span>{heightValue}</span>
@@ -225,28 +239,28 @@ const Rect = (props: Props) => {
       </div>
       <div
         className="drag top"
-        style={{ height: barWidth, top: (barWidth || 2) * -1 }}
+        style={{ height: barWidth, top: (topBar?.height || 2) * -1 }}
         id="top"
         onMouseDown={onMouseDown}
         data-type="top"
       ></div>
       <div
         className="drag right"
-        style={{ width: barWidth, right: (barWidth || 2) * -1 }}
+        style={{ width: barWidth, right: (rightBar?.width || 2) * -1 }}
         id="right"
         onMouseDown={onMouseDown}
         data-type="right"
       ></div>
       <div
         className="drag bottom"
-        style={{ height: barWidth, bottom: (barWidth || 2) * -1 }}
+        style={{ height: barWidth, bottom: (bottomBar?.height || 2) * -1 }}
         id="bottom"
         onMouseDown={onMouseDown}
         data-type="bottom"
       ></div>
       <div
         className="drag left"
-        style={{ width: barWidth, left: (barWidth || 2) * -1 }}
+        style={{ width: barWidth, left: (leftBar?.width || 2) * -1 }}
         id="left"
         onMouseDown={onMouseDown}
         data-type="left"

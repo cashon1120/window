@@ -84,8 +84,6 @@ const init3D = (params: Params) => {
   controls.target.copy(new THREE.Vector3(100, -50, 0));
   controls.update();
 
-
-
   // 返回所有对象集合，响应外部事件
   return ThreeD;
 };

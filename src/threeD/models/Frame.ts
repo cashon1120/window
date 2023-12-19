@@ -13,6 +13,18 @@ export interface FrameProps {
   left?: number;
   top?: number;
   color?: string;
+  topBar?: {
+    height: 5,
+  };
+  rightBar?: {
+    width: 5,
+  }
+  bottomBar?: {
+    height: 5,
+  }
+  leftBar?: {
+    width: 5,
+  }
 }
 
 class Frame extends Rect {
@@ -27,9 +39,14 @@ class Frame extends Rect {
       height,
       left = 0,
       top = 0,
+      topBar,
+      rightBar,
+      bottomBar,
+      leftBar,
     } = params;
     // 分别创建四个边框，每个边框可以自己的基础model
     this.topBar = new TopFrame({
+      height: topBar?.height,
       width,
       x: left,
       y: top,
@@ -37,18 +54,21 @@ class Frame extends Rect {
     });
     this.rightBar = new RightFrame({
       height,
+      width: rightBar?.width,
       x: this.width + left,
       y: top,
       color: '#e09647'
     });
     this.leftBar = new LeftFrame({
       height,
+      width: leftBar?.width,
       x: left,
       y: top,
       color: '#e09647'
     });
     this.bottomBar = new BottomFrame({
       width,
+      height: bottomBar?.height,
       y: this.height + top,
       x: left,
       color: '#e09647',
