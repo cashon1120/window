@@ -2,7 +2,7 @@ import Bar from "./Bar";
 import * as THREE from "three";
 
 export interface RectProps {
-  group: THREE.Group; // 最外层的group，包裹所有的元素
+  mainGroup: THREE.Group; // 最外层的group，包裹所有的元素
   width: number;
   height: number;
   left?: number;
@@ -24,7 +24,7 @@ export interface RectProps {
 }
 
 interface TranformProps {
-  type: "right" | "top" | "left" | "bottom";
+  type: "right" | "top" | "left" | "bottom" | 'width' | 'height';
   value: number;
   time?: number;
 }
@@ -51,7 +51,7 @@ class Rect {
     const {
       width,
       height,
-      group,
+      mainGroup,
       left = 0,
       top = 0,
       z = 0,
@@ -63,7 +63,7 @@ class Rect {
     this.left = left;
     this.right = width + left;
     this.group = new THREE.Group();
-    this.mainGroup = group
+    this.mainGroup = mainGroup
     this.group.position.set(0, 0, z);
   }
   init(){
@@ -165,6 +165,9 @@ class Rect {
         break;
     }
   };
+  translate = (params: TranformProps) => {
+    console.log(params)
+  }
 }
 
 export default Rect;

@@ -1,25 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as Models from "./threeD/models";
 
-export interface Attribute {
-  left: number;
-  top: number;
-  width: number;
-  height: number;
-}
-
 /**
- * 缓存 Attribute 对应数据，更新的时候拿来计算用, 在 mouseup的时候更新这些数据
- */
-export interface TempAttribute extends Attribute {}
-
-/**
- * 对应HTML的类型, 目前有：横条，竖条， 矩形
+ * 原始数据
 */
-export type BarType = "horizontal" | "vertical" | "rect";
-
-export type AttributeKey = keyof Attribute;
-
 export interface Data {
   [key: string]: {
     // 对应的3D模型
@@ -29,7 +12,32 @@ export interface Data {
     tempAttribute: TempAttribute;
     // 上下左右的连接关系
     link: {
-      [key: string]: any;
+      left: string[],
+      right: string[],
+      top: string[],
+      bottom: string[],
     };
   };
 }
+
+/**
+ * 原始数据中模型的相关属性，具体是什么材质的应在model中定义和实现
+*/
+export interface Attribute {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+}
+export type AttributeKey = keyof Attribute;
+
+/**
+ * 缓存 Attribute 对应数据，更新的时候拿来计算用, 在 mouseup的时候更新这些数据， 这里直接继承 Attribute
+ */
+export interface TempAttribute extends Attribute {}
+
+/**
+ * 对应HTML的类型, 目前有：横条，竖条， 矩形
+*/
+export type BarType = "horizontal" | "vertical" | "rect";
+

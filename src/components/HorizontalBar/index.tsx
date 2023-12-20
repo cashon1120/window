@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState, useRef } from "react";
+import {  useState, useRef } from "react";
 import "../style/style.less";
 
 export interface ChangeProps {
@@ -12,7 +11,6 @@ export interface ChangeProps {
 
 interface Props {
   onChange: (key: string, params: ChangeProps) => void
-  threeD: any;
   name: string;
   params: {
     width: number;
@@ -28,7 +26,7 @@ interface Props {
 }
 
 const HorizontalBar = (props: Props) => {
-  const { params: { width, height, top = 0, left = 0, barWidth, maxWidth = 1000, maxHeight = 1000, minWidth = 50, minHeight = 50 }, name, threeD, onChange } = props;
+  const { params: { width, height, top = 0, left = 0, barWidth, maxWidth = 1000, maxHeight = 1000, minWidth = 50, minHeight = 50 }, name, onChange } = props;
   const eventAttr = useRef({
     width,
     height,
@@ -52,7 +50,6 @@ const HorizontalBar = (props: Props) => {
   })
   const [widthValue, setWidthValue] = useState(width)
   const [heightValue, setHeightValue] = useState(height)
-  const threeDInstance = useRef(threeD)
   const onMouseMove = (e: MouseEvent) => {
     const { current } = eventAttr
     const { mousedown, type, top, left, height, width, begin } = current;
@@ -125,11 +122,11 @@ const HorizontalBar = (props: Props) => {
     }
   };
 
-  const onMouseDown = (e: any) => {
+  const onMouseDown = (e: React.MouseEvent<HTMLElement>) => {
     const { current } = eventAttr
     const { type, begin } = current;
     current.mousedown = true;
-    current.type = e.target.dataset.type;
+    current.type = (e.target as HTMLElement).dataset.type || 'top';
     // 设置鼠标样式， onMouseUp的时候恢复成默认
     if (type === "left" || type == "right") {
       document.body.className = "col";
@@ -148,7 +145,7 @@ const HorizontalBar = (props: Props) => {
     document.removeEventListener("mousemove", onMouseMove);
     document.removeEventListener('mouseup', onMouseUp)
     document.body.className = "";
-    const { mousedown, type, _tempLeft, _tempTop, _tempWidth, _tempHeight, _maxTop, _maxLeft, _minLeft, _minTop } = eventAttr.current;
+    const {  _tempLeft, _tempTop, _tempWidth, _tempHeight, _maxTop, _maxLeft, _minLeft, _minTop } = eventAttr.current;
     eventAttr.current = {
       ...eventAttr.current,
       left: _maxLeft || _minLeft || _tempLeft,
@@ -165,17 +162,9 @@ const HorizontalBar = (props: Props) => {
     }
     // 注意这里的引用关系，不要直接取current.xxxx
     onChange(name, { height: _tempHeight, width: _tempWidth, top: eventAttr.current._tempTop, left: eventAttr.current._tempLeft })
-    if (mousedown) {
-      threeDInstance.current[name].transform({
-        type,
-        value: type === "bottom" || type === "top" ? _tempHeight : _tempWidth,
-      });
-    }
+
   };
-  useEffect(() => {
-    if (!threeD) return
-    threeDInstance.current = threeD
-  }, [threeD]);
+
 
   return (
     <div className="rect_box" id="box" style={{ width, height, left, top, borderWidth: barWidth }}>

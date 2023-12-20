@@ -1,23 +1,33 @@
 import { Data } from "./types";
 
+// 这里拿来初始化的，不然TS要报错，其实不重要，切下面引用的时候要JSON.parse一下，不然attribute的引用问题要出错
+const props = {
+  tempAttribute: { left: 0, top: 0, height: 0, width: 0 },
+  link: {
+    left: [],
+    top: [],
+    right: [],
+    bottom: [],
+  },
+};
+
+
 const data: Data = {
   topFrame: {
     model: "TopFrame",
     type: "horizontal",
-    tempAttribute: { left: 0, top: 0, height: 0, width: 0 },
-    link: {},
     attribute: {
       left: 10,
       top: 10,
       height: 5,
       width: 200,
     },
+    ...JSON.parse(JSON.stringify(props))
   },
   rightFrame: {
     model: "RightFrame",
     type: "vertical",
-    tempAttribute: { left: 0, top: 0, height: 0, width: 0 },
-    link: {},
+    ...JSON.parse(JSON.stringify(props)),
     attribute: {
       left: 205,
       top: 10,
@@ -28,8 +38,7 @@ const data: Data = {
   bottomFrame: {
     model: "BottomFrame",
     type: "horizontal",
-    tempAttribute: { left: 0, top: 0, height: 0, width: 0 },
-    link: {},
+    ...JSON.parse(JSON.stringify(props)),
     attribute: {
       left: 10,
       top: 105,
@@ -40,8 +49,7 @@ const data: Data = {
   leftFrame: {
     model: "LeftFrame",
     type: "vertical",
-    tempAttribute: { left: 0, top: 0, height: 0, width: 0 },
-    link: {},
+    ...JSON.parse(JSON.stringify(props)),
     attribute: {
       left: 10,
       top: 10,
@@ -52,8 +60,7 @@ const data: Data = {
   bar1: {
     model: "LeftFrame",
     type: "vertical",
-    tempAttribute: { left: 0, top: 0, height: 0, width: 0 },
-    link: {},
+    ...JSON.parse(JSON.stringify(props)),
     attribute: {
       left: 50,
       top: 15,
@@ -64,8 +71,7 @@ const data: Data = {
   bar2: {
     model: "LeftFrame",
     type: "vertical",
-    tempAttribute: { left: 0, top: 0, height: 0, width: 0 },
-    link: {},
+    ...JSON.parse(JSON.stringify(props)),
     attribute: {
       left: 120,
       top: 15,
@@ -76,8 +82,7 @@ const data: Data = {
   bar3: {
     model: "BottomFrame",
     type: "horizontal",
-    tempAttribute: { left: 0, top: 0, height: 0, width: 0 },
-    link: {},
+    ...JSON.parse(JSON.stringify(props)),
     attribute: {
       left: 15,
       top: 50,
@@ -86,5 +91,5 @@ const data: Data = {
     },
   },
 };
-
+console.log(JSON.parse(JSON.stringify(data)));
 export default data;

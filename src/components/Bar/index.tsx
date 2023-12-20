@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRef } from "react";
 import "../style/style.less";
@@ -68,7 +67,7 @@ const Bar = (props: Props) => {
     }
   };
 
-  const onMouseDown = (e: any) => {
+  const onMouseDown = (e: React.MouseEvent<HTMLElement>) => {
     const { current } = eventAttr;
     const { begin } = current;
     current.mousedown = true;

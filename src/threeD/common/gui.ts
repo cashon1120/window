@@ -75,7 +75,7 @@ export const guiColor = (params: ColorProps) => {
         onChange(value)
         return
       }
-      (mesh.material as any).color.set(value);
+      (mesh.material as THREE.LineBasicMaterial).color.set(value);
     });
 };
 

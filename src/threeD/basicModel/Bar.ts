@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as THREE from "three";
 import TWEEN from "@tweenjs/tween.js";
 import { scene, camera, renderer } from "../common";
@@ -10,20 +9,19 @@ export type AlignType =
   | "left-bottom"
   | "right-bottom";
 
-interface Props {
-  width?: number; //模型的宽度
-  height?: number; // 模型的高度
+export interface BarProps {
+  left: number;
+  top: number;
+  width: number; //模型的宽度
+  height: number; // 模型的高度
   depth?: number; // 模型的厚度
   color?: string;
-  group?: THREE.Group;
-  x?: number;
-  y?: number;
-  z?: number;
+  mainGroup?: THREE.Group;
   align?: AlignType;
 }
 
-interface Params {
-  type: "right" | "top" | "left" | "bottom";
+export interface BarAnimationParams {
+  type: "right" | "top" | "left" | "bottom" | 'width' | 'height';
   value: number;
   time?: number;
 }
@@ -36,7 +34,7 @@ interface Params {
 class Bar {
   innerGroup: THREE.Group;
   group: THREE.Group;
-  parentGroup: THREE.Group;
+  mainGroup: THREE.Group;
   width: number;
   height: number;
   bottom: number;
@@ -52,28 +50,27 @@ class Bar {
   x: number;
   y: number;
   z: number;
-  constructor(params: Props) {
+  constructor(params: BarProps) {
     const {
       width = 10,
       height = 10,
-      x = 0,
-      y = 0,
-      z = 0,
-      group,
+      left,
+      top,
+      mainGroup,
       align = "left-top",
     } = params;
     this.width = width;
     this.height = height;
-    this.top = y;
-    this.left = x;
-    this.right = x + width;
-    this.bottom = y + height;
+    this.top = top;
+    this.left = left;
+    this.right = left + width;
+    this.bottom = top + height;
     // threejs中的坐标，这里先存一下，在init的时候会根据 align 的类型进行换算
-    this.x = x;
-    this.y = y;
-    this.z = z;
+    this.x = left;
+    this.y = top;
+    this.z = 0;
     this.align = align;
-    this.parentGroup = group || new THREE.Group();
+    this.mainGroup = mainGroup || new THREE.Group();
     this.group = new THREE.Group();
     this.innerGroup = new THREE.Group();
     this.offset = {
@@ -108,11 +105,11 @@ class Bar {
     }
     this.group.position.set(this.x, this.y, this.z);
     this.group.add(this.innerGroup);
-    if (this.parentGroup) {
-      this.parentGroup.add(this.group);
+    if (this.mainGroup) {
+      this.mainGroup.add(this.group);
     }
   }
-  translate = (params: Params) => {
+  translate = (params: BarAnimationParams) => {
     const { type, value, time = 300 } = params;
     const target = this.group;
     const attr = type === "left" || type === "right" ? "x" : "y";
@@ -149,7 +146,7 @@ class Bar {
     render();
   };
 
-  transform = (params: Params) => {
+  transform = (params: BarAnimationParams) => {
     const { type, value, time = 300 } = params;
     if (!type) {
       throw new Error("请输入变化方向, 如: left | right | top | bottom");

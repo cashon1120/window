@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useRef } from "react";
 import "../style/style.less";
@@ -157,11 +156,11 @@ const Rect = (props: Props) => {
     
   };
 
-  const onMouseDown = (e: any) => {
+  const onMouseDown = (e: React.MouseEvent<HTMLElement>) => {
     const { current } = eventAttr;
     const { type, begin } = current;
     current.mousedown = true;
-    current.type = e.target.dataset.type;
+    current.type = (e.target as HTMLElement).dataset.type || 'top';
     // 设置鼠标样式， onMouseUp的时候恢复成默认
     if (type === "left" || type == "right") {
       document.body.className = "col";

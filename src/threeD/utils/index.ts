@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as THREE from "three";
 import { Data } from "../../types";
 
@@ -110,7 +109,7 @@ export const getLink = (data: Data): Data => {
               subAttr.top <= attribute.top + attribute.height
             ) {
               if (data[key].link) {
-                (data[key].link as any).bottom.push(subkey);
+                (data[key].link).bottom.push(subkey);
               }
             }
             // 上方相交或相连
@@ -119,7 +118,7 @@ export const getLink = (data: Data): Data => {
               subAttr.top + subAttr.height <= attribute.top + attribute.height
             ) {
               if (data[key].link) {
-                (data[key].link as any).top.push(subkey);
+                (data[key].link).top.push(subkey);
               }
             }
           }
@@ -137,7 +136,7 @@ export const getLink = (data: Data): Data => {
               subAttr.left <= attribute.left + attribute.width
             ) {
               if (data[key].link) {
-                (data[key].link as any).right.push(subkey);
+                (data[key].link).right.push(subkey);
               }
             }
             // 右侧相交或相连
@@ -146,7 +145,7 @@ export const getLink = (data: Data): Data => {
               subAttr.left + subAttr.width <= attribute.left + attribute.width
             ) {
               if (data[key].link) {
-                (data[key].link as any).left.push(subkey);
+                (data[key].link).left.push(subkey);
               }
             }
           }
@@ -154,6 +153,7 @@ export const getLink = (data: Data): Data => {
         break;
     }
   });
+  console.log(data)
   return data;
 };
 

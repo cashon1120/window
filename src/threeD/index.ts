@@ -1,6 +1,14 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as THREE from "three";
 import * as Models from "./models";
+import {
+  BottomFrame,
+  TopFrame,
+  LeftFrame,
+  RightFrame,
+  VerticalBar,
+  HorzontalBar,
+  Frame,
+} from "./models";
 import { scene, controls, camera, renderer } from "./common";
 import {
   createSpotLight,
@@ -8,23 +16,33 @@ import {
   createPointLight,
 } from "./lights";
 import createCoordinate from "./tools/coordinate";
-
-export interface ObjectProps {
-  [key: string]: any;
-}
+import { Data } from "../types";
 
 interface Params {
   container: string;
   width: number;
   height: number;
-  object: ObjectProps;
+  data: Data;
+}
+
+export type Model =
+  | BottomFrame
+  | TopFrame
+  | LeftFrame
+  | RightFrame
+  | VerticalBar
+  | HorzontalBar
+  | Frame;
+
+export interface ThreeDObject {
+  [key: string]: Model;
 }
 
 // 用来存放所有的3D模型
-const ThreeD: any = {};
+const ThreeD: ThreeDObject = {};
 
-const init3D = (params: Params) => {
-  const { container, width, height, object } = params;
+const init3D = (params: Params): ThreeDObject => {
+  const { container, width, height, data } = params;
 
   // 在指定容器里渲染
   document.getElementById(container)?.appendChild(renderer.domElement);
@@ -35,14 +53,16 @@ const init3D = (params: Params) => {
   // 定义一个组， 这个组用来存放所有的子元素，对应一些类中的 mainGroup
   const mainGroup = new THREE.Group();
 
-  // 根据传入的数据渲染3D
-  Object.keys(object).forEach((key) => {
-    const modelName = object[key].model as keyof typeof Models;
+  // 根据传入的数据渲染3D模型
+  Object.keys(data).forEach((key) => {
+    const modelName = data[key].model;
     if (Models[modelName]) {
       ThreeD[key] = new Models[modelName]({
-        ...object[key].attribute,
-        group: mainGroup,
+        ...data[key].attribute,
+        mainGroup,
       });
+    }else{
+      throw new Error(`没有找到 ${modelName} 模型`)
     }
   });
 

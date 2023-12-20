@@ -1,16 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
-import { init3D } from "./threeD/index";
+import { init3D, ThreeDObject } from "./threeD/index";
 import { Rect, ChangeProps, Bar } from "./components";
 import { getLink } from "./threeD/utils";
-import { AttributeKey } from "./types";
+import { AttributeKey, Data } from "./types";
 import dataObj from "./data";
 import "./index.less";
 
 function App() {
-  const [data, setData] = useState<any>({});
-  const [threeD, setThreeD] = useState<any>();
+  const [data, setData] = useState<Data>({});
+  const [threeD, setThreeD] = useState<ThreeDObject>({});
 
   useEffect(() => {
     setData(getLink(dataObj));
@@ -18,7 +17,7 @@ function App() {
       init3D({
         width: 200,
         height: 100,
-        object: dataObj,
+        data: dataObj,
         container: "threeD",
       })
     );
@@ -27,7 +26,7 @@ function App() {
   // 鼠标拖拽回调事件
   const onChange = (modelName: string, params: ChangeProps) => {
     // 拿到当前更新的属性(top / left)和值
-    const updateType: AttributeKey = Object.keys(params).map(
+    const updateType = Object.keys(params).map(
       (key) => key
     )[0] as AttributeKey;
     const newValue = params[updateType as keyof ChangeProps] || 0;
