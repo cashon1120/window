@@ -90,12 +90,10 @@ export const getLink = (data: Data): Data => {
       top: [],
       bottom: [],
     };
-    const { attribute, tempAttribute } = data[key];
-    const { left, top, width, height } = attribute;
-    tempAttribute.top = top;
-    tempAttribute.left = left;
-    tempAttribute.width = width;
-    tempAttribute.height = height;
+    const { attribute, attribute: {left, top, width, height} } = data[key];
+
+    // 传进来的数据是没有 tempAttribute 属性的，这里先把 attribute 的值赋给 tempAttribute
+    data[key].tempAttribute = {...attribute};
 
     switch (data[key].type) {
       // 找到顶部或者底部和当前模型重合或者相连接的 VerticalBar 或者 Rect 模型
