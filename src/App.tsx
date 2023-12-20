@@ -23,7 +23,7 @@ function App() {
     );
   }, []);
 
-  // 鼠标拖拽回调事件
+  // 鼠标拖拽回调事件，这里只更新 HTML 的样式，3D模型修改在 onComplete 里执行，减少执行3D渲染的次数，提高性能
   const onChange = (modelName: string, params: ChangeProps) => {
     // 拿到当前更新的属性(top / left)和值
     const updateType = Object.keys(params).map(
@@ -68,8 +68,9 @@ function App() {
     setData({ ...dataObj });
   };
 
-  // 拖拽结束回调事件
+  // 拖拽结束回调事件，执行3D模型的更新
   const onComplete = (modelName: string, params: ChangeProps) => {
+    // 更新临时属性(tempAttribute)，临时属性在下一次拖动时会用到，而 attribute 是在拖拽的过程中实时更新的，见 onChange 事件
     Object.keys(dataObj).forEach((key) => {
       Object.keys(dataObj[key].tempAttribute).forEach((attKey) => {
         dataObj[key].tempAttribute[attKey as AttributeKey] =
@@ -77,10 +78,12 @@ function App() {
       });
     });
     const updateType = Object.keys(params).map((key) => key)[0] as AttributeKey;
+    // 更新当前拖拽模型的位置
     threeD[modelName].translate({
       type: updateType,
       value: dataObj[modelName].attribute[updateType],
     });
+    // updateType 目前只有 left 和 top 两种类型
     switch (updateType) {
       case "top":
         dataObj[modelName].link.bottom.forEach((model: string) => {
