@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { init3D, ThreeDObject } from "./threeD/index";
-import { Rect, ChangeProps, Bar } from "./components";
+import { Rect, ChangeProps, Bar, Size } from "./components";
 import { getLink, getComposeSize } from "./threeD/utils";
 import { AttributeKey, Data } from "./types";
 import dataObj from "./data";
@@ -141,30 +141,10 @@ function App() {
   };
   return (
     <>
-      <div className="rect_wrapper">
+      <div className="rect_wrapper" style={{width: boxSize.width, height: boxSize.height}}>
         {/* 显示尺寸 */}
-        <div
-          className="box_size vertical"
-          style={{
-            left: boxSize.left - 15,
-            top: boxSize.top,
-            height: boxSize.height,
-          }}
-        >
-          <span>{boxSize.height}</span>
-          <div className="line" />
-        </div>
-        <div
-          className="box_size horizontal"
-          style={{
-            left: boxSize.left,
-            top: boxSize.height + boxSize.top + 15,
-            width: boxSize.width,
-          }}
-        >
-          <span>{boxSize.width}</span>
-          <div className="line" />
-        </div>
+        <Size type="vertical" left={boxSize.left} top={boxSize.top} height={boxSize.height} />
+        <Size type="horizontal" left={boxSize.left} top={boxSize.height + boxSize.top} width={boxSize.width} />
 
         {Object.keys(data).map((key) => (
           <div key={key}>{render(key, data[key].type)}</div>

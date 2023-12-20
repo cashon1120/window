@@ -105,8 +105,8 @@ export const getLink = (data: Data): Data => {
             const subAttr = data[subkey].attribute;
             // 下方相交或相连
             if (
-              subAttr.top >= attribute.top &&
-              subAttr.top <= attribute.top + attribute.height
+              subAttr.top >= top &&
+              subAttr.top <= top + height
             ) {
               if (data[key].link) {
                 data[key].link.bottom.push(subkey);
@@ -114,8 +114,8 @@ export const getLink = (data: Data): Data => {
             }
             // 上方相交或相连
             if (
-              subAttr.top + subAttr.height >= attribute.top &&
-              subAttr.top + subAttr.height <= attribute.top + attribute.height
+              subAttr.top + subAttr.height >= top &&
+              subAttr.top + subAttr.height <= top + height
             ) {
               if (data[key].link) {
                 data[key].link.top.push(subkey);
@@ -132,8 +132,8 @@ export const getLink = (data: Data): Data => {
             const subAttr = data[subkey].attribute;
             // 左侧相交或相连
             if (
-              subAttr.left >= attribute.left &&
-              subAttr.left <= attribute.left + attribute.width
+              subAttr.left >= left &&
+              subAttr.left <= left + width
             ) {
               if (data[key].link) {
                 data[key].link.right.push(subkey);
@@ -141,8 +141,8 @@ export const getLink = (data: Data): Data => {
             }
             // 右侧相交或相连
             if (
-              subAttr.left + subAttr.width >= attribute.left &&
-              subAttr.left + subAttr.width <= attribute.left + attribute.width
+              subAttr.left + subAttr.width >= left &&
+              subAttr.left + subAttr.width <= left + width
             ) {
               if (data[key].link) {
                 data[key].link.left.push(subkey);
@@ -153,7 +153,6 @@ export const getLink = (data: Data): Data => {
         break;
     }
   });
-  console.log(data);
   return data;
 };
 
@@ -168,24 +167,23 @@ export const getComposeSize = (
   width: number;
   height: number;
 } => {
-  let minLeft = 10000;
-  let maxLeft = 0;
-  let minTop = 10000;
-  let maxTop = 0;
+  let minLeft = Infinity;
+  let maxLeft = -Infinity;
+  let minTop = Infinity;
+  let maxTop = -Infinity;
   Object.keys(data).forEach((key) => {
-    const { attribute } = data[key];
-    if (attribute.left < minLeft) {
-      minLeft = attribute.left;
+    const { attribute: {left, top, width, height} } = data[key];
+    if (left < minLeft) {
+      minLeft = left;
     }
-    if (attribute.left + attribute.width > maxLeft) {
-      maxLeft = attribute.left + attribute.width;
+    if (left + width > maxLeft) {
+      maxLeft = left + width;
     }
-    if (attribute.top < minTop) {
-      minTop = attribute.top;
+    if (top < minTop) {
+      minTop = top;
     }
-    console.log(attribute.top + attribute.height)
-    if (attribute.top + attribute.height > maxTop) {
-      maxTop = attribute.top + attribute.height;
+    if (top + height > maxTop) {
+      maxTop = top + height;
     }
   });
   const size = {
@@ -194,6 +192,5 @@ export const getComposeSize = (
     width: maxLeft - minLeft,
     height: maxTop - minTop,
   };
-  console.log(size);
   return size;
 };

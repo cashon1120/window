@@ -13,8 +13,8 @@
 }
 .rect_wrapper {
   position: fixed;
-  bottom: 200px;
-  left: 100px;
+  top: 80%;
+  left: 10%;
 }
 #threeD {
   position: fixed;
