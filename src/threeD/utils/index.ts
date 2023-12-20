@@ -109,7 +109,7 @@ export const getLink = (data: Data): Data => {
               subAttr.top <= attribute.top + attribute.height
             ) {
               if (data[key].link) {
-                (data[key].link).bottom.push(subkey);
+                data[key].link.bottom.push(subkey);
               }
             }
             // 上方相交或相连
@@ -118,7 +118,7 @@ export const getLink = (data: Data): Data => {
               subAttr.top + subAttr.height <= attribute.top + attribute.height
             ) {
               if (data[key].link) {
-                (data[key].link).top.push(subkey);
+                data[key].link.top.push(subkey);
               }
             }
           }
@@ -136,7 +136,7 @@ export const getLink = (data: Data): Data => {
               subAttr.left <= attribute.left + attribute.width
             ) {
               if (data[key].link) {
-                (data[key].link).right.push(subkey);
+                data[key].link.right.push(subkey);
               }
             }
             // 右侧相交或相连
@@ -145,7 +145,7 @@ export const getLink = (data: Data): Data => {
               subAttr.left + subAttr.width <= attribute.left + attribute.width
             ) {
               if (data[key].link) {
-                (data[key].link).left.push(subkey);
+                data[key].link.left.push(subkey);
               }
             }
           }
@@ -153,8 +153,47 @@ export const getLink = (data: Data): Data => {
         break;
     }
   });
-  console.log(data)
+  console.log(data);
   return data;
 };
 
-
+/**
+ * 计算所有模型组合后的最大尺寸和左上角位置
+ */
+export const getComposeSize = (
+  data: Data
+): {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+} => {
+  let minLeft = 10000;
+  let maxLeft = 0;
+  let minTop = 10000;
+  let maxTop = 0;
+  Object.keys(data).forEach((key) => {
+    const { attribute } = data[key];
+    if (attribute.left < minLeft) {
+      minLeft = attribute.left;
+    }
+    if (attribute.left + attribute.width > maxLeft) {
+      maxLeft = attribute.left + attribute.width;
+    }
+    if (attribute.top < minTop) {
+      minTop = attribute.top;
+    }
+    console.log(attribute.top + attribute.height)
+    if (attribute.top + attribute.height > maxTop) {
+      maxTop = attribute.top + attribute.height;
+    }
+  });
+  const size = {
+    left: minLeft,
+    top: minTop,
+    width: maxLeft - minLeft,
+    height: maxTop - minTop,
+  };
+  console.log(size);
+  return size;
+};

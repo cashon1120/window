@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { init3D, ThreeDObject } from "./threeD/index";
 import { Rect, ChangeProps, Bar } from "./components";
-import { getLink } from "./threeD/utils";
+import { getLink, getComposeSize } from "./threeD/utils";
 import { AttributeKey, Data } from "./types";
 import dataObj from "./data";
 import "./index.less";
@@ -10,9 +10,16 @@ import "./index.less";
 function App() {
   const [data, setData] = useState<Data>({});
   const [threeD, setThreeD] = useState<ThreeDObject>({});
-
+  // 记录整个所有模型组合后的最大尺寸和左上角位置
+  const [boxSize, setBoxSize] = useState({
+    left: 0,
+    top: 0,
+    width: 0,
+    height: 0,
+  });
   useEffect(() => {
     setData(getLink(dataObj));
+    setBoxSize(getComposeSize(dataObj));
     setThreeD(
       init3D({
         width: 200,
@@ -26,9 +33,7 @@ function App() {
   // 鼠标拖拽回调事件，这里只更新 HTML 的样式，3D模型修改在 onComplete 里执行，减少执行3D渲染的次数，提高性能
   const onChange = (modelName: string, params: ChangeProps) => {
     // 拿到当前更新的属性(top / left)和值
-    const updateType = Object.keys(params).map(
-      (key) => key
-    )[0] as AttributeKey;
+    const updateType = Object.keys(params).map((key) => key)[0] as AttributeKey;
     const newValue = params[updateType as keyof ChangeProps] || 0;
     const offset = dataObj[modelName].tempAttribute[updateType] - newValue;
     dataObj[modelName].attribute[updateType] = newValue;
@@ -65,7 +70,9 @@ function App() {
         });
         break;
     }
-    setData({ ...dataObj });
+    const newDataObj = { ...dataObj };
+    setBoxSize(getComposeSize(newDataObj));
+    setData(newDataObj);
   };
 
   // 拖拽结束回调事件，执行3D模型的更新
@@ -135,6 +142,30 @@ function App() {
   return (
     <>
       <div className="rect_wrapper">
+        {/* 显示尺寸 */}
+        <div
+          className="box_size vertical"
+          style={{
+            left: boxSize.left - 15,
+            top: boxSize.top,
+            height: boxSize.height,
+          }}
+        >
+          <span>{boxSize.height}</span>
+          <div className="line" />
+        </div>
+        <div
+          className="box_size horizontal"
+          style={{
+            left: boxSize.left,
+            top: boxSize.height + boxSize.top + 15,
+            width: boxSize.width,
+          }}
+        >
+          <span>{boxSize.width}</span>
+          <div className="line" />
+        </div>
+
         {Object.keys(data).map((key) => (
           <div key={key}>{render(key, data[key].type)}</div>
         ))}

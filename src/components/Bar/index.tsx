@@ -72,7 +72,7 @@ const Bar = (props: Props) => {
     const { begin } = current;
     current.mousedown = true;
     // 设置鼠标样式， onMouseUp的时候恢复成默认
-    document.body.className = "col";
+    document.body.className = type === "vertical" ? "cursor_col" : "cursor_row";
     const { clientX, clientY } = e;
     begin.x = clientX;
     begin.y = clientY;

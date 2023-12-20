@@ -91,5 +91,4 @@ const data: Data = {
     },
   },
 };
-console.log(JSON.parse(JSON.stringify(data)));
 export default data;
