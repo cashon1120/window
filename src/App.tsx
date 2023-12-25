@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { init3D, ThreeDObject } from "./threeD/index";
 import { Rect, ChangeProps, Bar, Size } from "./components";
-import { getLink, getComposeSize } from "./threeD/utils";
+import { getLink, getComposeSize } from "./utils";
 import { AttributeKey, Data } from "./types";
 import dataObj from "./data";
 import "./index.less";
@@ -132,9 +132,9 @@ function App() {
       case "rect":
         return <Rect key={key} name={key} {...props} />;
       case "vertical":
-        return <Bar name={key} type="vertical" {...props} />;
+        return <Bar data={data} name={key} type="vertical" {...props} />;
       case "horizontal":
-        return <Bar name={key} type="horizontal" {...props} />;
+        return <Bar data={data} name={key} type="horizontal" {...props} />;
       default:
         return null;
     }

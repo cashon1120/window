@@ -57,38 +57,38 @@ const data: Data = {
       width: 5,
     },
   },
-  bar1: {
-    model: "LeftFrame",
-    type: "vertical",
-    ...JSON.parse(JSON.stringify(props)),
-    attribute: {
-      left: 50,
-      top: 15,
-      width: 5,
-      height: 90,
-    },
-  },
-  bar2: {
-    model: "LeftFrame",
-    type: "vertical",
-    ...JSON.parse(JSON.stringify(props)),
-    attribute: {
-      left: 120,
-      top: 15,
-      width: 5,
-      height: 90,
-    },
-  },
-  bar3: {
-    model: "BottomFrame",
-    type: "horizontal",
-    ...JSON.parse(JSON.stringify(props)),
-    attribute: {
-      left: 15,
-      top: 50,
-      width: 35,
-      height: 5,
-    },
-  },
+  // bar1: {
+  //   model: "LeftFrame",
+  //   type: "vertical",
+  //   ...JSON.parse(JSON.stringify(props)),
+  //   attribute: {
+  //     left: 50,
+  //     top: 15,
+  //     width: 5,
+  //     height: 90,
+  //   },
+  // },
+  // bar2: {
+  //   model: "LeftFrame",
+  //   type: "vertical",
+  //   ...JSON.parse(JSON.stringify(props)),
+  //   attribute: {
+  //     left: 120,
+  //     top: 15,
+  //     width: 5,
+  //     height: 90,
+  //   },
+  // },
+  // bar3: {
+  //   model: "BottomFrame",
+  //   type: "horizontal",
+  //   ...JSON.parse(JSON.stringify(props)),
+  //   attribute: {
+  //     left: 15,
+  //     top: 50,
+  //     width: 35,
+  //     height: 5,
+  //   },
+  // },
 };
 export default data;

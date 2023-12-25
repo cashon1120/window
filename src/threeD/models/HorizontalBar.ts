@@ -1,6 +1,6 @@
 import * as THREE from "three";
+import { transformPosition } from "@/utils/index";
 import Bar, { BarProps } from "../basicModel/Bar";
-import { transformPosition } from "../utils/index";
 
 /**
  * 横梁

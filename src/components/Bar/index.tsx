@@ -1,5 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRef } from "react";
+import {Data} from '@/types'
+import {getDragableRange} from "@/utils/index"
 import "../style/style.less";
 
 export interface ChangeProps {
@@ -10,6 +12,7 @@ export interface ChangeProps {
 }
 
 interface Props {
+  data: Data;
   onChange: (key: string, params: ChangeProps) => void;
   onComplete: (key: string, params: ChangeProps) => void;
   name: string;
@@ -28,8 +31,14 @@ const Bar = (props: Props) => {
     name,
     onChange,
     onComplete,
+    data,
     type,
   } = props;
+  // 每次拖拽时可移动的区间，通过 getDragableRange去计算
+  const moveRange= useRef({
+    min: -Infinity,
+    max: -Infinity,
+  })
   const eventAttr = useRef({
     height,
     width,
@@ -57,18 +66,18 @@ const Bar = (props: Props) => {
     let offset = 0;
     if (type === "vertical") {
       offset = begin.x - clientX;
-      current._tempLeft = left - offset;
+      current._tempLeft = Math.min(Math.max(moveRange.current.min, left - offset), moveRange.current.max);
       onChange(name, { left: current._tempLeft });
     }
     if (type === "horizontal") {
       offset = begin.y - clientY;
-      current._tempTop = top - offset;
+      current._tempTop = Math.min(Math.max(moveRange.current.min, top - offset), moveRange.current.max);
       onChange(name, { top: current._tempTop });
     }
   };
 
   const onMouseDown = (e: React.MouseEvent<HTMLElement>) => {
-    const { current } = eventAttr;
+    const { current, current: {left, top, width, height} } = eventAttr;
     const { begin } = current;
     current.mousedown = true;
     // 设置鼠标样式， onMouseUp的时候恢复成默认
@@ -76,6 +85,7 @@ const Bar = (props: Props) => {
     const { clientX, clientY } = e;
     begin.x = clientX;
     begin.y = clientY;
+    moveRange.current = getDragableRange(name, {left, top, width, height}, type, data);
     // 动态绑定和移除相关事件，以免其它组件触发
     document.addEventListener("mousemove", onMouseMove);
     document.addEventListener("mouseup", onMouseUp);
