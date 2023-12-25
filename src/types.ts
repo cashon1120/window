@@ -46,3 +46,23 @@ export interface BoxProps {
   height: number;
 }
 
+
+export interface ChangeProps extends Partial<BoxProps> {}
+
+/**
+ * Bar Props
+*/
+export interface BarProps {
+  data: Data;
+  onChange: (key: string, params: ChangeProps) => void;
+  onComplete: (key: string, params: ChangeProps) => void;
+  name: string;
+  type: "vertical" | "horizontal";
+  params: {
+    width: number;
+    height: number;
+    top: number;
+    left: number;
+  };
+}
+

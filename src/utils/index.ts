@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { Data, BoxProps } from "@/types";
+import { Data, BoxProps, BarProps } from "@/types";
 
 /**
  * 指定范围随机数
@@ -190,22 +190,19 @@ export const getComposeSize = (
  * 拖动前查询能拖动的范围
  */
 export const getDragableRange = (
-  name: string,
-  modelProps: BoxProps,
-  type: "vertical" | "horizontal",
-  data: Data
+  props: BarProps,
 ) => {
+  const {name, params, data} = props
   let currentMin = 0;
   let currentMax = 0;
   const result = {
     min: -Infinity,
     max: Infinity,
   };
-  const _minSort: number[] = [];
-  const _maxSort: number[] = [];
   let positionKey: "left" | "top";
   let sizeKey: "width" | "height";
-  switch (type) {
+  // 这里type是指当前拖动的模型是垂直还是水平的，垂直的就是控制左右移动，水平的就是控制上下移动
+  switch (props.type) {
     case "vertical":
       positionKey = "left";
       sizeKey = "width";
@@ -216,25 +213,18 @@ export const getDragableRange = (
       break;
   }
   // 拿到当前模型所在的位置
-  currentMin = modelProps[positionKey];
-  currentMax = modelProps[positionKey] + modelProps[sizeKey];
+  currentMin = params[positionKey];
+  currentMax = params[positionKey] + params[sizeKey];
   Object.keys(data).forEach((key) => {
     const { attribute } = data[key];
     if (key !== name) {
       if (attribute[positionKey] + attribute[sizeKey] < currentMin) {
-        _minSort.push(attribute[positionKey] + attribute[sizeKey]);
+        result.min = Math.max(result.min, attribute[positionKey] + attribute[sizeKey])
       }
       if (attribute[positionKey] > currentMax) {
-        _maxSort.push(attribute[positionKey]);
+        result.max = Math.min(result.max, attribute[positionKey] - params[sizeKey]);
       }
     }
   });
-  if (_minSort.length > 0) {
-    result.min = _minSort.sort((a, b) => a - b)[0];
-  }
-  if (_maxSort.length > 0) {
-    // 最大值要考虑自身的宽度或者高度
-    result.max = _maxSort.sort((a, b) => b - a)[0] - modelProps[sizeKey];
-  }
   return result;
 };

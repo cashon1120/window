@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { init3D, ThreeDObject } from "./threeD/index";
-import { Rect, ChangeProps, Bar, Size } from "./components";
+import { Rect, Bar, Size } from "./components";
 import { getLink, getComposeSize } from "./utils";
-import { AttributeKey, Data } from "./types";
+import { AttributeKey, Data, ChangeProps } from "./types";
 import dataObj from "./data";
 import "./index.less";
 

@@ -2,7 +2,7 @@
 import { useState, useRef } from "react";
 import "../style/style.less";
 
-import { ChangeProps } from "../types";
+import { ChangeProps } from "@/types";
 
 interface Props {
   onChange: (key: string, params: ChangeProps) => void;
