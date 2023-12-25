@@ -42,6 +42,9 @@ export interface ThreeDObject {
 // 用来存放所有的3D模型
 const ThreeD: ThreeDObject = {};
 
+// 定义一个组， 这个组用来存放所有的子元素，对应一些类中的 mainGroup, 也方便清空整个场景
+const mainGroup = new THREE.Group();
+
 /**
  * 初始化3D场景，并返回所有3D模型(ThreeDObject)
  */
@@ -58,9 +61,6 @@ const init3D = (params: Params): ThreeDObject => {
 
   // 创建辅助坐标尺, 会加载字体文件, 这里要卡一下
   createCoordinate();
-
-  // 定义一个组， 这个组用来存放所有的子元素，对应一些类中的 mainGroup
-  const mainGroup = new THREE.Group();
 
   // 根据传入的数据渲染3D模型,并赋值给ThreeD对象
   Object.keys(data).forEach((key) => {
@@ -125,9 +125,10 @@ const createLight = (width: number, height: number, mainGroup: THREE.Group) => {
   });
 };
 
-// 清空画布，暂时没实现
+// 清空画布
 const reset3D = () => {
-  // renderer.dispose();
+  scene.remove(mainGroup);
+  renderer.render(scene, camera);
 };
 
 export { init3D, reset3D };

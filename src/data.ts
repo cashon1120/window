@@ -1,6 +1,6 @@
 import { Data } from "./types";
 
-// 这里拿来初始化的，不然TS要报错，其实不重要，切下面引用的时候要JSON.parse一下，不然attribute的引用问题要出错
+// 这里拿来初始化的，不然TS要报错，其实不重要，在下面引用的时候要JSON.parse一下，不然attribute的引用问题要出错
 const props = {
   tempAttribute: { left: 0, top: 0, height: 0, width: 0 },
   link: {
