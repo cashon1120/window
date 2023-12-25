@@ -2,7 +2,8 @@
 import { useEffect, useState } from "react";
 import { init3D, ThreeDObject } from "./threeD/index";
 import { Rect, Bar, Size } from "./components";
-import { getLink, getComposeSize } from "./utils";
+import { getComposeSize } from "./utils";
+import getModelLink from "./utils/getModelLink";
 import { AttributeKey, Data, ChangeProps } from "./types";
 import dataObj from "./data";
 import "./index.less";
@@ -18,7 +19,7 @@ function App() {
     height: 0,
   });
   useEffect(() => {
-    setData(getLink(dataObj));
+    setData(getModelLink(dataObj));
     setBoxSize(getComposeSize(dataObj));
     setThreeD(
       init3D({

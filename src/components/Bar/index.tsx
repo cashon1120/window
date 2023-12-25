@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRef } from "react";
-import { getDragableRange } from "@/utils/index";
+import getDragRange from "@/utils/getDragRange";
 import { BarProps } from "@/types";
 import "../style/style.less";
 
@@ -69,7 +69,7 @@ const Bar = (props: BarProps) => {
     const { clientX, clientY } = e;
     begin.x = clientX;
     begin.y = clientY;
-    moveRange.current = getDragableRange(props);
+    moveRange.current = getDragRange(props);
     // 动态绑定和移除相关事件，以免其它组件触发
     document.addEventListener("mousemove", onMouseMove);
     document.addEventListener("mouseup", onMouseUp);

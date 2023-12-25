@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { Data, BoxProps, BarProps } from "@/types";
+import { Data, BoxProps } from "@/types";
 
 /**
  * 指定范围随机数
@@ -72,78 +72,6 @@ export const transformPosition = (params: BoxProps) => {
   };
 };
 
-/**
- * 根据传入的数据计算各模型之间的关系
- */
-export const getLink = (data: Data): Data => {
-  // const main = data['main'];
-  Object.keys(data).forEach((key) => {
-    data[key].link = {
-      left: [],
-      right: [],
-      top: [],
-      bottom: [],
-    };
-    const {
-      attribute,
-      attribute: { left, top, width, height },
-    } = data[key];
-
-    // 传进来的数据是没有 tempAttribute 属性的，这里先把 attribute 的值赋给 tempAttribute
-    data[key].tempAttribute = { ...attribute };
-
-    switch (data[key].type) {
-      // 找到顶部或者底部和当前模型重合或者相连接的 VerticalBar 或者 Rect 模型
-      case "horizontal":
-        Object.keys(data).forEach((subkey) => {
-          if (subkey !== key) {
-            const subAttr = data[subkey].attribute;
-            // 下方相交或相连
-            if (subAttr.top >= top && subAttr.top <= top + height) {
-              if (data[key].link) {
-                data[key].link.bottom.push(subkey);
-              }
-            }
-            // 上方相交或相连
-            if (
-              subAttr.top + subAttr.height >= top &&
-              subAttr.top + subAttr.height <= top + height
-            ) {
-              if (data[key].link) {
-                data[key].link.top.push(subkey);
-              }
-            }
-          }
-        });
-        break;
-
-      // 找到左侧或者右侧和当前模型重合或者相连接的 HorizontalBar 或者 Rect 模型
-      case "vertical":
-        Object.keys(data).forEach((subkey) => {
-          if (subkey !== key) {
-            const subAttr = data[subkey].attribute;
-            // 左侧相交或相连
-            if (subAttr.left >= left && subAttr.left <= left + width) {
-              if (data[key].link) {
-                data[key].link.right.push(subkey);
-              }
-            }
-            // 右侧相交或相连
-            if (
-              subAttr.left + subAttr.width >= left &&
-              subAttr.left + subAttr.width <= left + width
-            ) {
-              if (data[key].link) {
-                data[key].link.left.push(subkey);
-              }
-            }
-          }
-        });
-        break;
-    }
-  });
-  return data;
-};
 
 /**
  * 计算所有模型组合后的最大尺寸和左上角位置
@@ -184,47 +112,4 @@ export const getComposeSize = (
     height: maxTop - minTop,
   };
   return size;
-};
-
-/**
- * 拖动前查询能拖动的范围
- */
-export const getDragableRange = (
-  props: BarProps,
-) => {
-  const {name, params, data} = props
-  let currentMin = 0;
-  let currentMax = 0;
-  const result = {
-    min: -Infinity,
-    max: Infinity,
-  };
-  let positionKey: "left" | "top";
-  let sizeKey: "width" | "height";
-  // 这里type是指当前拖动的模型是垂直还是水平的，垂直的就是控制左右移动，水平的就是控制上下移动
-  switch (props.type) {
-    case "vertical":
-      positionKey = "left";
-      sizeKey = "width";
-      break;
-    case "horizontal":
-      positionKey = "top";
-      sizeKey = "height";
-      break;
-  }
-  // 拿到当前模型所在的位置
-  currentMin = params[positionKey];
-  currentMax = params[positionKey] + params[sizeKey];
-  Object.keys(data).forEach((key) => {
-    const { attribute } = data[key];
-    if (key !== name) {
-      if (attribute[positionKey] + attribute[sizeKey] < currentMin) {
-        result.min = Math.max(result.min, attribute[positionKey] + attribute[sizeKey])
-      }
-      if (attribute[positionKey] > currentMax) {
-        result.max = Math.min(result.max, attribute[positionKey] - params[sizeKey]);
-      }
-    }
-  });
-  return result;
 };
