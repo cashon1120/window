@@ -1,13 +1,13 @@
 import * as THREE from "three";
 import Bar, { BarProps } from "../basicModel/Bar";
 
-
 /**
- * 框架右侧
- */
-class RightFrame extends Bar {
+ * 框架左侧
+*/
+class NormalBar extends Bar {
   constructor(params: BarProps) {
-    params.width = params.width || 5;
+    params.width = params.width || 5
+    params.align = params.align || 'left-top'
     super(params);
     const { height, width = 5, depth = 10, color = "#eee" } = params;
     const geometry = new THREE.BoxGeometry(width, height, depth);
@@ -20,8 +20,8 @@ class RightFrame extends Bar {
     });
     const mesh = new THREE.Mesh(geometry, material);
     this.innerGroup.add(mesh);
-    this.init();
+    this.init()
   }
 }
 
-export default RightFrame;
+export default NormalBar;

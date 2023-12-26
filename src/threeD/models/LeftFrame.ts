@@ -14,7 +14,7 @@ class LeftFrame extends Bar {
     const material = new THREE.MeshPhysicalMaterial({
       color,
       //渲染为线条
-      wireframe: true,
+      // wireframe: true,
       metalness: 0.5,
       roughness: 0.5,
     });

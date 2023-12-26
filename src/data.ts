@@ -58,7 +58,7 @@ const data: Data = {
     },
   },
   bar1: {
-    model: "LeftFrame",
+    model: "NormalBar",
     type: "vertical",
     ...JSON.parse(JSON.stringify(props)),
     attribute: {
@@ -69,7 +69,7 @@ const data: Data = {
     },
   },
   bar2: {
-    model: "LeftFrame",
+    model: "NormalBar",
     type: "vertical",
     ...JSON.parse(JSON.stringify(props)),
     attribute: {
