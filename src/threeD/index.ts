@@ -5,8 +5,7 @@ import {
   TopFrame,
   LeftFrame,
   RightFrame,
-  VerticalBar,
-  HorzontalBar,
+  NormalBar,
   Frame,
 } from "./models";
 import { scene, controls, camera, renderer } from "./common";
@@ -27,9 +26,8 @@ export type Model =
   | TopFrame
   | LeftFrame
   | RightFrame
-  | VerticalBar
-  | HorzontalBar
-  | Frame;
+  | Frame
+  | NormalBar;
 
 export interface ThreeDObject {
   [key: string]: Model;
