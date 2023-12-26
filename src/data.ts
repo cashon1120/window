@@ -11,7 +11,6 @@ const props = {
   },
 };
 
-
 const data: Data = {
   topFrame: {
     model: "TopFrame",
@@ -22,7 +21,7 @@ const data: Data = {
       height: 5,
       width: 200,
     },
-    ...JSON.parse(JSON.stringify(props))
+    ...JSON.parse(JSON.stringify(props)),
   },
   window: {
     model: "Window",
@@ -33,7 +32,7 @@ const data: Data = {
       height: 50,
       width: 100,
     },
-    ...JSON.parse(JSON.stringify(props))
+    ...JSON.parse(JSON.stringify(props)),
   },
   rightFrame: {
     model: "RightFrame",
@@ -80,16 +79,16 @@ const data: Data = {
       height: 90,
     },
   },
-  // bar3: {
-  //   model: "BottomFrame",
-  //   type: "horizontal",
-  //   ...JSON.parse(JSON.stringify(props)),
-  //   attribute: {
-  //     left: 15,
-  //     top: 50,
-  //     width: 35,
-  //     height: 5,
-  //   },
-  // },
+  bar3: {
+    model: "NormalBar",
+    type: "horizontal",
+    attribute: {
+      left: 15,
+      top: 65,
+      width: 100,
+      height: 3,
+    },
+    ...JSON.parse(JSON.stringify(props)),
+  },
 };
 export default data;

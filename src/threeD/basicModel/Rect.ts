@@ -3,24 +3,16 @@ import * as THREE from "three";
 
 export interface RectProps {
   mainGroup: THREE.Group; // 最外层的group，包裹所有的元素
+  leftBarSize: number;
+  topBarSize: number;
+  rightBarSize: number;
+  bottomBarSize: number;
   width: number;
   height: number;
   left?: number;
   top?: number;
   z?: number;
   color?: string;
-  topBar?: {
-    height: 5,
-  };
-  rightBar?: {
-    width: 5,
-  }
-  bottomBar?: {
-    height: 5,
-  }
-  leftBar?: {
-    width: 5,
-  }
 }
 
 interface TranformProps {
@@ -46,6 +38,10 @@ class Rect {
   left: number;
   right: number;
   bottom: number;
+  leftBarSize: number;
+  topBarSize: number;
+  rightBarSize: number;
+  bottomBarSize: number;
   mainGroup: THREE.Group;
   constructor(params: RectProps) {
     const {
@@ -55,15 +51,23 @@ class Rect {
       left = 0,
       top = 0,
       z = 0,
+      leftBarSize,
+      topBarSize,
+      rightBarSize,
+      bottomBarSize,
     } = params;
     this.width = width;
     this.height = height;
-    this.top = -top;
-    this.bottom = -height - top;
+    this.top = top;
+    this.bottom = height + top;
     this.left = left;
     this.right = width + left;
     this.group = new THREE.Group();
     this.mainGroup = mainGroup
+    this.leftBarSize = leftBarSize
+    this.topBarSize = topBarSize
+    this.rightBarSize = rightBarSize
+    this.bottomBarSize = bottomBarSize
     this.group.position.set(0, 0, z);
   }
   init(){
@@ -83,7 +87,7 @@ class Rect {
         if (this.height === value) {
           return;
         }
-        this.top = value - this.height + this.top;
+        this.top = this.bottom - value
         this.topBar?.translate({
           type,
           value: this.top,
@@ -107,8 +111,8 @@ class Rect {
         }
         this.right = value - this.width + this.right;
         this.rightBar?.translate({
-          type,
-          value: this.right,
+          type: 'left',
+          value: this.right - this.rightBarSize,
         });
         this.topBar?.transform({
           type,
@@ -124,10 +128,10 @@ class Rect {
         if (this.height === value) {
           return;
         }
-        this.bottom = this.top - value;
+        this.bottom = value - this.height + this.bottom;
         this.bottomBar?.translate({
           type,
-          value: this.bottom,
+          value: this.bottom - this.bottomBarSize,
         });
         this.leftBar?.transform({
           type,
@@ -140,7 +144,6 @@ class Rect {
         });
         this.height = value;
         break;
-
       case "left":
         if (this.width === value) {
           return;

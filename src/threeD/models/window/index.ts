@@ -1,6 +1,7 @@
 import * as THREE from "three";
 
-import { Rect, Bar } from "../../basicModel";
+import { Rect, Bar } from "@/threeD/basicModel";
+
 import Left from './Left'
 import Top from './Top'
 import Right from './Right'
@@ -9,28 +10,20 @@ import Bottom from './Bottom'
 // 设置窗户各个边框的宽度或者高度，注意和实际宽高的区分
 export const LEFT_BAR_SIZE = 3;
 export const TOP_BAR_SIZE = 3;
-export const RIGHT_BAR_SIZE= 3;
+export const RIGHT_BAR_SIZE= 8;
 export const BOTTOM_BAR_SIZE = 3;
 
 export interface FrameProps {
   mainGroup: THREE.Group; // 最外层的group，包裹所有的元素
   width: number;
   height: number;
+  leftBarSize: number;
+  topBarSize: number;
+  rightBarSize: number;
+  bottomBarSize: number;
   left?: number;
   top?: number;
   color?: string;
-  topBar?: {
-    height: 5;
-  };
-  rightBar?: {
-    width: 5;
-  };
-  bottomBar?: {
-    height: 5;
-  };
-  leftBar?: {
-    width: 5;
-  };
 }
 
 class Frame extends Rect {
@@ -39,6 +32,10 @@ class Frame extends Rect {
   rightBar: Bar;
   bottomBar: Bar;
   constructor(params: FrameProps) {
+    params.leftBarSize = LEFT_BAR_SIZE
+    params.topBarSize = TOP_BAR_SIZE
+    params.rightBarSize = RIGHT_BAR_SIZE
+    params.bottomBarSize = BOTTOM_BAR_SIZE
     super(params);
     const {
       width,

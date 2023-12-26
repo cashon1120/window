@@ -92,7 +92,7 @@ function App() {
       type: updateType,
       value: dataObj[modelName].attribute[updateType],
     });
-    // updateType 目前只有 left 和 top 两种类型
+    // updateType 目前只有 left 和 top 两种类型, 就是左右或者上下移动
     switch (updateType) {
       case "top":
         dataObj[modelName].link.bottom.forEach((model: string) => {
