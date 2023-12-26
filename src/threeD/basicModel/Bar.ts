@@ -109,24 +109,22 @@ class Bar {
       this.mainGroup.add(this.group);
     }
   }
+
+  /**
+   * 移动只有两个方向，left / top
+  */
   translate = (params: BarAnimationParams) => {
     const { type, value, time = 300 } = params;
     const target = this.group;
-    const attr = type === "left" || type === "right" ? "x" : "y";
+    const attr = type === "left" ? "x" : "y";
     // 这里注意坐标系的不同，threejs中 y 轴向下是负的，所以要反过来
     let targetValue = 0;
-    switch (type) {
-      case "left":
+    switch (attr) {
+      case "x":
         targetValue = value + this.offset[attr];
         break;
-      case "right":
-        targetValue = value + this.offset[attr];
-        break;
-      case "top":
+      case "y":
         targetValue = value - this.offset[attr];
-        break;
-      case "bottom":
-        targetValue = value + this.offset[attr];
         break;
     }
     const tween = new TWEEN.Tween(target.position)
@@ -146,6 +144,9 @@ class Bar {
     render();
   };
 
+  /**
+   * 变形有4个方向，left / right / top / bottom
+  */
   transform = (params: BarAnimationParams) => {
     const { type, value, time = 300 } = params;
     if (!type) {
