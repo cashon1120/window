@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import { init3D, ThreeDObject } from "./threeD/index";
+import { init3D, reset3D, ThreeDObject } from "./threeD/index";
 import { Rect, Bar, Size } from "./components";
 import { getComposeSize } from "./utils";
 import getModelLink from "./utils/getModelLink";
@@ -29,6 +29,7 @@ function App() {
         container: "threeD",
       })
     );
+    return reset3D;
   }, []);
 
   // 鼠标拖拽回调事件，这里只更新 HTML 的样式，3D模型修改在 onComplete 里执行，减少执行3D渲染的次数，提高性能
@@ -142,10 +143,23 @@ function App() {
   };
   return (
     <>
-      <div className="rect_wrapper" style={{width: boxSize.width, height: boxSize.height}}>
+      <div
+        className="rect_wrapper"
+        style={{ width: boxSize.width, height: boxSize.height }}
+      >
         {/* 显示尺寸 */}
-        <Size type="vertical" left={boxSize.left} top={boxSize.top} height={boxSize.height} />
-        <Size type="horizontal" left={boxSize.left} top={boxSize.height + boxSize.top} width={boxSize.width} />
+        <Size
+          type="vertical"
+          left={boxSize.left}
+          top={boxSize.top}
+          height={boxSize.height}
+        />
+        <Size
+          type="horizontal"
+          left={boxSize.left}
+          top={boxSize.height + boxSize.top}
+          width={boxSize.width}
+        />
 
         {Object.keys(data).map((key) => (
           <div key={key}>{render(key, data[key].type)}</div>

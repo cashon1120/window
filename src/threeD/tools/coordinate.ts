@@ -3,13 +3,20 @@ import { scene, camera, renderer } from "../common";
 import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 import { FontLoader } from "three/addons/loaders/FontLoader.js";
 
-const loader = new FontLoader();
+// 修改文件后避免再次渲染
+let isCreated =false
 
+const MIN_SIZE = -300;
+const MAX_SIZE = 300;
+
+const loader = new FontLoader();
 const createCoordinate = () => {
+  if(isCreated) return
   loader.load(
     "fonts/optimer_regular.typeface.json",
     // onLoad callback
     function (font) {
+      isCreated = true
       const textAttr = {
         font,
         // 文本大小
@@ -33,7 +40,7 @@ const createCoordinate = () => {
           color: 0xffffff,
         }),
       ];
-      for (let i = -500; i <= 500; i++) {
+      for (let i = MIN_SIZE; i <= MAX_SIZE; i++) {
         let _value_x = 2;
         let _value_y = -2;
         if (i % 10 === 0) {
@@ -87,8 +94,8 @@ const createCoordinate = () => {
   );
   const material = new THREE.LineBasicMaterial({ color: 0xffffff });
   const xPointsArr = [
-    new THREE.Vector3(-500, 0, 0),
-    new THREE.Vector3(500, 0, 0),
+    new THREE.Vector3(MIN_SIZE, 0, 0),
+    new THREE.Vector3(MAX_SIZE, 0, 0),
   ];
 
   const xGeometry = new THREE.BufferGeometry();
@@ -96,8 +103,8 @@ const createCoordinate = () => {
   const xLine = new THREE.Line(xGeometry, material);
 
   const yPointsArr = [
-    new THREE.Vector3(0, -500, 0),
-    new THREE.Vector3(0, 500, 0),
+    new THREE.Vector3(0, MIN_SIZE, 0),
+    new THREE.Vector3(0, MAX_SIZE, 0),
   ];
   const yGeometry = new THREE.BufferGeometry();
   yGeometry.setFromPoints(yPointsArr);
