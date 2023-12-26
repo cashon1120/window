@@ -150,7 +150,6 @@ const Rect = (props: Props) => {
         );
         setWidthValue(current._tempWidth);
         onChange(name, { width: current._tempWidth });
-
         break;
     }
     

@@ -4,6 +4,7 @@ import LeftFrame from "./LeftFrame";
 import RightFrame from "./RightFrame";
 import NormalBar from './NormalBar'
 import Frame from "./Frame";
+import Window from "./window"
 
 /**
  * 每添加一个模型就从这里导出去
@@ -14,5 +15,6 @@ export {
     LeftFrame,
     RightFrame,
     Frame,
-    NormalBar
+    NormalBar,
+    Window
 }

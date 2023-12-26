@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { init3D, reset3D, ThreeDObject } from "./threeD/index";
-import { Rect, Bar, Size } from "./components";
+import { Rect, Bar, Size, Window } from "./components";
 import { getComposeSize } from "./utils";
 import getModelLink from "./utils/getModelLink";
 import { AttributeKey, Data, ChangeProps } from "./types";
@@ -137,6 +137,8 @@ function App() {
         return <Bar data={data} name={key} type="vertical" {...props} />;
       case "horizontal":
         return <Bar data={data} name={key} type="horizontal" {...props} />;
+      case "window":
+        return <Window data={data} name={key} {...props} />;
       default:
         return null;
     }

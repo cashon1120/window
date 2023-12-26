@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import Bar, { BarProps } from "../basicModel/Bar";
+import Bar, { BarProps } from "@/threeD/basicModel/Bar";
 
 /**
  * 框架左侧

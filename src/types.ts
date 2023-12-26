@@ -66,3 +66,22 @@ export interface BarProps {
   };
 }
 
+/**
+ * Rect Props
+*/
+export interface RectProps {
+  data: Data
+  onChange: (key: string, params: ChangeProps) => void;
+  onComplete: (key: string, params: ChangeProps) => void;
+  name: string;
+  params: {
+    width: number;
+    height: number;
+    top?: number;
+    left?: number;
+    maxWidth?: number;
+    maxHeight?: number;
+    minWidth?: number;
+    minHeight?: number;
+  };
+}

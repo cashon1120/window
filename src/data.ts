@@ -24,6 +24,17 @@ const data: Data = {
     },
     ...JSON.parse(JSON.stringify(props))
   },
+  window: {
+    model: "Window",
+    type: "window",
+    attribute: {
+      left: 15,
+      top: 15,
+      height: 50,
+      width: 100,
+    },
+    ...JSON.parse(JSON.stringify(props))
+  },
   rightFrame: {
     model: "RightFrame",
     type: "vertical",
@@ -57,25 +68,15 @@ const data: Data = {
       width: 5,
     },
   },
-  bar1: {
-    model: "NormalBar",
-    type: "vertical",
-    ...JSON.parse(JSON.stringify(props)),
-    attribute: {
-      left: 50,
-      top: 15,
-      width: 5,
-      height: 90,
-    },
-  },
+
   bar2: {
     model: "NormalBar",
     type: "vertical",
     ...JSON.parse(JSON.stringify(props)),
     attribute: {
-      left: 120,
+      left: 115,
       top: 15,
-      width: 5,
+      width: 3,
       height: 90,
     },
   },
