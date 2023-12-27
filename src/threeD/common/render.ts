@@ -1,8 +1,11 @@
 import * as THREE from "three";
+import scene from './scene';
+import camera from './camera'
+import stats from './stats'
 
 const width = window.innerWidth;
 const height = window.innerHeight;
-const renderer = new THREE.WebGLRenderer({
+const _renderer = new THREE.WebGLRenderer({
   // 抗锯齿
   antialias: true,
   alpha: true, // true/false 表示是否可以设置背景色透明
@@ -11,9 +14,20 @@ const renderer = new THREE.WebGLRenderer({
   // preserveDrawingBuffer: false, // true/false 表示是否保存绘图缓冲
   // physicallyCorrectLights: true, // true/false 表示是否开启物理光照
 });
-renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setSize(width, height);
+_renderer.setPixelRatio(window.devicePixelRatio);
+_renderer.setSize(width, height);
 // 设置渲染器，允许光源阴影渲染
-renderer.shadowMap.enabled = true;
+_renderer.shadowMap.enabled = true;
+
+/**
+ * 重新定义render，统一在这里调用渲染，也是为了兼容之前的写法
+*/
+export const renderer = {
+  render: () => {
+    stats.update()
+    _renderer.render(scene, camera)
+  },
+  _renderer
+}
 
 export default renderer;

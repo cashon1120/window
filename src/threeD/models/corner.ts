@@ -55,7 +55,7 @@ class Corner {
       .start();
     const render = () => {
       tween.update();
-      renderer.render(scene, camera);
+      renderer.render();
       if (target.position[type] !== value) {
         requestAnimationFrame(render);
       }

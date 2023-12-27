@@ -6,7 +6,7 @@ import {
   LeftFrame,
   RightFrame,
   NormalBar,
-  Frame,
+  Window,
 } from "./models";
 import { scene, controls, camera, renderer } from "./common";
 import createLight from "./lights";
@@ -21,13 +21,7 @@ interface Params {
 }
 
 // 所有模型的类
-export type Model =
-  | BottomFrame
-  | TopFrame
-  | LeftFrame
-  | RightFrame
-  | Frame
-  | NormalBar;
+export type Model = BottomFrame | TopFrame | LeftFrame | RightFrame | NormalBar | Window;
 
 export interface ThreeDObject {
   [key: string]: Model;
@@ -39,8 +33,6 @@ const ThreeD: ThreeDObject = {};
 // 定义一个组， 这个组用来存放所有的子元素，对应一些类中的 mainGroup, 也方便清空整个场景
 const mainGroup = new THREE.Group();
 
-
-
 /**
  * 初始化3D场景，并返回所有3D模型(ThreeDObject)
  */
@@ -50,7 +42,7 @@ const init3D = (params: Params): ThreeDObject => {
   // 在传入的container容器里渲染3D
   const containerDom = document.getElementById(container);
   if (containerDom) {
-    containerDom.appendChild(renderer.domElement);
+    containerDom.appendChild(renderer._renderer.domElement);
   } else {
     throw new Error(`${container} 容器不存在`);
   }
@@ -60,7 +52,7 @@ const init3D = (params: Params): ThreeDObject => {
 
   // 创建一系列的灯光
   createLight(width, height, mainGroup);
-  
+
   // 根据传入的数据渲染3D模型,并赋值给ThreeD对象
   Object.keys(data).forEach((key) => {
     const modelName = data[key].model;
@@ -83,8 +75,8 @@ const init3D = (params: Params): ThreeDObject => {
   camera.lookAt(100, -50, 0);
   controls.target.copy(new THREE.Vector3(100, -50, 0));
   controls.update();
-  renderer.render(scene, camera);
-  
+  renderer.render();
+
   // 返回所有对象集合，响应外部事件
   return ThreeD;
 };
@@ -93,7 +85,7 @@ const init3D = (params: Params): ThreeDObject => {
 const reset3D = () => {
   // 这里只清除了主要内容，辅助标尺和灯光没有清除
   scene.remove(mainGroup);
-  renderer.render(scene, camera);
+  renderer.render();
 };
 
 export { init3D, reset3D };

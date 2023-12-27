@@ -17,10 +17,10 @@ export interface FrameProps {
   mainGroup: THREE.Group; // 最外层的group，包裹所有的元素
   width: number;
   height: number;
-  leftBarSize: number;
-  topBarSize: number;
-  rightBarSize: number;
-  bottomBarSize: number;
+  leftBarSize?: number;
+  topBarSize?: number;
+  rightBarSize?: number;
+  bottomBarSize?: number;
   left?: number;
   top?: number;
   color?: string;

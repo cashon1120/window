@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import TWEEN from "@tweenjs/tween.js";
 import Bar, { BarAnimationParams, BarProps } from "@/threeD/basicModel/Bar";
-import { scene, camera, renderer } from "@/threeD/common";
+import { renderer } from "@/threeD/common";
 import Handle from "./Handle";
 
 /**
@@ -76,7 +76,7 @@ class RightFrame extends Bar {
       tween.update();
       positionTween.update();
       handleTween.update();
-      renderer.render(scene, camera);
+      renderer.render();
       if (!isEnd) {
         requestAnimationFrame(render);
       }

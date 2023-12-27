@@ -1,15 +1,16 @@
-import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import stats from "./stats";
+import camera from './camera'
+import stats from "@/threeD/common/stats";
+import renderer from './render'
 
 // 相机控件
-const initOrbitContros = (renderer: THREE.Renderer, scene: THREE.Scene, camera: THREE.Camera, ) => {
-    const controls = new OrbitControls(camera, renderer.domElement);
+const initOrbitContros = () => {
+    const controls = new OrbitControls(camera, renderer._renderer.domElement);
     // 添加阻尼效果
     // controls.enableDamping = true
     controls.addEventListener("change", () => {
       stats.update();
-      renderer.render(scene, camera);
+      renderer.render();
     });
     return controls
 }

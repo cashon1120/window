@@ -79,7 +79,7 @@ const createCoordinate = () => {
         scene.add(xLine);
         scene.add(yLine);
       }
-      renderer.render(scene, camera);
+      renderer.render();
     }
 
     // onProgress callback

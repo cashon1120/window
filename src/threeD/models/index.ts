@@ -3,7 +3,6 @@ import TopFrame from "./TopFrame";
 import LeftFrame from "./LeftFrame";
 import RightFrame from "./RightFrame";
 import NormalBar from './NormalBar'
-import Frame from "./Frame";
 import Window from "./window"
 
 /**
@@ -14,7 +13,6 @@ export {
     TopFrame,
     LeftFrame,
     RightFrame,
-    Frame,
     NormalBar,
     Window
 }

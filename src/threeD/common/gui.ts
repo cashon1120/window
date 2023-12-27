@@ -109,7 +109,7 @@ export const createGui = (
   _camera = camera;
   _scene = scene;
   gui.onChange(() => {
-    renderer.render(scene, camera);
+    renderer.render();
   });
 };
 

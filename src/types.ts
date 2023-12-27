@@ -32,7 +32,7 @@ export type AttributeKey = keyof BoxProps;
 export interface TempAttribute extends Attribute {}
 
 /**
- * 对应HTML的类型, 目前有：横条，竖条， 矩形
+ * React组件的类型， 目前有：横条，竖条， 矩形
 */
 export type BarType = "horizontal" | "vertical" | "rect";
 
@@ -46,11 +46,13 @@ export interface BoxProps {
   height: number;
 }
 
-
+/**
+ * React 组件鼠标拖拽回调事件
+*/
 export interface ChangeProps extends Partial<BoxProps> {}
 
 /**
- * Bar Props
+ * React组件：Bar Props
 */
 export interface BarProps {
   data: Data;
@@ -58,16 +60,11 @@ export interface BarProps {
   onComplete: (key: string, params: ChangeProps) => void;
   name: string;
   type: "vertical" | "horizontal";
-  params: {
-    width: number;
-    height: number;
-    top: number;
-    left: number;
-  };
+  params: BoxProps;
 }
 
 /**
- * Rect Props
+ * React组件： Rect Props
 */
 export interface RectProps {
   data: Data

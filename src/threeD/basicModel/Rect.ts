@@ -3,10 +3,10 @@ import * as THREE from "three";
 
 export interface RectProps {
   mainGroup: THREE.Group; // 最外层的group，包裹所有的元素
-  leftBarSize: number;
-  topBarSize: number;
-  rightBarSize: number;
-  bottomBarSize: number;
+  leftBarSize?: number;
+  topBarSize?: number;
+  rightBarSize?: number;
+  bottomBarSize?: number;
   width: number;
   height: number;
   left?: number;
@@ -16,7 +16,7 @@ export interface RectProps {
 }
 
 interface TranformProps {
-  type: "right" | "top" | "left" | "bottom" | 'width' | 'height';
+  type: "right" | "top" | "left" | "bottom" | "width" | "height";
   value: number;
   time?: number;
 }
@@ -63,18 +63,18 @@ class Rect {
     this.left = left;
     this.right = width + left;
     this.group = new THREE.Group();
-    this.mainGroup = mainGroup
-    this.leftBarSize = leftBarSize
-    this.topBarSize = topBarSize
-    this.rightBarSize = rightBarSize
-    this.bottomBarSize = bottomBarSize
+    this.mainGroup = mainGroup;
+    this.leftBarSize = leftBarSize || 5;
+    this.topBarSize = topBarSize || 5;
+    this.rightBarSize = rightBarSize || 5;
+    this.bottomBarSize = bottomBarSize || 5;
     this.group.position.set(0, 0, z);
   }
-  init(){
-    this.topBar ? this.group.add(this.topBar.group) : null
-    this.rightBar ? this.group.add(this.rightBar.group) : null
-    this.bottomBar ? this.group.add(this.bottomBar.group) : null
-    this.leftBar ? this.group.add(this.leftBar.group) : null
+  init() {
+    this.topBar ? this.group.add(this.topBar.group) : null;
+    this.rightBar ? this.group.add(this.rightBar.group) : null;
+    this.bottomBar ? this.group.add(this.bottomBar.group) : null;
+    this.leftBar ? this.group.add(this.leftBar.group) : null;
     this.mainGroup.add(this.group);
   }
   transform = (params: TranformProps) => {
@@ -87,7 +87,7 @@ class Rect {
         if (this.height === value) {
           return;
         }
-        this.top = this.bottom - value
+        this.top = this.bottom - value;
         this.topBar?.translate({
           type,
           value: this.top,
@@ -111,7 +111,7 @@ class Rect {
         }
         this.right = value - this.width + this.right;
         this.rightBar?.translate({
-          type: 'left',
+          type: "left",
           value: this.right - this.rightBarSize,
         });
         this.topBar?.transform({
@@ -169,8 +169,8 @@ class Rect {
     }
   };
   translate = (params: TranformProps) => {
-    console.log(params)
-  }
+    console.log(params);
+  };
 }
 
 export default Rect;
