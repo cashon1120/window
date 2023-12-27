@@ -5,11 +5,11 @@ import { scene, camera, renderer } from "@/threeD/common";
 import Handle from "./Handle";
 
 /**
- * 框架右侧
+ * 框架右侧,这里加了一个把手
  */
 class RightFrame extends Bar {
   _tempHeight: number;
-  handleMesh: THREE.Mesh;
+  handle: Handle
   constructor(params: BarProps) {
     params.width = params.width || 5;
     super(params);
@@ -24,20 +24,21 @@ class RightFrame extends Bar {
     });
     const mesh = new THREE.Mesh(geometry, material);
     this.innerGroup.add(mesh);
-    this.handleMesh = new Handle().mesh;
-    this.group.add(this.handleMesh);
+    this.handle = new Handle();
+    this.group.add(this.handle.mesh);
     this.innerGroup.position.set(0, 0, 0);
     this._tempHeight = height;
     this.init();
   }
-  // 重写transform方法
+  /**
+   * 重写transform方法，父类Bar的transform是变形整个this.group,这里因为加了把手，所以只能变形this.innerGroup，同时把手只改变中心点，不改变高度
+  */
   transform = (params: BarAnimationParams) => {
     const { type, value, time = 300 } = params;
     if (!type) {
       throw new Error("请输入变化方向, 如: left | right | top | bottom");
     }
     const target = this.innerGroup;
-    const _height = this.height;
     let positionTween = new TWEEN.Tween();
     let handleTween = new TWEEN.Tween();
     let _toValue = 0;
@@ -56,14 +57,14 @@ class RightFrame extends Bar {
       .to({ y: _toValue }, time)
       .start();
 
-    // 注意这里要向下偏移 5（把手高度的一半）
-    handleTween = new TWEEN.Tween(this.handleMesh.position)
-      .to({ y: _toValue - 5 }, time)
+    // 改变把手的中心点位置，注意这里要向下偏移把手高度的一半
+    handleTween = new TWEEN.Tween(this.handle.mesh.position)
+      .to({ y: _toValue - this.handle.height / 2 }, time)
       .start();
 
     this._tempHeight = value;
 
-    const scaleValue = value / _height;
+    const scaleValue = value / this.height;
     const tween = new TWEEN.Tween(target.scale)
       .to({ y: scaleValue }, time)
       .start();
