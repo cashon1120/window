@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import TWEEN from "@tweenjs/tween.js";
-import { scene, camera, renderer } from "../common";
+import { scene, camera, renderer } from "@/threeD/common";
 
 // threejs中是默认坐标在模型的中心点，这里根据 AlighType 进行偏移
 export type AlignType =

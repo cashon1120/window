@@ -1,11 +1,15 @@
 import * as THREE from "three";
-import Bar, { BarProps } from "@/threeD/basicModel/Bar";
-
+import TWEEN from "@tweenjs/tween.js";
+import Bar, { BarAnimationParams, BarProps } from "@/threeD/basicModel/Bar";
+import { scene, camera, renderer } from "@/threeD/common";
+import Handle from "./Handle";
 
 /**
  * 框架右侧
  */
 class RightFrame extends Bar {
+  _tempHeight: number;
+  handleMesh: THREE.Mesh;
   constructor(params: BarProps) {
     params.width = params.width || 5;
     super(params);
@@ -20,40 +24,64 @@ class RightFrame extends Bar {
     });
     const mesh = new THREE.Mesh(geometry, material);
     this.innerGroup.add(mesh);
-
-    const pointsArr = [
-      new THREE.Vector2(0, 0),
-      new THREE.Vector2(10, 0),
-      new THREE.Vector2(10, 2),
-      new THREE.Vector2(2, 2),
-      new THREE.Vector2(2, 8),
-      new THREE.Vector2(10, 8),
-      new THREE.Vector2(10, 10),
-      new THREE.Vector2(0, 10),
-    ];
-    const shape = new THREE.Shape(pointsArr);
-    const handleGeometry = new THREE.ExtrudeGeometry(shape, {
-      depth: 2,
-      bevelEnabled: false,
-      bevelThickness: 15, //倒角尺寸:拉伸方向
-      bevelSize: 15, //倒角尺寸:垂直拉伸方向
-      bevelSegments: 20, //倒圆角：倒角细分精度，默认3
-    });
-    const handleMaterial = new THREE.MeshPhongMaterial({
-      color: "#4f4f4f",
-      side: THREE.DoubleSide,
-    });
-    const group = new THREE.Group()
-    const handleMesh = new THREE.Mesh(handleGeometry, handleMaterial)
-    group.rotateY(Math.PI / 2)
-
-    handleMesh.translateX(-8)
-    handleMesh.translateY(-5)
-    group.position.set(this.width / 10, 0, 0)
-    group.add(handleMesh)
-    this.innerGroup.add(group);
+    this.handleMesh = new Handle().mesh;
+    this.group.add(this.handleMesh);
+    this.innerGroup.position.set(0, 0, 0);
+    this._tempHeight = height;
     this.init();
   }
+  // 重写transform方法
+  transform = (params: BarAnimationParams) => {
+    const { type, value, time = 300 } = params;
+    if (!type) {
+      throw new Error("请输入变化方向, 如: left | right | top | bottom");
+    }
+    const target = this.innerGroup;
+    const _height = this.height;
+    let positionTween = new TWEEN.Tween();
+    let handleTween = new TWEEN.Tween();
+    let _toValue = 0;
+    switch (type) {
+      case "top":
+        this.top = this.bottom - value;
+        _toValue = (value - this._tempHeight) / 2 + target.position.y;
+        break;
+
+      case "bottom":
+        this.bottom = value + this.top;
+        _toValue = -(value - this._tempHeight) / 2 + target.position.y;
+        break;
+    }
+    positionTween = new TWEEN.Tween(target.position)
+      .to({ y: _toValue }, time)
+      .start();
+
+    // 注意这里要向下偏移 5（把手高度的一半）
+    handleTween = new TWEEN.Tween(this.handleMesh.position)
+      .to({ y: _toValue - 5 }, time)
+      .start();
+
+    this._tempHeight = value;
+
+    const scaleValue = value / _height;
+    const tween = new TWEEN.Tween(target.scale)
+      .to({ y: scaleValue }, time)
+      .start();
+    let isEnd = false;
+    tween.onComplete(() => {
+      isEnd = true;
+    });
+    const render = () => {
+      tween.update();
+      positionTween.update();
+      handleTween.update();
+      renderer.render(scene, camera);
+      if (!isEnd) {
+        requestAnimationFrame(render);
+      }
+    };
+    render();
+  };
 }
 
 export default RightFrame;
