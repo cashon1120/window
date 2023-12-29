@@ -14,7 +14,8 @@
     "@types/three": "^0.159.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "three": "^0.159.0"
+    "three": "^0.159.0",
+    "treer": "^1.0.4"
   },
   "devDependencies": {
     "@types/": "tweenjs/tween.js",

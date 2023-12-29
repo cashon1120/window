@@ -1,16 +1,16 @@
-import * as Models from "./threeD/models";
+import * as Models from "@/threeD/models";
 
 /**
  * 原始数据
 */
 export interface Data {
   [key: string]: {
-    // 对应的3D模型
+    // 对应的3D模型， 在src/threeD/models中定义, 每新增一个需要在 src/threeD/models/index 里导出
     model: keyof typeof Models;
     type: CompentType;
     attribute: Attribute;
     tempAttribute: TempAttribute;
-    // 上下左右的连接关系
+    // 上下左右的连接关系, 在拖动的时候会根据这个关系去更新对应模型的数据， 通过 utils/getModelLinks.ts 计算
     link: {
       left: string[],
       right: string[],
@@ -20,6 +20,7 @@ export interface Data {
     minSize?: number;
   };
 }
+
 
 /**
  * 原始数据中模型的相关属性，具体是什么材质的应在model中定义和实现
@@ -33,7 +34,7 @@ export type AttributeKey = keyof BoxProps;
 export interface TempAttribute extends Attribute {}
 
 /**
- * 对应React组件的类型， 目前有：横条，竖条， 矩形, 每一种类型可能对应多个3D模型
+ * 对应React组件的类型， 目前有：横条(horizontal)，竖条(vertical)， 矩形(rect), 每一种类型可能对应多个3D模型
 */
 export type CompentType = "horizontal" | "vertical" | "rect";
 

@@ -12,6 +12,9 @@ const props = {
   },
 };
 
+/**
+ * 测试数据的格式要按 Data 来
+*/
 const data: Data = {
   topFrame: {
     model: "TopFrame",
