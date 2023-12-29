@@ -9,7 +9,6 @@ export default defineConfig({
     preprocessorOptions: {
       less: {
         charset: false,
-        additionalData: '@import "./src/assets/base.less";',
       },
     },
   },

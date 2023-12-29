@@ -1,6 +1,8 @@
 import * as THREE from "three";
 import Bar, { BarProps } from "@/threeD/basicModel/Bar";
-
+// 引入gltf模型加载库GLTFLoader.js
+// import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+// const loader = new GLTFLoader();
 
 /**
  * 框架右侧
@@ -19,6 +21,11 @@ class RightFrame extends Bar {
       roughness: 0.5,
     });
     const mesh = new THREE.Mesh(geometry, material);
+    // 这里是加载模型的代码
+    // loader.load("train.gltf", (gltf) => {
+    //   gltf.scene.rotateZ(Math.PI / 2)
+    //   this.innerGroup.add(gltf.scene);
+    // });
     this.innerGroup.add(mesh);
     this.init();
   }
