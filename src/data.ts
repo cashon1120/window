@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Data } from "./types";
 
 // 这里拿来初始化的，不然TS要报错，其实不重要，在下面引用的时候要JSON.parse一下，不然attribute的引用问题要出错
@@ -25,13 +26,14 @@ const data: Data = {
   },
   window: {
     model: "Window",
-    type: "window",
+    type: "rect",
     attribute: {
       left: 15,
       top: 15,
       height: 50,
       width: 100,
     },
+    minSize: 15,
     ...JSON.parse(JSON.stringify(props)),
   },
   rightFrame: {

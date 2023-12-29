@@ -13,6 +13,8 @@ export interface RectProps {
   top?: number;
   z?: number;
   color?: string;
+  // 最小宽高
+  minSize?: number;
 }
 
 interface TranformProps {
@@ -43,6 +45,7 @@ class Rect {
   rightBarSize: number;
   bottomBarSize: number;
   mainGroup: THREE.Group;
+  minSize: number;
   constructor(params: RectProps) {
     const {
       width,
@@ -55,6 +58,7 @@ class Rect {
       topBarSize,
       rightBarSize,
       bottomBarSize,
+      minSize
     } = params;
     this.width = width;
     this.height = height;
@@ -69,6 +73,7 @@ class Rect {
     this.rightBarSize = rightBarSize || 5;
     this.bottomBarSize = bottomBarSize || 5;
     this.group.position.set(0, 0, z);
+    this.minSize = minSize || 10
   }
   init() {
     this.topBar ? this.group.add(this.topBar.group) : null;

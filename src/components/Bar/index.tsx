@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRef } from "react";
 import getDragRange from "@/utils/getDragRange";
-import { BarProps } from "@/types";
+import { ReactBarProps } from "@/types";
 import "../style/style.less";
 
-const Bar = (props: BarProps) => {
+const Bar = (props: ReactBarProps) => {
   const {
     params: { height, top = 0, left = 0, width },
     name,

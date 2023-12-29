@@ -7,6 +7,7 @@ export interface Data {
   [key: string]: {
     // 对应的3D模型
     model: keyof typeof Models;
+
     type: BarType;
     attribute: Attribute;
     tempAttribute: TempAttribute;
@@ -17,6 +18,7 @@ export interface Data {
       top: string[],
       bottom: string[],
     };
+    minSize?: number;
   };
 }
 
@@ -54,7 +56,7 @@ export interface ChangeProps extends Partial<BoxProps> {}
 /**
  * React组件：Bar Props
 */
-export interface BarProps {
+export interface ReactBarProps {
   data: Data;
   onChange: (key: string, params: ChangeProps) => void;
   onComplete: (key: string, params: ChangeProps) => void;
@@ -66,7 +68,7 @@ export interface BarProps {
 /**
  * React组件： Rect Props
 */
-export interface RectProps {
+export interface ReactRectProps {
   data: Data
   onChange: (key: string, params: ChangeProps) => void;
   onComplete: (key: string, params: ChangeProps) => void;

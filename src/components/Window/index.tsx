@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { RectProps } from "@/types";
+import { ReactRectProps } from "@/types";
 import {
   LEFT_BAR_SIZE,
   TOP_BAR_SIZE,
@@ -8,7 +8,7 @@ import {
 } from "@/threeD/models/window";
 import "../style/style.less";
 
-const Rect = (props: RectProps) => {
+const Rect = (props: ReactRectProps) => {
   const {
     params: { width, height, top = 0, left = 0 },
   } = props;
