@@ -33,7 +33,7 @@ export type AttributeKey = keyof BoxProps;
 export interface TempAttribute extends Attribute {}
 
 /**
- * 对应React组件的类型， 目前有：横条，竖条， 矩形
+ * 对应React组件的类型， 目前有：横条，竖条， 矩形, 每一种类型可能对应多个3D模型
 */
 export type CompentType = "horizontal" | "vertical" | "rect";
 
