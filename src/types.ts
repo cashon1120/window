@@ -7,8 +7,7 @@ export interface Data {
   [key: string]: {
     // 对应的3D模型
     model: keyof typeof Models;
-
-    type: BarType;
+    type: CompentType;
     attribute: Attribute;
     tempAttribute: TempAttribute;
     // 上下左右的连接关系
@@ -34,9 +33,9 @@ export type AttributeKey = keyof BoxProps;
 export interface TempAttribute extends Attribute {}
 
 /**
- * React组件的类型， 目前有：横条，竖条， 矩形
+ * 对应React组件的类型， 目前有：横条，竖条， 矩形
 */
-export type BarType = "horizontal" | "vertical" | "rect";
+export type CompentType = "horizontal" | "vertical" | "rect";
 
 /**
  * 模型基础属性

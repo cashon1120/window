@@ -127,7 +127,9 @@ function App() {
         break;
     }
   };
-
+  /**
+   * 根据数据 type:CompentType 的类型渲染对应的组件
+  */
   const render = (key: string, type: string) => {
     const props = { params: dataObj[key].attribute, onChange, onComplete };
     switch (type) {
