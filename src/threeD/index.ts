@@ -10,6 +10,7 @@ import {
 } from "./models";
 import { scene, controls, camera, renderer } from "./common";
 import createLight from "./lights";
+
 import createCoordinate from "./tools/coordinate";
 import { Data } from "../types";
 

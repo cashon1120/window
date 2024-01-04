@@ -29,6 +29,7 @@ class Handle {
       side: THREE.DoubleSide,
     });
     this.mesh = new THREE.Mesh(geometry, material);
+    this.mesh.name = "handle"
     this.mesh.translateY(-this.height / 2);
     this.mesh.translateZ(9);
     this.mesh.rotateY(Math.PI / 2);

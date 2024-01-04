@@ -4,6 +4,7 @@ import camera from "./camera";
 import renderer from "./render";
 import { createGui } from "./gui";
 import createHelper from "./helper";
+import createRaycaster from "./raycaster";
 import gui, { guiPosition, guiColor, guiBoolean } from "./gui";
 import stats from "./stats";
 
@@ -12,6 +13,7 @@ import stats from "./stats";
 
 // 创建Gui
 createGui(renderer._renderer, scene, camera);
+
 
 // 窗口大小改变回调, 这里可以加一个节流
 window.addEventListener("resize", () => {
@@ -30,6 +32,7 @@ export {
   renderer,
   createGui,
   createHelper,
+  createRaycaster,
   stats,
   gui,
   guiPosition,
