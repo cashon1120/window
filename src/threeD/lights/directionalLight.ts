@@ -36,7 +36,7 @@ const createPointLight = (props: Props) => {
 
   scene.add(light);
 
-  if (showGui) {
+  if (showGui && gui) {
     const pointFolder = gui.addFolder("平行光源");
     pointFolder.close();
     pointFolder.add(light, "intensity", 0, 10000).name("平行光源");

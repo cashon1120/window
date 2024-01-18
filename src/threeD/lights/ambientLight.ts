@@ -14,7 +14,7 @@ const createAmbientLight = (props?: Props) => {
   const light = new THREE.AmbientLight(color, indensity);
   scene.add(light);
 
-  if (showGui) {
+  if (showGui && gui) {
     const pointFolder = gui.addFolder("环境光");
     pointFolder.close();
     pointFolder.add(light, "intensity", 0, 10000).name("环境光");

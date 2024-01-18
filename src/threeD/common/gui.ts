@@ -27,11 +27,9 @@ interface BooleanProps {
   onChange?: (value: boolean) => void;
 }
 
-const gui = new GUI();
-//改变交互界面style属性
-gui.domElement.style.right = "0px";
-gui.domElement.style.width = "300px";
-
+// 这里来切换是否要显示gui
+// const gui: GUI | null = null;
+const gui: GUI | null = new GUI();
 
 // 位置控制
 export const guiPosition = (params: PositionProps) => {
@@ -63,7 +61,13 @@ export const guiPosition = (params: PositionProps) => {
 
 // 颜色控制
 export const guiColor = (params: ColorProps) => {
-  const { mesh, folder, name = "颜色", defaultValue = 0xffffff, onChange } = params;
+  const {
+    mesh,
+    folder,
+    name = "颜色",
+    defaultValue = 0xffffff,
+    onChange,
+  } = params;
   const obj = {
     color: defaultValue,
   };
@@ -71,9 +75,9 @@ export const guiColor = (params: ColorProps) => {
     .addColor(obj, "color")
     .name(name)
     .onChange((value: number | string) => {
-      if(onChange){
-        onChange(value)
-        return
+      if (onChange) {
+        onChange(value);
+        return;
       }
       (mesh.material as THREE.LineBasicMaterial).color.set(value);
     });
@@ -81,7 +85,7 @@ export const guiColor = (params: ColorProps) => {
 
 // 布尔控制
 export const guiBoolean = (params: BooleanProps) => {
-  const {folder, name = "辅助工具", defaultValue = false, onChange } = params;
+  const { folder, name = "辅助工具", defaultValue = false, onChange } = params;
   const obj = {
     bool: defaultValue,
   };
@@ -89,7 +93,7 @@ export const guiBoolean = (params: BooleanProps) => {
     .add(obj, "bool")
     .name(name)
     .onChange((value: boolean) => {
-      onChange && onChange(value)
+      onChange && onChange(value);
       reRender();
     });
 };
@@ -108,9 +112,14 @@ export const createGui = (
   _renderer = renderer;
   _camera = camera;
   _scene = scene;
-  gui.onChange(() => {
-    renderer.render();
-  });
+  if (gui) {
+    //改变交互界面style属性
+    gui.domElement.style.right = "0px";
+    gui.domElement.style.width = "300px";
+    gui.onChange(() => {
+      renderer.render(scene, camera);
+    });
+  }
 };
 
 export default gui;

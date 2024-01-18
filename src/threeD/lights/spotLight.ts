@@ -47,7 +47,7 @@ const createSpotLight = (props: Props) => {
 
   scene.add(light);
 
-  if (showGui) {
+  if (showGui && gui) {
     const pointFolder = gui.addFolder(name);
     pointFolder.close();
     pointFolder.add(light, "intensity", 0, 10000).name(name);
