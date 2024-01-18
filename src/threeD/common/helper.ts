@@ -10,7 +10,6 @@ export default (scene: THREE.Scene) => {
   scene.add(axesHelper);
   // 添加网格辅助线
   scene.add(gridHelper);
-  console.log(gui)
   if (gui) {
     const folder = gui.addFolder("辅助");
     folder.close();

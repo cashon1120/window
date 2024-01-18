@@ -28,8 +28,8 @@ interface BooleanProps {
 }
 
 // 这里来切换是否要显示gui
-// const gui: GUI | null = null;
-const gui: GUI | null = new GUI();
+const gui: GUI | null = null;
+// const gui: GUI | null = new GUI();
 
 // 位置控制
 export const guiPosition = (params: PositionProps) => {
@@ -114,9 +114,9 @@ export const createGui = (
   _scene = scene;
   if (gui) {
     //改变交互界面style属性
-    gui.domElement.style.right = "0px";
-    gui.domElement.style.width = "300px";
-    gui.onChange(() => {
+    (gui as GUI).domElement.style.right = "0px";
+    (gui as GUI).domElement.style.width = "300px";
+    (gui as GUI).onChange(() => {
       renderer.render(scene, camera);
     });
   }
