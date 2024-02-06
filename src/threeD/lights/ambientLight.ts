@@ -10,14 +10,14 @@ interface Props {
 
 const createAmbientLight = (props?: Props) => {
   props = props || {};
-  const { color = 0xffffff, indensity = 5, showGui = false } = props;
+  const { color = 0xffffff, indensity = 10, showGui = true } = props;
   const light = new THREE.AmbientLight(color, indensity);
   scene.add(light);
 
   if (showGui && gui) {
     const pointFolder = gui.addFolder("环境光");
     pointFolder.close();
-    pointFolder.add(light, "intensity", 0, 10000).name("环境光");
+    pointFolder.add(light, "intensity", 0, 100).name("环境光");
     guiPosition({
       mesh: light,
       name: "环境光",

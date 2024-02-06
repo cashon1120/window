@@ -12,32 +12,50 @@ const createLight = (width: number, height: number, mainGroup: THREE.Group) => {
   if (isCreated) return;
   isCreated = true;
   // 环境光
-  createAmbientLight();
+  createAmbientLight({indensity: 10});
   // 聚光灯
-  createSpotLight({ x: -width, y: -height / 2, z: -50, decay: 1, name: "左" });
   createSpotLight({
-    x: width * 2,
+    x: -width / 2,
     y: -height / 2,
-    z: 50,
+    z: 0,
+    decay: 1,
+    name: "左",
+    // showHelper: true,
+    // showGui: true,
+  });
+  createSpotLight({
+    x: width,
+    y: -height / 2,
+    z: 0,
     decay: 1,
     name: "右",
     // showHelper: true,
-    // showGui: true
+    // showGui: true,
   });
-  createSpotLight({ x: width / 2, y: height, z: -50, decay: 1, name: "上" });
+  createSpotLight({
+    x: width / 2,
+    y: height,
+    z: 0,
+    decay: 1,
+    name: "上",
+    // showHelper: true,
+    // showGui: true,
+  });
   createSpotLight({
     x: width / 2,
     y: -height * 2,
-    z: 50,
+    z: 0,
     decay: 1,
     name: "下",
+    // showHelper: true,
+    // showGui: true,
   });
-  createSpotLight({ z: -width, name: "后" });
+  // createSpotLight({ z: -width, name: "后", showHelper: true, showGui: true });
   // 点光源
-  createPointLight({ x: width / 2, y: -height / 2, z: 0, deacy: 1 });
+  // createPointLight({ x: width / 2, y: -height / 2, z: 0, deacy: 1 });
 
   // 这一个灯光跟随摄像机
-  const light = createSpotLight({ z: width, decay: 1, name: "前" });
+  const light = createSpotLight({ z: width, decay: 1, name: "前", intensity: 2000 });
   controls.addEventListener("change", () => {
     light.target = mainGroup;
     light.position.copy(camera.position);

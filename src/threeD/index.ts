@@ -77,11 +77,11 @@ const init3D = (params: Params): ThreeDObject => {
   scene.add(mainGroup);
 
   // 重新设置摄像机位置，应根据 mainGroup的位置来调整
-  controls.minDistance = 200;
-  controls.maxDistance = 300;
-  camera.position.set(100, -80, 280);
-  camera.lookAt(100, -50, 0);
-  controls.target.copy(new THREE.Vector3(100, -80, 0));
+  controls.minDistance = 100;
+  controls.maxDistance = 500;
+  camera.position.set(160, -100, 350);
+  camera.lookAt(160, -100, 0);
+  controls.target.copy(new THREE.Vector3(160, -100, 0));
   controls.update();
   renderer.render();
 

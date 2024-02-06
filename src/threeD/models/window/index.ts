@@ -8,10 +8,10 @@ import Right from "./Right";
 import Bottom from "./Bottom";
 
 // 设置窗户各个边框的宽度或者高度，注意和实际宽高的区分
-export const LEFT_BAR_SIZE = 3;
-export const TOP_BAR_SIZE = 3;
-export const RIGHT_BAR_SIZE = 8;
-export const BOTTOM_BAR_SIZE = 3;
+export const LEFT_BAR_SIZE = 6;
+export const TOP_BAR_SIZE = 6;
+export const RIGHT_BAR_SIZE = 6;
+export const BOTTOM_BAR_SIZE = 6;
 
 export interface FrameProps {
   mainGroup: THREE.Group; // 最外层的group，包裹所有的元素
@@ -24,6 +24,7 @@ export interface FrameProps {
   left?: number;
   top?: number;
   color?: string;
+  offsetZ?: number;
 }
 
 class Frame extends Rect {
@@ -46,28 +47,28 @@ class Frame extends Rect {
       width,
       left,
       top,
-      color: "#e09647",
+      color: "#4E646E",
     });
     this.rightBar = new Right({
       height,
       width: RIGHT_BAR_SIZE,
       left: this.width + left - RIGHT_BAR_SIZE,
       top,
-      color: "#e09647",
+      color: "#4E646E",
     });
     this.leftBar = new Left({
       height,
       width: LEFT_BAR_SIZE,
       left,
       top,
-      color: "#e09647",
+      color: "#4E646E",
     });
     this.bottomBar = new Bottom({
       width,
       height: BOTTOM_BAR_SIZE,
       top: this.height + top - BOTTOM_BAR_SIZE,
       left,
-      color: "#e09647",
+      color: "#4E646E",
     });
     createRaycaster(
       [this.group],

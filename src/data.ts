@@ -14,29 +14,17 @@ const props = {
 
 /**
  * 测试数据的格式要按 Data 来
-*/
+ */
 const data: Data = {
   topFrame: {
     model: "TopFrame",
     type: "horizontal",
     attribute: {
-      left: 10,
-      top: 10,
-      height: 5,
-      width: 200,
+      left: 0,
+      top: 0,
+      height: 3,
+      width: 320,
     },
-    ...JSON.parse(JSON.stringify(props)),
-  },
-  window: {
-    model: "Window",
-    type: "rect",
-    attribute: {
-      left: 15,
-      top: 15,
-      height: 50,
-      width: 100,
-    },
-    minSize: 15,
     ...JSON.parse(JSON.stringify(props)),
   },
   rightFrame: {
@@ -44,10 +32,10 @@ const data: Data = {
     type: "vertical",
     ...JSON.parse(JSON.stringify(props)),
     attribute: {
-      left: 205,
-      top: 10,
-      height: 100,
-      width: 5,
+      left: 317,
+      top: 0,
+      height: 200,
+      width: 3,
     },
   },
   bottomFrame: {
@@ -55,10 +43,10 @@ const data: Data = {
     type: "horizontal",
     ...JSON.parse(JSON.stringify(props)),
     attribute: {
-      left: 10,
-      top: 105,
-      height: 5,
-      width: 200,
+      left: 0,
+      top: 197,
+      height: 3,
+      width: 320,
     },
   },
   leftFrame: {
@@ -66,33 +54,36 @@ const data: Data = {
     type: "vertical",
     ...JSON.parse(JSON.stringify(props)),
     attribute: {
-      left: 10,
-      top: 10,
-      height: 100,
-      width: 5,
-    },
-  },
-
-  bar2: {
-    model: "NormalBar",
-    type: "vertical",
-    ...JSON.parse(JSON.stringify(props)),
-    attribute: {
-      left: 115,
-      top: 15,
+      left: 0,
+      top: 0,
+      height: 200,
       width: 3,
-      height: 90,
     },
   },
-  bar3: {
-    model: "NormalBar",
-    type: "horizontal",
+  window1: {
+    model: "Window",
+    type: "rect",
     attribute: {
-      left: 15,
-      top: 65,
-      width: 100,
-      height: 3,
+      left: 3,
+      top: 3,
+      height: 194,
+      width: 160,
+      offsetZ: 2.5,
     },
+    minSize: 15,
+    ...JSON.parse(JSON.stringify(props)),
+  },
+  window2: {
+    model: "Window",
+    type: "rect",
+    attribute: {
+      left: 157,
+      top: 3,
+      height: 194,
+      width: 160,
+      offsetZ: -2.5,
+    },
+    minSize: 15,
     ...JSON.parse(JSON.stringify(props)),
   },
 };

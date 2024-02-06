@@ -15,6 +15,8 @@ export interface RectProps {
   color?: string;
   // 最小宽高
   minSize?: number;
+  // z轴便宜
+  offsetZ?: number;
 }
 
 interface TranformProps {
@@ -46,6 +48,7 @@ class Rect {
   bottomBarSize: number;
   mainGroup: THREE.Group;
   minSize: number;
+  offsetZ: number;
   constructor(params: RectProps) {
     const {
       width,
@@ -58,7 +61,8 @@ class Rect {
       topBarSize,
       rightBarSize,
       bottomBarSize,
-      minSize
+      minSize,
+      offsetZ = 0
     } = params;
     this.width = width;
     this.height = height;
@@ -73,6 +77,7 @@ class Rect {
     this.rightBarSize = rightBarSize || 5;
     this.bottomBarSize = bottomBarSize || 5;
     this.group.position.set(0, 0, z);
+    this.offsetZ = offsetZ;
     this.minSize = minSize || 10
   }
   init() {
@@ -80,6 +85,8 @@ class Rect {
     this.rightBar ? this.group.add(this.rightBar.group) : null;
     this.bottomBar ? this.group.add(this.bottomBar.group) : null;
     this.leftBar ? this.group.add(this.leftBar.group) : null;
+    this.group.translateZ(this.offsetZ);
+
     this.mainGroup.add(this.group);
   }
   transform = (params: TranformProps) => {

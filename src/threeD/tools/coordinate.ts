@@ -6,8 +6,8 @@ import { FontLoader } from "three/addons/loaders/FontLoader.js";
 // 修改文件后避免再次渲染
 let isCreated =false
 
-const MIN_SIZE = -300;
-const MAX_SIZE = 300;
+const MIN_SIZE = -400;
+const MAX_SIZE = 400;
 
 const loader = new FontLoader();
 const createCoordinate = () => {
