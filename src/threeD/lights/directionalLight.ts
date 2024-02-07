@@ -11,16 +11,20 @@ interface Props {
   showHelper?: boolean;
   showGui?: boolean;
   castShadow?: boolean;
+  target?: { x: number; y: number; z: number };
+
 }
 
-const createPointLight = (props: Props) => {
-  const { x, y, z, showHelper, showGui, color='#ffffff', castShadow = false, intensity = 100 } = props;
+const createDirectionalLight = (props: Props) => {
+  const { x, y, z, showHelper, showGui, color='#ffffff', castShadow = false, intensity = 10, target } = props;
   // 创建点光源
   const light = new THREE.DirectionalLight(color, intensity);
+  
   light.position.set(x, y, z);
   light.castShadow = castShadow;
   light.shadow.radius = 5;
   light.shadow.mapSize.set(2048, 2048);
+  light.target.position.set(target?.x || 0, target?.y || 0, target?.z || 0);
   // 设置三维场景计算阴影的范围
   // light.shadow.camera.left = -50;
   // light.shadow.camera.right = 50;
@@ -60,4 +64,4 @@ const createPointLight = (props: Props) => {
   return light;
 };
 
-export default createPointLight;
+export default createDirectionalLight;

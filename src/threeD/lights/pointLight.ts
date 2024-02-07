@@ -17,12 +17,13 @@ interface Props {
 }
 
 const createPointLight = (props: Props) => {
-  const { x, y, z, showHelper, name = '点光源',showGui, color='#ffffff', castShadow = false, distance = 0, intensity = 1000, deacy = 2, } = props;
+  const { x, y, z, showHelper, name = '点光源',showGui, color='#ffffff', castShadow = false, distance = 0, intensity = 1000, deacy = 2 } = props;
   // 创建点光源
   const light = new THREE.PointLight(color, intensity, distance);
   light.position.set(x, y, z);
   light.castShadow = castShadow;
   light.decay = deacy
+  light.lookAt(1000, 100, 100);
   scene.add(light);
 
   if (showHelper) {

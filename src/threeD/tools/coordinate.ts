@@ -37,7 +37,7 @@ const createCoordinate = () => {
       };
       const materials = [
         new THREE.MeshBasicMaterial({
-          color: 0xffffff,
+          color: 0x999999,
         }),
       ];
       for (let i = MIN_SIZE; i <= MAX_SIZE; i++) {
@@ -92,7 +92,7 @@ const createCoordinate = () => {
     //   console.log("An error happened");
     // }
   );
-  const material = new THREE.LineBasicMaterial({ color: 0xffffff });
+  const material = new THREE.LineBasicMaterial({ color: 0x999999});
   const xPointsArr = [
     new THREE.Vector3(MIN_SIZE, 0, 0),
     new THREE.Vector3(MAX_SIZE, 0, 0),

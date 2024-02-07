@@ -9,8 +9,8 @@ function App() {
 
   useEffect(() => {
     init3D({
-      width: 420,
-      height: 300,
+      width: 320,
+      height: 200,
       data: dataObj,
       container: "threeD",
     })

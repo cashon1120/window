@@ -10,26 +10,31 @@ class BottomFrame extends Bar {
     super(params);
     const { height = 5, width, depth = 10, color = "#4E646E" } = params;
     const geometry = new THREE.BoxGeometry(width, height, depth);
-    const material = new THREE.MeshPhysicalMaterial({
+    const material = new THREE.MeshPhongMaterial({
       color,
-      //渲染为线条
-      wireframe: false,
-      metalness: 0.5,
-      roughness: 0.5,
+      shininess: 100,
     });
     const mesh = new THREE.Mesh(geometry, material);
-    // 为了两边不重叠，稍微短一点
-    const geometry2 = new THREE.BoxGeometry(width - 0.05, 1, 5);
+    this.innerGroup.add(mesh);
+    
+    // 两个轨道，为了两边不重叠，稍微短一点
+    const geometry2 = new THREE.CylinderGeometry(0.6, 0.6, width - 0.05);
     const material2 = new THREE.MeshPhysicalMaterial({
-      color: "#000",
-      wireframe: false,
-      metalness: 0.5,
-      roughness: 0.5,
+      color: "#4E646E",
+      metalness: 0.1
     });
     const mesh2 = new THREE.Mesh(geometry2, material2);
-    mesh2.translateY(3);
-    this.innerGroup.add(mesh);
+    mesh2.rotateZ(Math.PI / 2);
+    mesh2.translateX(1.5);
+    mesh2.translateZ(2.5);
     this.innerGroup.add(mesh2);
+
+    const mesh3 = new THREE.Mesh(geometry2, material2);
+    mesh3.rotateZ(Math.PI / 2);
+    mesh3.translateX(1.5);
+    mesh3.translateZ(-2.5);
+    this.innerGroup.add(mesh3);
+
     this.init();
   }
 }
