@@ -1,7 +1,7 @@
 import * as THREE from "three";
 // 创建场景
 const scene = new THREE.Scene();
-
+// scene.castShadow = true;
 // 添加雾
 // scene.fog = new THREE.Fog(0x000000, 0.1, 800)
 // scene.background = new THREE.Color('#ffffff')

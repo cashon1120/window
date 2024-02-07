@@ -1,25 +1,40 @@
 import * as THREE from "three";
 import TWEEN from "@tweenjs/tween.js";
 import Bar, { BarAnimationParams, BarProps } from "@/threeD/basicModel/Bar";
+import {extrudeSettings} from './config'
 import { renderer } from "@/threeD/common";
 import Handle from "./Handle";
+import { createRoundedRect, createRoundedGeometry } from "@/utils/roundedRect";
 
 /**
  * 框架右侧,这里加了一个把手
  */
 class RightFrame extends Bar {
   _tempHeight: number;
-  handle: Handle
+  handle: Handle;
   constructor(params: BarProps) {
     params.width = params.width || 5;
     super(params);
-    const { height, width = 5, depth = 4.5, color = "#4E646E" } = params;
-    const geometry = new THREE.BoxGeometry(width, height, depth);
+    const { height, width = 5, color = "#4E646E" } = params;
     const material = new THREE.MeshPhongMaterial({
       color,
       shininess: 100,
     });
+    
+    const shape = createRoundedRect(
+      0,
+      0,
+      width - extrudeSettings.bevelSize,
+      height - extrudeSettings.bevelThickness * 3,
+      0.2
+    );
+    const geometry = createRoundedGeometry(shape, extrudeSettings);
     const mesh = new THREE.Mesh(geometry, material);
+    mesh.position.set(
+      -width / 2 + extrudeSettings.bevelSize,
+      -height / 2 + extrudeSettings.bevelSize * 2,
+      -extrudeSettings.depth / 2
+    );
     this.innerGroup.add(mesh);
 
     // 玻璃的那个胶套, 为了两边不重叠，稍微短一点
@@ -41,7 +56,7 @@ class RightFrame extends Bar {
   }
   /**
    * 重写transform方法，父类Bar的transform是变形整个this.group,这里因为加了把手，所以只能变形this.innerGroup，同时把手只改变中心点，不改变高度
-  */
+   */
   transform = (params: BarAnimationParams) => {
     const { type, value, time = 300 } = params;
     if (!type) {

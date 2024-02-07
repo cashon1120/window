@@ -68,23 +68,23 @@ const data: Data = {
       top: 3,
       height: 194,
       width: 160,
-      offsetZ: 2.7,
+      offsetZ: 2,
     },
     minSize: 15,
     ...JSON.parse(JSON.stringify(props)),
   },
-  window2: {
-    model: "Window",
-    type: "rect",
-    attribute: {
-      left: 157,
-      top: 3,
-      height: 194,
-      width: 160,
-      offsetZ: -2.7,
-    },
-    minSize: 15,
-    ...JSON.parse(JSON.stringify(props)),
-  },
+  // window2: {
+  //   model: "Window",
+  //   type: "rect",
+  //   attribute: {
+  //     left: 157,
+  //     top: 3,
+  //     height: 194,
+  //     width: 160,
+  //     offsetZ: -2.7,
+  //   },
+  //   minSize: 15,
+  //   ...JSON.parse(JSON.stringify(props)),
+  // },
 };
 export default data;
