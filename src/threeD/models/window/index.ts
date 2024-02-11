@@ -8,10 +8,10 @@ import Right from "./Right";
 import Bottom from "./Bottom";
 
 // 设置窗户各个边框的宽度或者高度，注意和实际宽高的区分
-export const LEFT_BAR_SIZE = 6;
-export const TOP_BAR_SIZE = 6;
-export const RIGHT_BAR_SIZE = 6;
-export const BOTTOM_BAR_SIZE = 6;
+export const LEFT_BAR_SIZE = 5;
+export const TOP_BAR_SIZE = 5;
+export const RIGHT_BAR_SIZE = 5;
+export const BOTTOM_BAR_SIZE = 5;
 
 export interface FrameProps {
   mainGroup: THREE.Group; // 最外层的group，包裹所有的元素

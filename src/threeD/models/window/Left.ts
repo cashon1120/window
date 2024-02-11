@@ -20,7 +20,7 @@ class LeftFrame extends Bar {
       0,
       0,
       width - extrudeSettings.bevelSize,
-      height - extrudeSettings.bevelThickness * 3,
+      height - extrudeSettings.bevelSize * 3,
       0.2
     );
     const geometry = createRoundedGeometry(shape, extrudeSettings);

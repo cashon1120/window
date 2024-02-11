@@ -32,7 +32,7 @@ class RightFrame extends Bar {
     const mesh = new THREE.Mesh(geometry, material);
     mesh.position.set(
       -width / 2 + extrudeSettings.bevelSize,
-      -height / 2 + extrudeSettings.bevelSize * 2,
+      -height / 2 + extrudeSettings.bevelSize,
       -extrudeSettings.depth / 2
     );
     this.innerGroup.add(mesh);

@@ -43,23 +43,23 @@ const createLight = (width: number, height: number, mainGroup: THREE.Group) => {
     
   });
   // 这一个灯光跟随摄像机
-  // const light = createSpotLight({
-  //   x: width / 2,
-  //   y: -height / 2,
-  //   z: 100,
-  //   decay: 1,
-  //   name: "前",
-  //   intensity: 200,
-  //   showHelper: true,
-  //   showGui: true,
-  //   target: {
-  //     x: width / 2,
-  //     y: -height / 2,
-  //     z: 0,
-  //   }
-  // });
-  // controls.addEventListener("change", () => {
-  //   light.position.copy(camera.position);
-  // });
+  const light = createSpotLight({
+    x: width / 2,
+    y: -height / 2,
+    z: 100,
+    decay: 1,
+    name: "前",
+    intensity: 200,
+    showHelper: true,
+    showGui: true,
+    target: {
+      x: width / 2,
+      y: -height / 2,
+      z: 0,
+    }
+  });
+  controls.addEventListener("change", () => {
+    light.position.copy(camera.position);
+  });
 };
 export default createLight;

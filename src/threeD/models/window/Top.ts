@@ -41,7 +41,7 @@ class TopFrame extends Bar {
       color: "#000",
     });
     const mesh2 = new THREE.Mesh(geometry2, material2);
-    mesh2.translateY(-3);
+    mesh2.translateY(-4);
     this.innerGroup.add(mesh2);
 
     this.init();
