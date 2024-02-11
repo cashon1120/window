@@ -14,6 +14,9 @@ interface Props {
   intensity?: number; // 光照强度
   angle?: number; // 光源发散角度
   decay?: number; // 光源衰减 设置为0的话表示永远不会衰减
+  distance?: number;
+  // 聚光锥的半影衰减百分比。默认值为 0,主要是边缘的模糊度
+  penumbra?: number;
 }
 
 const createSpotLight = (props: Props) => {
@@ -26,10 +29,12 @@ const createSpotLight = (props: Props) => {
     showGui,
     castShadow = false,
     intensity = 500,
-    angle = Math.PI / 2,
+    angle = Math.PI,
     decay = 2.0,
     target,
     name = "聚光源",
+    distance = 0,
+    penumbra = 0,
   } = props;
   // 创建点光源
   const light = new THREE.SpotLight(color);
@@ -38,6 +43,8 @@ const createSpotLight = (props: Props) => {
   light.intensity = intensity;
   light.angle = angle;
   light.decay = decay;
+  light.distance = distance;
+  light.penumbra = penumbra;
   light.target.position.set(target?.x || 0, target?.y || 0, target?.z || 0);
   scene.add(light.target);
   if (showHelper) {
@@ -50,7 +57,7 @@ const createSpotLight = (props: Props) => {
   if (showGui && gui) {
     const pointFolder = gui.addFolder(name);
     pointFolder.close();
-    pointFolder.add(light, "intensity", 0, 10000).name(name);
+    pointFolder.add(light, "intensity", 0, 2000).name(name);
     guiPosition({
       name,
       mesh: light,
