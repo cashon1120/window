@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { Rect, Bar } from "@/threeD/basicModel";
 import { createRaycaster, renderer } from "@/threeD/common";
-import {angleToPI} from "@/utils/index"
+import { angleToPI } from "@/utils/index";
 import Left from "./Left";
 import Top from "./Top";
 import Right from "./Right";
@@ -41,6 +41,42 @@ class Frame extends Rect {
     params.bottomBarSize = BOTTOM_BAR_SIZE;
     super(params);
     const { width, height, left = 0, top = 0 } = params;
+    // 创建玻璃
+   
+    const canvas = document.createElement("canvas");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const ctx = canvas.getContext("2d");
+    // 创建线渐变色 - 四个参数为坐标
+    if (ctx) {
+      const gradient = ctx.createLinearGradient(0, 0, 0, window.innerHeight);
+      gradient.addColorStop(0, "#ffffff");
+      gradient.addColorStop(1, "#5473b2");
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+      const canvasTexture = new THREE.CanvasTexture(canvas);
+      const glassMaterial = new THREE.MeshPhysicalMaterial({
+        color: 0xffffff,
+        transparent: true, // 透明度设置为 true
+        opacity: 0.4, // 设置透明度
+        roughness: 0,
+        metalness: 0,
+        envMapIntensity: 1,
+        transmission: 0.5, // 折射度，表示光线经过材料时的衰减程度
+        clearcoat: 1,
+        clearcoatRoughness: 0,
+        map: canvasTexture,
+      });
+      const glassGemotery = new THREE.BoxGeometry(width - LEFT_BAR_SIZE * 2, height - LEFT_BAR_SIZE * 2, 0.1);
+      const glassMesh = new THREE.Mesh(glassGemotery, glassMaterial);
+      glassMesh.castShadow = true;
+      const glassGroup = new THREE.Group()
+      glassGroup.position.set(this.left, this.top, 0);
+      glassMesh.position.set(width / 2, -height / 2 - LEFT_BAR_SIZE, 0);
+      glassGroup.add(glassMesh)
+      this.group.add(glassGroup);
+    }
+
     // 分别创建四个边框，每个边框可以自己的基础model
     this.topBar = new Top({
       height: TOP_BAR_SIZE,
@@ -83,14 +119,14 @@ class Frame extends Rect {
           const coefficient = targetValue > 0 ? 1 : -1;
           let currentValue = 0;
           // 旋转速度
-          const speed = 0.02
+          const speed = 0.02;
           const animation = () => {
             currentValue += speed;
             this.group.rotateY(speed * coefficient);
             renderer.render();
             if (Math.abs(currentValue * coefficient) < Math.abs(targetValue)) {
               requestAnimationFrame(animation);
-            }else{
+            } else {
               this.isOpen = !this.isOpen;
             }
           };

@@ -13,90 +13,203 @@ const createLight = (width: number, height: number, mainGroup: THREE.Group) => {
   if (isCreated) return;
   isCreated = true;
   // 环境光
-  createAmbientLight({ indensity: 2 });
-  createDirectionalLight({
-    x: width,
-    y: height * 2,
-    z: 340,
-    intensity: 3,
-    showGui: true,
-    showHelper: true,
-    target: {
-      x: width / 2,
-      y: -height / 2,
-      z: 0,
-    },
-  });
+  createAmbientLight({ indensity: 0.5 });
 
-  createDirectionalLight({
-    x: -width,
-    y: height * 2,
-    z: -200,
-    intensity: 3,
-    showGui: true,
-    showHelper: true,
-    target: {
-      x: width / 2,
-      y: -height / 2,
-      z: 0,
-    },
-  });
-
-  // 上
+  // 上1-1
   createSpotLight({
-    x: width / 2,
-    y: height,
+    x: width * (1 / 4),
+    y: 130,
+    z: 300,
+    decay: 1,
+    name: "上1-1",
+    intensity: 500,
+    // showHelper: true,
+    showGui: true,
+    castShadow: true,
+    angle: 0.8,
+    penumbra: 1,
+    target: {
+      x: (width * 1) / 4,
+      y: -height / 2,
+      z: 0,
+    },
+  });
+  // 上1-2
+  createSpotLight({
+    x: width * (1 / 4),
+    y: 130,
+    z: -150,
+    decay: 1,
+    name: "上1-2",
+    intensity: 1000,
+    // showHelper: true,
+    showGui: true,
+    castShadow: true,
+    angle: 0.8,
+    penumbra: 1,
+    target: {
+      x: (width * 1) / 4,
+      y: -height / 2,
+      z: 0,
+    },
+  });
+
+  // 上2-1
+  createSpotLight({
+    x: (width * 3) / 4,
+    y: 130,
+    z: 300,
+    decay: 1,
+    name: "上2-1",
+    intensity: 1000,
+    // showHelper: true,
+    showGui: true,
+    castShadow: true,
+    angle: 0.8,
+    penumbra: 1,
+    target: {
+      x: (width * 3) / 4,
+      y: -height / 2,
+      z: 0,
+    },
+  });
+  // 上2-2
+  createSpotLight({
+    x: (width * 3) / 4,
+    y: 130,
+    z: -300,
+    decay: 1,
+    name: "上2-2",
+    intensity: 1000,
+    // showHelper: true,
+    showGui: true,
+    castShadow: true,
+    angle: 0.8,
+    penumbra: 1,
+    target: {
+      x: (width * 3) / 4,
+      y: -height / 2,
+      z: 0,
+    },
+  });
+
+  //右阴影
+  createSpotLight({
+    x: width + 80,
+    y: -height / 2,
+    z: 206,
+    decay: 1,
+    name: "右阴影",
+    intensity: 400,
+    // showHelper: true,
+    showGui: true,
+    castShadow: true,
+    angle: 0.8,
+    penumbra: 1,
+    target: {
+      x: (width * 3) / 4,
+      y: -height / 2,
+      z: 0,
+    },
+  });
+
+  // 右照亮
+  createSpotLight({
+    x: width + 150,
+    y: -height / 2,
     z: 0,
     decay: 1,
-    name: "上",
-    intensity: 1200,
-    showHelper: true,
+    name: "右照亮",
+    intensity: 1000,
+    // showHelper: true,
     showGui: true,
-    angle: 0.6,
+    castShadow: true,
+    angle: 0.8,
+    penumbra: 1,
+    target: {
+      x: (width * 3) / 4,
+      y: -height / 2,
+      z: 0,
+    },
+  });
+
+  // 左照亮
+  createSpotLight({
+    x: -150,
+    y: -height / 2,
+    z: 0,
+    decay: 1,
+    intensity: 1000,
+    name: "左照亮",
+    // showHelper: true,
+    showGui: true,
+    castShadow: true,
+    angle: 0.8,
+    penumbra: 1,
+    target: {
+      x: (width * 3) / 4,
+      y: -height / 2,
+      z: 0,
+    },
+  });
+
+  // 底部照亮
+  createSpotLight({
+    x: width / 2,
+    y: -height - 200,
+    z: 0,
+    decay: 1,
+    name: "底部照亮",
+    intensity: 1000,
+    // showHelper: true,
+    showGui: true,
+    castShadow: true,
+    angle: 0.8,
     penumbra: 1,
     target: {
       x: width / 2,
+      y: -height / 2,
+      z: 0,
+    },
+  });
+
+  // 左
+  createSpotLight({
+    x: -80,
+    y: -height / 2,
+    z: 206,
+    decay: 1.2,
+    name: "左",
+    intensity: 1300,
+    // // showHelper: true,
+    // showGui: true,
+    castShadow: true,
+    angle: 0.8,
+    penumbra: 1,
+    target: {
+      x: (width * 3) / 4,
       y: -height / 2,
       z: 0,
     },
   });
 
   // 前
-  createSpotLight({
-    x: width / 2,
-    y: -height / 2,
-    z: 264,
-    decay: 1,
-    name: "前",
-    intensity: 1200,
-    showHelper: true,
-    showGui: true,
-    angle: 0.6,
-    penumbra: 1,
-    target: {
-      x: width / 2,
-      y: -height / 2,
-      z: 0,
-    },
-  });
-
-  // 右
-  createSpotLight({
-    x: width + width / 2,
-    y: height,
-    z: 0,
-    decay: 1,
-    name: "右",
-    intensity: 1200,
-    showHelper: true,
-    showGui: true,
-    angle: 0.6,
-    penumbra: 1,
-    target: {
-      x: width / 2,
-      y: -height / 2,
-      z: 0,
-    },
-  });
+  // createSpotLight({
+  //   x: width / 2,
+  //   y: 110,
+  //   z: 264,
+  //   decay: 1,
+  //   name: "前",
+  //   intensity: 600,
+  //   // showHelper: true,
+  //   showGui: true,
+  //   angle: 0.6,
+  //   penumbra: 1,
+  //   target: {
+  //     x: width / 2,
+  //     y: -height / 2,
+  //     z: 0,
+  //   },
+  // });
 };
 export default createLight;

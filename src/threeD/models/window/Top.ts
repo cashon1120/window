@@ -26,8 +26,10 @@ class TopFrame extends Bar {
     );
 
     const geometry = createRoundedGeometry(shape, extrudeSettings);
-
+    
     const mesh = new THREE.Mesh(geometry, material);
+    // mesh.castShadow = true
+    mesh.receiveShadow = true
     mesh.position.set(
       -width / 2 + extrudeSettings.bevelSize,
       -height / 2 - extrudeSettings.bevelSize,
@@ -43,7 +45,6 @@ class TopFrame extends Bar {
     const mesh2 = new THREE.Mesh(geometry2, material2);
     mesh2.translateY(-4);
     this.innerGroup.add(mesh2);
-
     this.init();
   }
 }

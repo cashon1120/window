@@ -25,6 +25,8 @@ class LeftFrame extends Bar {
     );
     const geometry = createRoundedGeometry(shape, extrudeSettings);
     const mesh = new THREE.Mesh(geometry, material);
+    mesh.castShadow = true
+    mesh.receiveShadow = true
     mesh.position.set(
       -width / 2 + extrudeSettings.bevelSize,
       -height / 2 + extrudeSettings.bevelSize * 2,

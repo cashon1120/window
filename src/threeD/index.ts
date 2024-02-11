@@ -56,7 +56,7 @@ const init3D = (params: Params): ThreeDObject => {
   }
 
   // 创建辅助坐标尺, 会加载字体文件, 这里要卡一下
-  createCoordinate();
+  // createCoordinate();
 
   // 创建一系列的灯光
   createLight(width, height, mainGroup);

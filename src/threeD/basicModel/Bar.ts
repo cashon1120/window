@@ -72,6 +72,7 @@ class Bar {
     this.align = align;
     this.mainGroup = mainGroup || new THREE.Group();
     this.group = new THREE.Group();
+
     this.innerGroup = new THREE.Group();
     this.offset = {
       x: 0,

@@ -23,6 +23,8 @@ class RightFrame extends Bar {
     //   gltf.scene.rotateZ(Math.PI / 2)
     //   this.innerGroup.add(gltf.scene);
     // });
+    mesh.castShadow = true
+    mesh.receiveShadow = true
     this.innerGroup.add(mesh);
     this.init();
   }

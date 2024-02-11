@@ -16,6 +16,8 @@ class LeftFrame extends Bar {
       shininess: 100,
     });
     const mesh = new THREE.Mesh(geometry, material);
+    mesh.castShadow = true
+    // mesh.receiveShadow = true
     this.innerGroup.add(mesh);
     this.init()
   }

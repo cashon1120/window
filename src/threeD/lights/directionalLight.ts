@@ -25,11 +25,13 @@ const createDirectionalLight = (props: Props) => {
   light.shadow.radius = 5;
   light.shadow.mapSize.set(2048, 2048);
   light.target.position.set(target?.x || 0, target?.y || 0, target?.z || 0);
+
+  
   // 设置三维场景计算阴影的范围
-  // light.shadow.camera.left = -50;
-  // light.shadow.camera.right = 50;
-  // light.shadow.camera.top = 200;
-  // light.shadow.camera.bottom = -200;
+  // light.shadow.camera.left = -100;
+  // light.shadow.camera.right = 4000;
+  // light.shadow.camera.top = 100;
+  // light.shadow.camera.bottom = -400;
   // light.shadow.camera.near = 0.5;
   // light.shadow.camera.far = 1000;
 
