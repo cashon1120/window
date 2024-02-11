@@ -133,25 +133,7 @@ const createLight = (width: number, height: number, mainGroup: THREE.Group) => {
     },
   });
 
-  // 左照亮
-  createSpotLight({
-    x: -150,
-    y: -height / 2,
-    z: 0,
-    decay: 1,
-    intensity: 1000,
-    name: "左照亮",
-    // showHelper: true,
-    showGui: true,
-    castShadow: true,
-    angle: 0.8,
-    penumbra: 1,
-    target: {
-      x: (width * 3) / 4,
-      y: -height / 2,
-      z: 0,
-    },
-  });
+
 
   // 底部照亮
   createSpotLight({
@@ -194,22 +176,22 @@ const createLight = (width: number, height: number, mainGroup: THREE.Group) => {
   });
 
   // 前
-  // createSpotLight({
-  //   x: width / 2,
-  //   y: 110,
-  //   z: 264,
-  //   decay: 1,
-  //   name: "前",
-  //   intensity: 600,
-  //   // showHelper: true,
-  //   showGui: true,
-  //   angle: 0.6,
-  //   penumbra: 1,
-  //   target: {
-  //     x: width / 2,
-  //     y: -height / 2,
-  //     z: 0,
-  //   },
-  // });
+  createSpotLight({
+    x: width / 2,
+    y: -height / 2,
+    z: 300,
+    decay: 1,
+    name: "前",
+    intensity: 500,
+    // showHelper: true,
+    showGui: true,
+    angle: 0.6,
+    penumbra: 1,
+    target: {
+      x: width / 2,
+      y: -height / 2,
+      z: 0,
+    },
+  });
 };
 export default createLight;

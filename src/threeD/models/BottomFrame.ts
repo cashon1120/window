@@ -23,7 +23,7 @@ class BottomFrame extends Bar {
     const geometry2 = new THREE.CylinderGeometry(0.6, 0.6, width - 0.05);
     const material2 = new THREE.MeshPhysicalMaterial({
       color: "#4E646E",
-      roughness: 0,
+      roughness: 0.2,
       metalness: 0,
       envMapIntensity: 1,
     });
