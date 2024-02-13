@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { Rect, Bar } from "@/threeD/basicModel";
 import { createRaycaster, renderer } from "@/threeD/common";
-import { angleToPI } from "@/utils/index";
+import TWEEN from "@tweenjs/tween.js";
 import Left from "./Left";
 import Top from "./Top";
 import Right from "./Right";
@@ -26,7 +26,7 @@ export interface FrameProps {
   color?: string;
   offsetZ?: number;
   // 暂时用这个来判断把手的样式
-  type?: 'left' | 'right',
+  type?: "left" | "right";
 }
 
 class Frame extends Rect {
@@ -36,6 +36,7 @@ class Frame extends Rect {
   bottomBar: Bar;
   isOpen: boolean = false;
   rotate: number = 0;
+  type?: "left" | "right";
   constructor(params: FrameProps) {
     params.leftBarSize = LEFT_BAR_SIZE;
     params.topBarSize = TOP_BAR_SIZE;
@@ -43,6 +44,7 @@ class Frame extends Rect {
     params.bottomBarSize = BOTTOM_BAR_SIZE;
     super(params);
     const { width, height, left = 0, top = 0, type } = params;
+    this.type = type;
     // 创建玻璃
     const canvas = document.createElement("canvas");
     canvas.width = window.innerWidth;
@@ -68,13 +70,17 @@ class Frame extends Rect {
         clearcoatRoughness: 0,
         map: canvasTexture,
       });
-      const glassGemotery = new THREE.BoxGeometry(width - LEFT_BAR_SIZE * 2, height - LEFT_BAR_SIZE * 2, 0.1);
+      const glassGemotery = new THREE.BoxGeometry(
+        width - LEFT_BAR_SIZE * 2,
+        height - LEFT_BAR_SIZE * 2,
+        0.1
+      );
       const glassMesh = new THREE.Mesh(glassGemotery, glassMaterial);
       glassMesh.castShadow = true;
-      const glassGroup = new THREE.Group()
+      const glassGroup = new THREE.Group();
       glassGroup.position.set(this.left, this.top, 0);
       glassMesh.position.set(width / 2, -height / 2 - LEFT_BAR_SIZE, 0);
-      glassGroup.add(glassMesh)
+      glassGroup.add(glassMesh);
       this.group.add(glassGroup);
     }
 
@@ -100,7 +106,7 @@ class Frame extends Rect {
       left,
       top,
       color: "#4E646E",
-      type
+      type,
     });
     this.bottomBar = new Bottom({
       width,
@@ -116,21 +122,24 @@ class Frame extends Rect {
       ) => {
         // 只有当点击的是把手的时候才执行动画
         if (result[0].object.name === "handle") {
-          // 打开旋转-45度，关闭旋转45度
-          const targetValue = this.isOpen ? angleToPI(45) : angleToPI(-45);
-          // 定义一个系数， 打开的时候顺时针旋转（角度为负数），关闭的时候逆时针旋转(角度为正数)
-          const coefficient = targetValue > 0 ? 1 : -1;
-          let currentValue = 0;
-          // 旋转速度
-          const speed = 0.02;
+          const { type, isOpen } = this;
+          const begin = type === "left" ? 0 : 0;
+          const end = type === "left" ? 154 : -120;
+          const targetValue = isOpen ? begin : end;
+          const tween = new TWEEN.Tween(this.group.position)
+            .to({ x: targetValue }, 500)
+            .start();
+          let isEnd = false;
+          tween.onComplete(() => {
+            isEnd = true;
+            this.isOpen = !this.isOpen;
+          });
+
           const animation = () => {
-            currentValue += speed;
-            this.group.rotateY(speed * coefficient);
+            tween.update();
             renderer.render();
-            if (Math.abs(currentValue * coefficient) < Math.abs(targetValue)) {
+            if (!isEnd) {
               requestAnimationFrame(animation);
-            } else {
-              this.isOpen = !this.isOpen;
             }
           };
           animation();

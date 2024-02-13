@@ -12,7 +12,7 @@ import {
 import { scene, controls, camera, renderer } from "./common";
 import createLight from "./lights";
 
-import createCoordinate from "./tools/coordinate";
+import createSize from "./tools/size";
 import { Data } from "../types";
 
 interface Params {
@@ -55,8 +55,7 @@ const init3D = (params: Params): ThreeDObject => {
     throw new Error(`${container} 容器不存在`);
   }
 
-  // 创建辅助坐标尺, 会加载字体文件, 这里要卡一下
-  // createCoordinate();
+  createSize();
 
   // 创建一系列的灯光
   createLight(width, height, mainGroup);
