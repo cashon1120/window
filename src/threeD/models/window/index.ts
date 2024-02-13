@@ -54,14 +54,14 @@ class Frame extends Rect {
     if (ctx) {
       const gradient = ctx.createLinearGradient(0, 0, 0, window.innerHeight);
       gradient.addColorStop(0, "#ffffff");
-      gradient.addColorStop(1, "#5473b2");
+      gradient.addColorStop(1, "#3664c1");
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
       const canvasTexture = new THREE.CanvasTexture(canvas);
       const glassMaterial = new THREE.MeshPhysicalMaterial({
         color: 0xffffff,
         transparent: true, // 透明度设置为 true
-        opacity: 0.4, // 设置透明度
+        opacity: 0.3, // 设置透明度
         roughness: 0,
         metalness: 0,
         envMapIntensity: 1,
