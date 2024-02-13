@@ -1,9 +1,10 @@
 import * as THREE from "three";
 import TWEEN from "@tweenjs/tween.js";
 import Bar, { BarAnimationParams, BarProps } from "@/threeD/basicModel/Bar";
-import {extrudeSettings} from './config'
+import { extrudeSettings } from "./config";
 import { renderer } from "@/threeD/common";
-import Handle from "./Handle";
+import LeftHandle from "./LeftHandle";
+import RightHandle from "./RightHandle";
 import { createRoundedRect, createRoundedGeometry } from "@/utils/roundedRect";
 
 /**
@@ -11,16 +12,16 @@ import { createRoundedRect, createRoundedGeometry } from "@/utils/roundedRect";
  */
 class RightFrame extends Bar {
   _tempHeight: number;
-  handle: Handle;
+  handle: LeftHandle | RightHandle;
   constructor(params: BarProps) {
     params.width = params.width || 5;
     super(params);
-    const { height, width = 5, color = "#4E646E" } = params;
+    const { height, width = 5, color = "#4E646E", type } = params;
     const material = new THREE.MeshPhongMaterial({
       color,
       shininess: 100,
     });
-    
+
     const shape = createRoundedRect(
       0,
       0,
@@ -30,8 +31,8 @@ class RightFrame extends Bar {
     );
     const geometry = createRoundedGeometry(shape, extrudeSettings);
     const mesh = new THREE.Mesh(geometry, material);
-    mesh.castShadow = true
-    mesh.receiveShadow = true
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
     mesh.position.set(
       -width / 2 + extrudeSettings.bevelSize,
       -height / 2 + extrudeSettings.bevelSize,
@@ -50,8 +51,12 @@ class RightFrame extends Bar {
     mesh2.translateX(-3);
     this.innerGroup.add(mesh2);
 
-    this.handle = new Handle();
-    this.group.add(this.handle.mesh);
+    this.handle = new LeftHandle();
+    if (type === "right") {
+      this.handle = new RightHandle();
+      this.group.add(this.handle.group);
+    }
+
     this.innerGroup.position.set(0, 0, 0);
     this._tempHeight = height;
     this.init();
@@ -84,7 +89,7 @@ class RightFrame extends Bar {
       .start();
 
     // 改变把手的中心点位置，注意这里要向下偏移把手高度的一半
-    handleTween = new TWEEN.Tween(this.handle.mesh.position)
+    handleTween = new TWEEN.Tween(this.handle.group.position)
       .to({ y: _toValue - this.handle.height / 2 }, time)
       .start();
 

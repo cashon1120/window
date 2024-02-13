@@ -18,6 +18,8 @@ export interface BarProps {
   color?: string;
   mainGroup?: THREE.Group;
   align?: AlignType;
+  // 暂时用来判断把手的样式
+  type?: 'left' | 'right'
 }
 
 export interface BarAnimationParams {

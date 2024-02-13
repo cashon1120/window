@@ -25,6 +25,8 @@ export interface FrameProps {
   top?: number;
   color?: string;
   offsetZ?: number;
+  // 暂时用这个来判断把手的样式
+  type?: 'left' | 'right',
 }
 
 class Frame extends Rect {
@@ -40,9 +42,8 @@ class Frame extends Rect {
     params.rightBarSize = RIGHT_BAR_SIZE;
     params.bottomBarSize = BOTTOM_BAR_SIZE;
     super(params);
-    const { width, height, left = 0, top = 0 } = params;
+    const { width, height, left = 0, top = 0, type } = params;
     // 创建玻璃
-   
     const canvas = document.createElement("canvas");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -91,6 +92,7 @@ class Frame extends Rect {
       left: this.width + left - RIGHT_BAR_SIZE,
       top,
       color: "#4E646E",
+      type,
     });
     this.leftBar = new Left({
       height,
@@ -98,6 +100,7 @@ class Frame extends Rect {
       left,
       top,
       color: "#4E646E",
+      type
     });
     this.bottomBar = new Bottom({
       width,

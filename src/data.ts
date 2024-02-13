@@ -69,6 +69,8 @@ const data: Data = {
       height: 194,
       width: 160,
       offsetZ: 2.5,
+      // 暂时用这个来判断把手的样式
+      type: 'left',
     },
     minSize: 15,
     ...JSON.parse(JSON.stringify(props)),
@@ -82,6 +84,7 @@ const data: Data = {
       height: 194,
       width: 160,
       offsetZ: -2.5,
+      type: 'right'
     },
     minSize: 15,
     ...JSON.parse(JSON.stringify(props)),
