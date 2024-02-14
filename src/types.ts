@@ -46,6 +46,7 @@ export interface BoxProps {
   top: number;
   width: number;
   height: number;
+  color?: string;
 }
 
 /**

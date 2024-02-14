@@ -44,6 +44,7 @@ class TopFrame extends Bar {
     });
     const mesh2 = new THREE.Mesh(geometry2, material2);
     mesh2.translateY(-4);
+    mesh2.userData.disableUpdate = true;
     this.innerGroup.add(mesh2);
     this.init();
   }

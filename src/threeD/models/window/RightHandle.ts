@@ -16,10 +16,10 @@ const extrudeSettings = {
 
 class Handle {
   height: number;
-  group: THREE.Group
+  group: THREE.Group;
   constructor() {
-    this.height = 10
-    this.group = new THREE.Group()
+    this.height = 10;
+    this.group = new THREE.Group();
     let shape = createRoundedRect(0, 0, 1, 22, 0.8);
     let geometry = createRoundedGeometry(shape, extrudeSettings);
     let material = new THREE.MeshPhysicalMaterial({
@@ -33,12 +33,13 @@ class Handle {
     });
     let mesh = new THREE.Mesh(geometry, material);
     mesh.castShadow = true;
-    mesh.name = "handle"
+    mesh.userData.disableUpdate = true;
+    mesh.name = "handle";
     mesh.translateY(-this.height / 2 - 15);
-    mesh.translateX(-1)
+    mesh.translateX(-1);
     mesh.translateZ(2);
     mesh.rotateY(Math.PI / 2);
-    this.group.add(mesh)
+    this.group.add(mesh);
 
     shape = createRoundedRect(0, 0, 1, 10, 1);
     geometry = createRoundedGeometry(shape, extrudeSettings);
@@ -53,12 +54,13 @@ class Handle {
     });
     mesh = new THREE.Mesh(geometry, material);
     mesh.castShadow = true;
+    mesh.userData.disableUpdate = true;
     mesh.translateY(-this.height / 2 - 8.5);
-    mesh.scale.set(1, 1, 0.8)
-    mesh.translateX(-0.8)
+    mesh.scale.set(1, 1, 0.8);
+    mesh.translateX(-0.8);
     mesh.translateZ(2.1);
     mesh.rotateY(Math.PI / 2);
-    this.group.add(mesh)
+    this.group.add(mesh);
   }
 }
 

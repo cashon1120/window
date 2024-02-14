@@ -111,3 +111,25 @@
   cursor: row-resize;
 }
 
+// 切换颜色
+ul.colors{
+  position: fixed;
+  top: 50px;
+  transform: translateX(-50%);
+  left: 50%;
+  display: flex;
+  li{
+    display: block;
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    background-color: #000;
+    margin: 0 15px;
+    transition: all .3s;
+    cursor: pointer;
+    &:hover, &.active {
+      transform: scale(1.4);
+    }
+  }
+}
+

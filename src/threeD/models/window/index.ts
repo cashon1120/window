@@ -43,7 +43,7 @@ class Frame extends Rect {
     params.rightBarSize = RIGHT_BAR_SIZE;
     params.bottomBarSize = BOTTOM_BAR_SIZE;
     super(params);
-    const { width, height, left = 0, top = 0, type } = params;
+    const { width, height, left = 0, top = 0, type, color } = params;
     this.type = type;
     // 创建玻璃
     const canvas = document.createElement("canvas");
@@ -77,10 +77,12 @@ class Frame extends Rect {
       );
       const glassMesh = new THREE.Mesh(glassGemotery, glassMaterial);
       glassMesh.castShadow = true;
+      glassMesh.name = 'glass'
       const glassGroup = new THREE.Group();
       glassGroup.position.set(this.left, this.top, 0);
       glassMesh.position.set(width / 2, -height / 2 - LEFT_BAR_SIZE, 0);
       glassGroup.add(glassMesh);
+      glassMesh.userData.disableUpdate = true
       this.group.add(glassGroup);
     }
 
@@ -90,14 +92,14 @@ class Frame extends Rect {
       width,
       left,
       top,
-      color: "#4E646E",
+      color
     });
     this.rightBar = new Right({
       height,
       width: RIGHT_BAR_SIZE,
       left: this.width + left - RIGHT_BAR_SIZE,
       top,
-      color: "#4E646E",
+      color,
       type,
     });
     this.leftBar = new Left({
@@ -105,7 +107,7 @@ class Frame extends Rect {
       width: LEFT_BAR_SIZE,
       left,
       top,
-      color: "#4E646E",
+      color,
       type,
     });
     this.bottomBar = new Bottom({
@@ -113,7 +115,7 @@ class Frame extends Rect {
       height: BOTTOM_BAR_SIZE,
       top: this.height + top - BOTTOM_BAR_SIZE,
       left,
-      color: "#4E646E",
+      color,
     });
     createRaycaster(
       [this.group],

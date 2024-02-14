@@ -193,5 +193,24 @@ const createLight = (width: number, height: number, mainGroup: THREE.Group) => {
       z: 0,
     },
   });
+
+    // 后
+    createSpotLight({
+      x: width / 2,
+      y: -height / 2,
+      z: -300,
+      decay: 1,
+      name: "后",
+      intensity: 200,
+      // showHelper: true,
+      showGui: true,
+      angle: 0.6,
+      penumbra: 1,
+      target: {
+        x: width / 2,
+        y: -height / 2,
+        z: 0,
+      },
+    });
 };
 export default createLight;

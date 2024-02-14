@@ -41,11 +41,16 @@ const ThreeD: ThreeDObject = {};
 // 定义一个组， 这个组用来存放所有的子元素，对应一些类中的 mainGroup, 也方便清空整个场景
 const mainGroup = new THREE.Group();
 
+createSize();
+
+// 创建一系列的灯光
+createLight(320, 200, mainGroup);
+
 /**
  * 初始化3D场景，并返回所有3D模型(ThreeDObject)
  */
 const init3D = (params: Params): ThreeDObject => {
-  const { container, width, height, data } = params;
+  const { container, data } = params;
 
   // 在传入的container容器里渲染3D
   const containerDom = document.getElementById(container);
@@ -55,10 +60,7 @@ const init3D = (params: Params): ThreeDObject => {
     throw new Error(`${container} 容器不存在`);
   }
 
-  createSize();
 
-  // 创建一系列的灯光
-  createLight(width, height, mainGroup);
 
   // 根据传入的数据渲染3D模型,并赋值给ThreeD对象
   Object.keys(data).forEach((key) => {
@@ -78,9 +80,9 @@ const init3D = (params: Params): ThreeDObject => {
   // 重新设置摄像机位置，应根据 mainGroup的位置来调整
   controls.minDistance = 100;
   controls.maxDistance = 500;
-  camera.position.set(160, -100, 350);
-  camera.lookAt(160, -100, 0);
-  controls.target.copy(new THREE.Vector3(160, -100, 0));
+  camera.position.set(155, -100, 350);
+  camera.lookAt(155, -100, 0);
+  controls.target.copy(new THREE.Vector3(155, -100, 0));
   controls.update();
   renderer.render();
 

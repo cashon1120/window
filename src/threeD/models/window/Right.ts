@@ -48,6 +48,7 @@ class RightFrame extends Bar {
       roughness: 0.5,
     });
     const mesh2 = new THREE.Mesh(geometry2, material2);
+    mesh2.userData.disableUpdate = true;
     mesh2.translateX(-3);
     this.innerGroup.add(mesh2);
 

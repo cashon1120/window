@@ -22,7 +22,7 @@ class BottomFrame extends Bar {
     // 两个轨道，为了两边不重叠，稍微短一点
     const geometry2 = new THREE.CylinderGeometry(0.6, 0.6, width - 0.05);
     const material2 = new THREE.MeshPhysicalMaterial({
-      color: "#4E646E",
+      color,
       roughness: 0.2,
       metalness: 0,
       envMapIntensity: 1,

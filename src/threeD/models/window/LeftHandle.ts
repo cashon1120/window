@@ -48,6 +48,7 @@ class Handle {
     });
     let mesh = new THREE.Mesh(geometry, material);
     mesh.castShadow = true;
+    mesh.userData.disableUpdate = true
     // mesh.receiveShadow = true
     mesh.name = "handle";
     mesh.translateY(-this.height / 2 - 10);
@@ -76,6 +77,7 @@ class Handle {
 
     mesh = new THREE.Mesh(geometry, material);
     mesh.castShadow = true;
+    mesh.userData.disableUpdate = true
     mesh.name = "handle";
     mesh.translateY(-this.height / 2 - 22);
     mesh.translateX(0.61)

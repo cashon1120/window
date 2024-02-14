@@ -12,6 +12,8 @@ const props = {
   },
 };
 
+const color = '#4a616b'
+
 /**
  * 测试数据的格式要按 Data 来
  */
@@ -24,6 +26,7 @@ const data: Data = {
       top: 0,
       height: 3,
       width: 320,
+      color
     },
     ...JSON.parse(JSON.stringify(props)),
   },
@@ -36,6 +39,7 @@ const data: Data = {
       top: 0,
       height: 200,
       width: 3,
+      color
     },
   },
   bottomFrame: {
@@ -47,6 +51,7 @@ const data: Data = {
       top: 197,
       height: 3,
       width: 320,
+      color
     },
   },
   leftFrame: {
@@ -58,6 +63,7 @@ const data: Data = {
       top: 0,
       height: 200,
       width: 3,
+      color
     },
   },
   window1: {
@@ -71,6 +77,7 @@ const data: Data = {
       offsetZ: 2.5,
       // 暂时用这个来判断把手的样式
       type: 'left',
+      color
     },
     minSize: 15,
     ...JSON.parse(JSON.stringify(props)),
@@ -84,7 +91,8 @@ const data: Data = {
       height: 194,
       width: 160,
       offsetZ: -2.5,
-      type: 'right'
+      type: 'right',
+      color
     },
     minSize: 15,
     ...JSON.parse(JSON.stringify(props)),

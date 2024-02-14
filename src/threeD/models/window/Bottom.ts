@@ -40,6 +40,7 @@ class BottomFrame extends Bar {
       roughness: 0.5,
     });
     const mesh2 = new THREE.Mesh(geometry2, material2);
+    mesh2.userData.disableUpdate = true;
     mesh2.translateY(4);
     this.innerGroup.add(mesh2);
 

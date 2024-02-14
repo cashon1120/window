@@ -29,8 +29,8 @@ class LeftFrame extends Bar {
     );
     const geometry = createRoundedGeometry(shape, extrudeSettings);
     const mesh = new THREE.Mesh(geometry, material);
-    mesh.castShadow = true
-    mesh.receiveShadow = true
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
     mesh.position.set(
       -width / 2 + extrudeSettings.bevelSize,
       -height / 2 + extrudeSettings.bevelSize * 2,
@@ -44,7 +44,6 @@ class LeftFrame extends Bar {
       this.group.add(this.handle.group);
     }
 
-
     // 玻璃的那个胶套, 为了两边不重叠，稍微短一点
     const geometry2 = new THREE.BoxGeometry(2, height - 0.05, 1);
     const material2 = new THREE.MeshPhysicalMaterial({
@@ -53,6 +52,7 @@ class LeftFrame extends Bar {
       roughness: 0.5,
     });
     const mesh2 = new THREE.Mesh(geometry2, material2);
+    mesh2.userData.disableUpdate = true;
     mesh2.translateX(3);
     this.innerGroup.add(mesh2);
     this.init();
