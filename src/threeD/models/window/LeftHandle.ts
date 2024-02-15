@@ -37,24 +37,15 @@ class Handle {
     this.group = new THREE.Group();
     let shape = createRoundedRect(0, 0, 1, 14, 0.8);
     let geometry = createRoundedGeometry(shape, extrudeSettings);
-    // const material = new THREE.MeshPhysicalMaterial({
-    //   color: "#fafafa",
-    //   side: THREE.DoubleSide,
-    //   roughness: 0.2,
-    //   metalness: 0.9,
-    //   envMapIntensity: 1,
-    //   ior: 1.5,
-    //   emissive: "#111111",
-    // });
 
     const material = new THREE.MeshPhysicalMaterial({
-      // color: "#fafafa",
-      // map: texture,
-      clearcoat: 1.0,
+      color: "#fafafa",
+      side: THREE.DoubleSide,
       roughness: 0.2,
       metalness: 0.9,
       envMapIntensity: 1,
       ior: 1.5,
+      emissive: "#111111",
     });
 
     let mesh = new THREE.Mesh(geometry, material);

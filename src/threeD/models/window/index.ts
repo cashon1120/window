@@ -6,7 +6,7 @@ import Left from "./Left";
 import Top from "./Top";
 import Right from "./Right";
 import Bottom from "./Bottom";
-import { ValueObj } from '@/types'
+import { ValueObj } from "@/types";
 
 // 设置窗户各个边框的宽度或者高度，注意和实际宽高的区分
 export const LEFT_BAR_SIZE = 5;
@@ -78,12 +78,12 @@ class Frame extends Rect {
       );
       const glassMesh = new THREE.Mesh(glassGemotery, glassMaterial);
       glassMesh.castShadow = true;
-      glassMesh.name = 'glass'
+      glassMesh.name = "glass";
       const glassGroup = new THREE.Group();
       glassGroup.position.set(this.left, this.top, 0);
       glassMesh.position.set(width / 2, -height / 2 - LEFT_BAR_SIZE, 0);
       glassGroup.add(glassMesh);
-      glassMesh.userData.disableUpdate = true
+      glassMesh.userData.disableUpdate = true;
       this.group.add(glassGroup);
     }
 
@@ -93,7 +93,7 @@ class Frame extends Rect {
       width,
       left,
       top,
-      color
+      color,
     });
     this.rightBar = new Right({
       height,
@@ -147,17 +147,29 @@ class Frame extends Rect {
           };
           animation();
         }
+      },
+      (
+        result: THREE.Intersection<THREE.Object3D<THREE.Object3DEventMap>>[]
+      ) => {
+        if (result.length > 0 && result[0].object.name === "handle") {
+          document.body.style.cursor = "pointer";
+          setTimeout(() => {
+            document.body.style.cursor = "pointer";
+          }, 0);
+        } else {
+          document.body.style.cursor = "default";
+        }
       }
     );
     this.init();
   }
 
   updateMaterial = (obj: ValueObj) => {
-    this.topBar.updateMaterial(obj)
-    this.leftBar.updateMaterial(obj)
-    this.rightBar.updateMaterial(obj)
-    this.bottomBar.updateMaterial(obj)
-  }
+    this.topBar.updateMaterial(obj);
+    this.leftBar.updateMaterial(obj);
+    this.rightBar.updateMaterial(obj);
+    this.bottomBar.updateMaterial(obj);
+  };
 }
 
 export default Frame;
