@@ -117,7 +117,6 @@ class RightFrame extends Bar {
   };
 
   setMapAttribute = (map: THREE.Texture) => {
-    console.log(123)
     map.offset.set(0, 0.5);
     map.repeat.set(0.002, 0.002);
     return map

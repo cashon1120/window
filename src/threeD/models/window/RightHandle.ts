@@ -54,6 +54,7 @@ class Handle {
     });
     mesh = new THREE.Mesh(geometry, material);
     mesh.castShadow = true;
+    mesh.name = "handle";
     mesh.userData.disableUpdate = true;
     mesh.translateY(-this.height / 2 - 8.5);
     mesh.scale.set(1, 1, 0.8);
