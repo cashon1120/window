@@ -26,7 +26,6 @@ class TopFrame extends Bar {
     );
 
     const geometry = createRoundedGeometry(shape, extrudeSettings);
-    
     const mesh = new THREE.Mesh(geometry, material);
     // mesh.castShadow = true
     mesh.receiveShadow = true

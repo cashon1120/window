@@ -115,6 +115,13 @@ class RightFrame extends Bar {
     };
     render();
   };
+
+  setMapAttribute = (map: THREE.Texture) => {
+    console.log(123)
+    map.offset.set(0, 0.5);
+    map.repeat.set(0.002, 0.002);
+    return map
+  }
 }
 
 export default RightFrame;

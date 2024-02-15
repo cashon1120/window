@@ -1,36 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import * as THREE from "three";
 import { useEffect, useState } from "react";
 import { renderer } from "./threeD/common";
 import { init3D, reset3D } from "./threeD/index";
+import { ValueObj } from '@/types'
 
 import dataObj from "./data";
 import "./index.less";
 
-const colorList = ['#4a616b', '#35441d', '#1e2733']
 
-const findGroupChildren = (children: any[], color: string) => {
-  children.forEach((item: any) => {
-    if (item.isGroup) {
-      findGroupChildren(item.children, color)
-    }
-    if (item.isMesh && !item.userData.disableUpdate) {
-      item.material.color = new THREE.Color(color)
-    }
-  })
-}
+const colorList: ValueObj[] = [
+  { type: 'color', value: { color: '#4a616b' } },
+  { type: 'color', value: { color: '#181e26' } },
+  { type: 'color', value: { color: '#a8abad' } },
+]
 
 
 function App() {
   const [threeD, setThreeD] = useState<any>({});
-  const [activeColor, setActiveColor] = useState(colorList[0])
-  const handleChangeColor = (color: string) => {
-    setActiveColor(color)
+  const [activeValue, setActiveValue] = useState(colorList[0].value)
+  const handleChangeColor = (obj: ValueObj) => {
+    setActiveValue(obj.value)
     Object.keys(threeD).forEach((key: string) => {
-      if (threeD[key].group) {
-        findGroupChildren(threeD[key].group.children, color)
-      }
+      threeD[key].updateMaterial && threeD[key].updateMaterial(obj)
     })
     renderer.render()
   }
@@ -47,7 +39,7 @@ function App() {
 
   return <>
     <ul className="colors">
-      {colorList.map((color: string) => <li key={color} className={activeColor === color ? 'active' : ''} style={{ background: color }} onClick={() => { handleChangeColor(color) }}></li>)}
+      {colorList.map((item) => <li key={item.value.color} className={activeValue === item.value ? 'active' : ''} style={{ background: item.value.color }} onClick={() => { handleChangeColor(item) }}></li>)}
     </ul>
   </>;
 }

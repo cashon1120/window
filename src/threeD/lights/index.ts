@@ -1,15 +1,11 @@
-import { camera, controls } from "../common";
-
 import createAmbientLight from "./ambientLight";
-import createPointLight from "./pointLight";
 import createSpotLight from "./spotLight";
-import createDirectionalLight from "./directionalLight";
 
 // 修改文件后避免再次渲染灯光
 let isCreated = false;
 
 // 创建一系列的灯光, 每个灯光可传入 showHelper / showGui 来显示辅助线和调相关参数
-const createLight = (width: number, height: number, mainGroup: THREE.Group) => {
+const createLight = (width: number, height: number) => {
   if (isCreated) return;
   isCreated = true;
   // 环境光

@@ -21,6 +21,11 @@ class TopFrame extends Bar {
     this.innerGroup.add(mesh);
     this.init()
   }
+  setMapAttribute = (map: THREE.Texture) => {
+    map.offset.set(1, 1);
+    map.repeat.set(100, 30);
+    return map
+  }
 }
 
 export default TopFrame;

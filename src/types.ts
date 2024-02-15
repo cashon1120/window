@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as Models from "@/threeD/models";
 
 /**
@@ -84,4 +85,14 @@ export interface ReactRectProps {
     minWidth?: number;
     minHeight?: number;
   };
+}
+
+
+export interface ValueObj {
+  type: 'color' | 'map',
+  value: {
+    color: string;
+    map?: any;
+    normalmap?: any;
+  }
 }

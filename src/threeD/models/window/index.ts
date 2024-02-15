@@ -6,6 +6,7 @@ import Left from "./Left";
 import Top from "./Top";
 import Right from "./Right";
 import Bottom from "./Bottom";
+import { ValueObj } from '@/types'
 
 // 设置窗户各个边框的宽度或者高度，注意和实际宽高的区分
 export const LEFT_BAR_SIZE = 5;
@@ -149,6 +150,13 @@ class Frame extends Rect {
       }
     );
     this.init();
+  }
+
+  updateMaterial = (obj: ValueObj) => {
+    this.topBar.updateMaterial(obj)
+    this.leftBar.updateMaterial(obj)
+    this.rightBar.updateMaterial(obj)
+    this.bottomBar.updateMaterial(obj)
   }
 }
 

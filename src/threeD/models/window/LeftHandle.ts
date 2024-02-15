@@ -37,18 +37,29 @@ class Handle {
     this.group = new THREE.Group();
     let shape = createRoundedRect(0, 0, 1, 14, 0.8);
     let geometry = createRoundedGeometry(shape, extrudeSettings);
+    // const material = new THREE.MeshPhysicalMaterial({
+    //   color: "#fafafa",
+    //   side: THREE.DoubleSide,
+    //   roughness: 0.2,
+    //   metalness: 0.9,
+    //   envMapIntensity: 1,
+    //   ior: 1.5,
+    //   emissive: "#111111",
+    // });
+
     const material = new THREE.MeshPhysicalMaterial({
-      color: "#fafafa",
-      side: THREE.DoubleSide,
+      // color: "#fafafa",
+      // map: texture,
+      clearcoat: 1.0,
       roughness: 0.2,
       metalness: 0.9,
       envMapIntensity: 1,
       ior: 1.5,
-      emissive: "#111111",
     });
+
     let mesh = new THREE.Mesh(geometry, material);
     mesh.castShadow = true;
-    mesh.userData.disableUpdate = true
+    mesh.userData.disableUpdate = true;
     // mesh.receiveShadow = true
     mesh.name = "handle";
     mesh.translateY(-this.height / 2 - 10);
@@ -77,10 +88,10 @@ class Handle {
 
     mesh = new THREE.Mesh(geometry, material);
     mesh.castShadow = true;
-    mesh.userData.disableUpdate = true
+    mesh.userData.disableUpdate = true;
     mesh.name = "handle";
     mesh.translateY(-this.height / 2 - 22);
-    mesh.translateX(0.61)
+    mesh.translateX(0.61);
     mesh.translateZ(7);
     mesh.rotateY(Math.PI / 2);
     this.group.add(mesh);
