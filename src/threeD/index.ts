@@ -44,7 +44,7 @@ const mainGroup = new THREE.Group();
 createSize();
 
 // 创建一系列的灯光
-createLight(320, 200, mainGroup);
+createLight(320, 200);
 
 /**
  * 初始化3D场景，并返回所有3D模型(ThreeDObject)

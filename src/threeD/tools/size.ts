@@ -38,11 +38,11 @@ const createSize = () => {
       ];
       let geometry = new TextGeometry("1600", textAttr);
       let textMesh = new THREE.Mesh(geometry, materials);
-      textMesh.position.set(75, -215, 0);
+      textMesh.position.set(74, -215, 0);
       scene.add(textMesh);
 
       textMesh = new THREE.Mesh(geometry, materials);
-      textMesh.position.set(235, -215, 0);
+      textMesh.position.set(230, -215, 0);
       scene.add(textMesh);
 
       geometry = new TextGeometry("3200", textAttr);

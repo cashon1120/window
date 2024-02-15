@@ -7,7 +7,10 @@ import Top from "./Top";
 import Right from "./Right";
 import Bottom from "./Bottom";
 import { ValueObj } from "@/types";
+import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
+import { FontLoader } from "three/addons/loaders/FontLoader.js";
 
+const loader = new FontLoader();
 // 设置窗户各个边框的宽度或者高度，注意和实际宽高的区分
 export const LEFT_BAR_SIZE = 5;
 export const TOP_BAR_SIZE = 5;
@@ -85,6 +88,53 @@ class Frame extends Rect {
       glassGroup.add(glassMesh);
       glassMesh.userData.disableUpdate = true;
       this.group.add(glassGroup);
+
+      loader.load(
+        "fonts/optimer_regular.typeface.json",
+        // onLoad callback
+        (font) => {
+          const textAttr = {
+            font,
+            // 文本大小
+            color: '#000000',
+            size: 4,
+            weight: 'bold',
+            // 文本厚度
+            height: 0.1,
+            // 文本曲线上点的数量, 默认12
+            curveSegments: 12,
+            // 是否开启斜角
+            bevelEnabled: false,
+            // 斜角的深度
+            bevelThickness: 0,
+            // 表示斜角与原始文本轮廓之间的延伸距离
+            bevelSize: 1,
+            bevelOffset: 1,
+            // 斜角的分段数，默认值3
+            bevelSegments: 0,
+          };
+          const materials = [
+            new THREE.MeshBasicMaterial({
+              color: 0x666666,
+            }),
+          ];
+          const textGroup = new THREE.Group();
+          let geometry = new TextGeometry("SB1", textAttr);
+          let textMesh = new THREE.Mesh(geometry, materials);
+          textMesh.position.set(74, -170, 0);
+          textGroup.add(textMesh);
+
+          textAttr.weight = "normal";
+          geometry = new TextGeometry("6+27AR+6", textAttr);
+          textMesh = new THREE.Mesh(geometry, materials);
+          textMesh.position.set(64, -176, 0);
+          textGroup.add(textMesh);
+
+          textGroup.position.set(this.left, this.top, 0);
+          this.group.add(textGroup);
+          renderer.render();
+        }
+      );
     }
 
     // 分别创建四个边框，每个边框可以自己的基础model
