@@ -96,9 +96,9 @@ class Frame extends Rect {
           const textAttr = {
             font,
             // 文本大小
-            color: '#000000',
+            color: "#000000",
             size: 4,
-            weight: 'bold',
+            // weight: "bold",
             // 文本厚度
             height: 0.1,
             // 文本曲线上点的数量, 默认12
@@ -113,24 +113,52 @@ class Frame extends Rect {
             // 斜角的分段数，默认值3
             bevelSegments: 0,
           };
-          const materials = [
+          let materials = [
+            new THREE.MeshBasicMaterial({
+              color: 0x333,
+            }),
+          ];
+          const fontY = -152;
+          const textGroup = new THREE.Group();
+          let geometry = new TextGeometry("SB1", textAttr);
+          let textMesh = new THREE.Mesh(geometry, materials);
+          textMesh.position.set(74, fontY, 0);
+          textGroup.add(textMesh);
+          materials = [
             new THREE.MeshBasicMaterial({
               color: 0x666666,
             }),
           ];
-          const textGroup = new THREE.Group();
-          let geometry = new TextGeometry("SB1", textAttr);
-          let textMesh = new THREE.Mesh(geometry, materials);
-          textMesh.position.set(74, -170, 0);
-          textGroup.add(textMesh);
-
-          textAttr.weight = "normal";
           geometry = new TextGeometry("6+27AR+6", textAttr);
           textMesh = new THREE.Mesh(geometry, materials);
-          textMesh.position.set(64, -176, 0);
+          textMesh.position.set(64, fontY - 6, 0);
           textGroup.add(textMesh);
 
           textGroup.position.set(this.left, this.top, 0);
+
+
+          // if(type === 'right'){
+          //   geometry = new TextGeometry("执手离地H≈1400", textAttr);
+          //   textMesh = new THREE.Mesh(geometry, materials);
+          //   textMesh.position.set(64, fontY + 30, 0);
+          //   textGroup.add(textMesh);
+
+          //   geometry = new TextGeometry("3.98", textAttr);
+          //   textMesh = new THREE.Mesh(geometry, materials);
+          //   textMesh.position.set(64, fontY + 33, 0);
+          //   textGroup.add(textMesh);
+
+          //   geometry = new TextGeometry("m", textAttr);
+          //   textMesh = new THREE.Mesh(geometry, materials);
+          //   textMesh.position.set(64, fontY + 33, 0);
+          //   textGroup.add(textMesh);
+
+          //   geometry = new TextGeometry("2", textAttr);
+          //   textMesh = new THREE.Mesh(geometry, materials);
+          //   textMesh.position.set(64, fontY + 33, 0);
+          //   textGroup.add(textMesh);
+          // }
+
           this.group.add(textGroup);
           renderer.render();
         }

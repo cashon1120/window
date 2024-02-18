@@ -12,7 +12,7 @@ const props = {
   },
 };
 
-const color = '#4a616b'
+const color = '#435962'
 
 /**
  * 测试数据的格式要按 Data 来
@@ -37,7 +37,7 @@ const data: Data = {
     attribute: {
       left: 317,
       top: 0,
-      height: 200,
+      height: 178,
       width: 3,
       color
     },
@@ -48,7 +48,7 @@ const data: Data = {
     ...JSON.parse(JSON.stringify(props)),
     attribute: {
       left: 0,
-      top: 197,
+      top: 175,
       height: 3,
       width: 320,
       color
@@ -61,7 +61,7 @@ const data: Data = {
     attribute: {
       left: 0,
       top: 0,
-      height: 200,
+      height: 178,
       width: 3,
       color
     },
@@ -72,7 +72,7 @@ const data: Data = {
     attribute: {
       left: 3,
       top: 3,
-      height: 194,
+      height: 172,
       width: 160,
       offsetZ: 2.5,
       // 暂时用这个来判断把手的样式
@@ -88,7 +88,7 @@ const data: Data = {
     attribute: {
       left: 157,
       top: 3,
-      height: 194,
+      height: 172,
       width: 160,
       offsetZ: -2.5,
       type: 'right',

@@ -28,8 +28,8 @@ interface BooleanProps {
 }
 
 // 这里来切换是否要显示gui
-// const gui: GUI | null = null;
-const gui: GUI | null = new GUI();
+const gui: GUI | null = null;
+// const gui: GUI | null = new GUI();
 
 // 位置控制
 export const guiPosition = (params: PositionProps) => {

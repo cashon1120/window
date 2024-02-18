@@ -10,7 +10,7 @@ import "./index.less";
 
 
 const colorList: ValueObj[] = [
-  { type: 'color', value: { color: '#4a616b' } },
+  { type: 'color', value: { color: '#435962' } },
   { type: 'color', value: { color: '#181e26' } },
   { type: 'color', value: { color: '#a8abad' } },
 ]
