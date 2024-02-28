@@ -51,7 +51,7 @@ class Three {
       1,
       10000
     );
-    this.camera.position.set(0, 0, (controls?.minDistance || 100) + 300)
+    this.camera.position.set(0, 0, (controls?.minDistance || 100) + 300);
     const renderer = new THREE.WebGLRenderer({
       antialias: true, // 是否抗锯齿
       alpha: true, // 是否可以设置背景色透明
@@ -71,7 +71,6 @@ class Three {
     // 注意这里的位置，后面需要优化
     this.controls.minDistance = controls?.minDistance || 100;
     this.controls.maxDistance = controls?.maxDistance || 1000;
-  
 
     // 创建所有模型,注意这里的位置，必须在render, scene, 创建之后执行
     this.createModel(data);
@@ -135,6 +134,7 @@ class Three {
 
   resetMainGroup = () => {
     const box = new THREE.Box3();
+    this.mainGroup.scale.set(0.5, 0.5, 0.5);
     const { max, min } = box.expandByObject(this.mainGroup);
     const offsetX = -max.x / 2;
     const offsetY = -min.y / 2;
@@ -173,7 +173,6 @@ class Three {
   clear = () => {
     for (let i = 0; i < this.scene.children.length; i++) {
       const obj = this.scene.children[i];
-      console.log(obj);
       if (!obj.userData.disableRemove) {
         this.scene.remove(obj);
       }
