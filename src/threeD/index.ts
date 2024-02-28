@@ -1,62 +1,49 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as THREE from "three";
 import * as Models from "./models";
-import {
-  BottomFrame,
-  TopFrame,
-  LeftFrame,
-  RightFrame,
-  NormalBar,
-  Window,
-} from "./models";
-import createLight from "./lights";
 import Three from "./Three";
+import createLight from "./lights";
 import createSize from "./tools/size";
 import { Data } from "../types";
 
 interface Params {
   container: string;
-  width: number;
-  height: number;
   data: Data;
 }
 
-// 所有模型的类
-export type Model =
-  | BottomFrame
-  | TopFrame
-  | LeftFrame
-  | RightFrame
-  | NormalBar
-  | Window;
-
-export interface ThreeDObject {
-  [key: string]: Model;
-}
-
-// 用来存放所有的3D模型
-const ThreeD: ThreeDObject = {};
-
-
 /**
- * 初始化3D场景，并返回所有3D实例
+ * 初始化3D场景，并返回3D实例
  */
 const init3D = (params: Params): Three => {
   const { container, data } = params;
-  if (!document.getElementById(container)){
+  if (!document.getElementById(container)) {
     throw new Error(`${container} 容器不存在`);
   }
-  const three = new Three({container, showStats: true, showGui: true, showHelper: true})
+  const three = new Three({
+    container,
+    showStats: true,
+    showGui: true,
+    showHelper: {
+      color: '#333333'
+    },
+  });
+  // 创建相关尺寸
   createSize(three);
+
+  // 创建一系列灯光，
   createLight(320, 200, three);
-  // 根据传入的数据渲染3D模型,并赋值给ThreeD对象
+
+  // 根据传入的数据渲染3D模型
   Object.keys(data).forEach((key) => {
     const modelName = data[key].model;
     if (Models[modelName]) {
-      ThreeD[key] = new Models[modelName]({
-        ...data[key].attribute,
-        threeInstance: three,
-      });
+      three.saveObjects(
+        new Models[modelName]({
+          ...data[key].attribute,
+          threeInstance: three,
+        }),
+        key
+      );
     } else {
       throw new Error(`没有找到 ${modelName} 模型`);
     }
@@ -81,4 +68,3 @@ const reset3D = () => {
 };
 
 export { init3D, reset3D };
-

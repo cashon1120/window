@@ -1,5 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as Models from "@/threeD/models";
+import {
+  BottomFrame,
+  TopFrame,
+  LeftFrame,
+  RightFrame,
+  NormalBar,
+  Window,
+} from "./models";
 
 /**
  * 原始数据
@@ -21,6 +29,19 @@ export interface Data {
     minSize?: number;
   };
 }
+
+
+/**
+ * 所有模型的类
+*/
+export type Model =
+  | BottomFrame
+  | TopFrame
+  | LeftFrame
+  | RightFrame
+  | NormalBar
+  | Window;
+
 
 
 /**
@@ -87,7 +108,9 @@ export interface ReactRectProps {
   };
 }
 
-
+/**
+ * 更新材质的数据
+*/
 export interface ValueObj {
   type: 'color' | 'map',
   value: {
@@ -95,4 +118,11 @@ export interface ValueObj {
     map?: any;
     normalmap?: any;
   }
+}
+
+/**
+ * 3D模型
+*/
+export interface ThreeDObject {
+  [key: string]: Model;
 }

@@ -4,23 +4,33 @@ import Gui from "./gui";
 interface HelperParams {
   scene: THREE.Scene;
   guiInstance?: Gui;
+  color?: string | number;
+  size?: number;
+  divisions?: number;
 }
 
 class Helper {
   scene: THREE.Scene;
   guiInstance?: Gui;
   constructor(params: HelperParams) {
-    const { scene,  guiInstance } = params;
+    const {
+      scene,
+      guiInstance,
+      color = 0xfafafa,
+      size = 1000,
+      divisions = 10,
+    } = params;
     this.scene = scene;
     this.guiInstance = guiInstance;
-    this.init();
+    this.init(color, size, divisions);
   }
-  init = () => {
+  init = (color: string | number, size: number, divisions: number) => {
     const { scene } = this;
+    // 坐标辅助
     const axesHelper = new THREE.AxesHelper(350);
-    const gridHelper = new THREE.GridHelper(1000, 80, 0xfafafa, 0xfafafa);
+    // 地面网格辅助
+    const gridHelper = new THREE.GridHelper(size, divisions, color, color);
     scene.add(axesHelper);
-    // 添加网格辅助线
     scene.add(gridHelper);
     if (this.guiInstance) {
       const folder = this.guiInstance.gui.addFolder("辅助");

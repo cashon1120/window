@@ -30,8 +30,6 @@ function App() {
 
   useEffect(() => {
     setThree(init3D({
-      width: 320,
-      height: 200,
       data: dataObj,
       container: "threeD",
     }))

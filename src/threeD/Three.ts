@@ -4,32 +4,16 @@ import Stats from "three/addons/libs/stats.module.js";
 import Gui from "./common/gui";
 import Helper from "./common/helper";
 
-import {
-  BottomFrame,
-  TopFrame,
-  LeftFrame,
-  RightFrame,
-  NormalBar,
-  Window,
-} from "./models";
-import { ValueObj } from "@/types";
+import { ValueObj, Model, ThreeDObject } from "./types";
 
 interface Params {
-  // 渲染容易的ID，注意是ID
+  // 渲染容器的ID，注意是ID
   container: string;
-  showHelper?: boolean;
+  showHelper?: {
+    color?: string;
+  };
   showGui?: boolean;
   showStats?: boolean;
-}
-export type Model =
-  | BottomFrame
-  | TopFrame
-  | LeftFrame
-  | RightFrame
-  | NormalBar
-  | Window;
-export interface ThreeDObject {
-  [key: string]: Model;
 }
 
 class Three {
@@ -41,27 +25,19 @@ class Three {
   controls: OrbitControls;
   stats: Stats | null = null;
   guiInstance: Gui | undefined = undefined;
-  Objects: ThreeDObject;
+  objects: ThreeDObject; // 保存所有3d对象
   constructor(params: Params) {
     const { container, showHelper, showStats, showGui } = params;
-
     this.containerDom = document.getElementById(container);
     if (!this.containerDom) {
       throw new Error(`${container} 容器不存在`);
     }
-    const width = this.containerDom.offsetWidth;
-    const height = this.containerDom.offsetHeight;
+    const { offsetWidth: width, offsetHeight: height } = this.containerDom;
+    this.objects = {};
     this.scene = new THREE.Scene();
     this.mainGroup = new THREE.Group();
-    this.Objects = {};
     this.camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
-    // 性能监视插件
-    if (showStats) {
-      this.stats = new Stats();
-      this.containerDom.appendChild(this.stats.dom);
-    }
-
-    this.renderer = new THREE.WebGLRenderer({
+    const renderer = new THREE.WebGLRenderer({
       antialias: true, // 是否抗锯齿
       alpha: true, // 是否可以设置背景色透明
       precision: "mediump", // highp/mediump/lowp 表示着色精度选择
@@ -69,15 +45,22 @@ class Three {
       // preserveDrawingBuffer: false, // 是否保存绘图缓冲
       // physicallyCorrectLights: true, // 是否开启物理光照
     });
-    this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.setSize(width, height);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(width, height);
     // 设置渲染器，允许光源阴影渲染
-    this.renderer.shadowMap.enabled = true;
-    this.containerDom.appendChild(this.renderer.domElement);
+    renderer.shadowMap.enabled = true;
+    this.containerDom.appendChild(renderer.domElement);
     this.scene.add(this.mainGroup);
-    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    this.controls = new OrbitControls(this.camera, renderer.domElement);
+    this.renderer = renderer;
+    const { scene, camera } = this;
 
-    const {renderer,scene, camera} = this
+    // 性能监视插件
+    if (showStats) {
+      this.stats = new Stats();
+      this.containerDom.appendChild(this.stats.dom);
+    }
+
     // 显示gui
     if (showGui) {
       this.guiInstance = new Gui({
@@ -91,7 +74,8 @@ class Three {
     if (showHelper) {
       new Helper({
         scene,
-        guiInstance: this.guiInstance 
+        guiInstance: this.guiInstance,
+        color: showHelper.color
       });
     }
 
@@ -99,20 +83,26 @@ class Three {
     this.render();
   }
 
-  // 更新颜色
+  // 更新材质或颜色
   updateMaterials = (obj: ValueObj) => {
-    const { Objects } = this;
-    Object.keys(Objects).forEach((key: string) => {
-      Objects[key].updateMaterial && Objects[key].updateMaterial(obj);
+    const { objects } = this;
+    Object.keys(objects).forEach((key: string) => {
+      objects[key].updateMaterial && objects[key].updateMaterial(obj);
     });
+    this.render();
+  };
+
+  saveObjects = (model: Model, key: string) => {
+    this.objects[key] = model;
   };
 
   /**
-   * 重新渲染
+   * 渲染
    */
   render = () => {
-    this.renderer.render(this.scene, this.camera);
-    this.stats && this.stats.update();
+    const { renderer, scene, camera, stats } = this;
+    renderer.render(scene, camera);
+    stats && stats.update();
   };
 
   /**
@@ -126,21 +116,21 @@ class Three {
    * 绑定一些事件
    */
   addEventListener = () => {
+    const { renderer, camera, render, containerDom, controls, stats } = this;
     window.addEventListener("resize", () => {
-      if (!this.containerDom) {
+      if (!containerDom) {
         return;
       }
-      const width = this.containerDom.offsetWidth;
-      const height = this.containerDom.offsetHeight;
-      this.renderer.setSize(width, height);
-      this.camera.aspect = width / height;
-      this.camera.updateProjectionMatrix();
-      this.render();
+      const { offsetWidth, offsetHeight } = containerDom;
+      renderer.setSize(offsetWidth, offsetHeight);
+      camera.aspect = offsetWidth / offsetHeight;
+      camera.updateProjectionMatrix();
+      render();
     });
 
-    this.controls.addEventListener("change", () => {
-      this.stats && this.stats.update();
-      this.render();
+    controls.addEventListener("change", () => {
+      stats && stats.update();
+      render();
     });
   };
 }
