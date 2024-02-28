@@ -13,10 +13,10 @@ import { FontLoader } from "three/addons/loaders/FontLoader.js";
 
 const loader = new FontLoader();
 // 设置窗户各个边框的宽度或者高度，注意和实际宽高的区分
-export const LEFT_BAR_SIZE = 5;
-export const TOP_BAR_SIZE = 5;
-export const RIGHT_BAR_SIZE = 5;
-export const BOTTOM_BAR_SIZE = 5;
+export const LEFT_BAR_SIZE = 50;
+export const TOP_BAR_SIZE = 50;
+export const RIGHT_BAR_SIZE = 50;
+export const BOTTOM_BAR_SIZE = 50;
 
 export interface FrameProps {
   threeInstance: Three; 
@@ -98,7 +98,7 @@ class Frame extends Rect {
             font,
             // 文本大小
             color: "#000000",
-            size: 4,
+            size: 40,
             // weight: "bold",
             // 文本厚度
             height: 0.1,
@@ -119,11 +119,11 @@ class Frame extends Rect {
               color: 0x333,
             }),
           ];
-          const fontY = -152;
+          const fontY = -1520;
           const textGroup = new THREE.Group();
           let geometry = new TextGeometry("SB1", textAttr);
           let textMesh = new THREE.Mesh(geometry, materials);
-          textMesh.position.set(74, fontY, 0);
+          textMesh.position.set(740, fontY, 0);
           textGroup.add(textMesh);
           materials = [
             new THREE.MeshBasicMaterial({
@@ -132,7 +132,7 @@ class Frame extends Rect {
           ];
           geometry = new TextGeometry("6+27AR+6", textAttr);
           textMesh = new THREE.Mesh(geometry, materials);
-          textMesh.position.set(64, fontY - 6, 0);
+          textMesh.position.set(640, fontY - 60, 0);
           textGroup.add(textMesh);
 
           textGroup.position.set(this.left, this.top, 0);

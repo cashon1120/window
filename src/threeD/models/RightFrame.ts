@@ -11,7 +11,7 @@ class RightFrame extends Bar {
   constructor(params: BarProps) {
     params.width = params.width || 5;
     super(params);
-    const { height, width = 5, depth = 11, color = "#4E646E" } = params;
+    const { height, width = 50, depth = 110, color = "#4E646E" } = params;
     const geometry = new THREE.BoxGeometry(width, height, depth);
     const material = new THREE.MeshPhongMaterial({
       color,

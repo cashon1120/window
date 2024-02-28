@@ -9,7 +9,7 @@ class BottomFrame extends Bar {
   constructor(params: BarProps) {
     params.height = params.height || 5;
     super(params);
-    const { height = 5, width, color = "#4E646E" } = params;
+    const { height = 50, width, color = "#4E646E" } = params;
     const material = new THREE.MeshPhongMaterial({
       color,
       shininess: 100,

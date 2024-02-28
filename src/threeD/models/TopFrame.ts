@@ -9,7 +9,7 @@ class TopFrame extends Bar {
     params.height = params.height || 5
     params.align = params.align || 'left-top'
     super(params);
-    const { height = 5, width, depth = 11, color = "#4E646E" } = params;
+    const { height = 50, width, depth = 110, color = "#4E646E" } = params;
     const geometry = new THREE.BoxGeometry(width, height, depth);
     const material = new THREE.MeshPhongMaterial({
       color,

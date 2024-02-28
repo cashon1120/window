@@ -1,5 +1,5 @@
 const extrudeSettings = {
-  depth: 4,
+  depth: 40,
   // 对挤出的形状应用是否斜角
   // bevelEnabled: true,
   //斜角的分段层数

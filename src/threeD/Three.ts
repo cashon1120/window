@@ -74,7 +74,7 @@ class Three {
 
     // 创建所有模型,注意这里的位置，必须在render, scene, 创建之后执行
     this.createModel(data);
-    
+
     const { scene, camera } = this;
     // 性能监视插件
     if (showStats) {
@@ -132,7 +132,8 @@ class Three {
 
   resetMainGroup = () => {
     const box = new THREE.Box3();
-    this.mainGroup.scale.set(0.5, 0.5, 0.5);
+    const scale = 0.1
+    this.mainGroup.scale.set(scale, scale, scale);
     const { max, min } = box.expandByObject(this.mainGroup);
     const offsetX = -max.x / 2;
     const offsetY = -min.y / 2;

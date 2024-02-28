@@ -56,7 +56,7 @@ class Handle {
     mesh.translateY(-this.height / 2 - 10);
     mesh.translateZ(3);
     mesh.rotateY(Math.PI / 2);
-
+    mesh.scale.set(10, 10, 10)
     this.group.add(mesh);
 
     const radius = 0.2;
@@ -85,6 +85,7 @@ class Handle {
     mesh.translateX(0.61);
     mesh.translateZ(7);
     mesh.rotateY(Math.PI / 2);
+    mesh.scale.set(10, 10, 10)
     this.group.add(mesh);
   }
 }

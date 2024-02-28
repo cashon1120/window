@@ -9,10 +9,10 @@ import { createRoundedRect, createRoundedGeometry } from "@/utils/roundedRect";
  */
 class TopFrame extends Bar {
   constructor(params: BarProps) {
-    params.height = params.height || 5;
+    params.height = params.height || 50;
     params.align = params.align || "left-top";
     super(params);
-    const { height = 5, width, color = "#4E646E" } = params;
+    const { height = 50, width, color = "#4E646E" } = params;
     const material = new THREE.MeshPhongMaterial({
       color,
       shininess: 100,

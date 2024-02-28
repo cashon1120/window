@@ -6,7 +6,7 @@ import Three from "../Three";
 // 修改文件后避免再次渲染
 let isCreated = false;
 const loader = new FontLoader();
-const bottom = -186
+const bottom = -1860
 
 const createSize = (threeInstance: Three) => {
   if (isCreated) return;
@@ -18,11 +18,11 @@ const createSize = (threeInstance: Three) => {
       const textAttr = {
         font,
         // 文本大小
-        size: 4,
+        size: 40,
         // 文本厚度
         height: 0.1,
         // 文本曲线上点的数量, 默认12
-        curveSegments: 12,
+        curveSegments: 120,
         // 是否开启斜角
         bevelEnabled: false,
         // 斜角的深度
@@ -40,20 +40,20 @@ const createSize = (threeInstance: Three) => {
       ];
       let geometry = new TextGeometry("1600", textAttr);
       let textMesh = new THREE.Mesh(geometry, materials);
-      textMesh.position.set(74, bottom - 5, 0);
+      textMesh.position.set(740, bottom - 50, 0);
       threeInstance.mainGroup.add(textMesh);
 
       textMesh = new THREE.Mesh(geometry, materials);
-      textMesh.position.set(230, bottom - 5, 0);
+      textMesh.position.set(2300, bottom - 50, 0);
       threeInstance.mainGroup.add(textMesh);
 
       geometry = new TextGeometry("3200", textAttr);
       textMesh = new THREE.Mesh(geometry, materials);
-      textMesh.position.set(154, bottom - 20, 0);
+      textMesh.position.set(1540, bottom - 200, 0);
       threeInstance.mainGroup.add(textMesh);
 
       textMesh = new THREE.Mesh(geometry, materials);
-      textMesh.position.set(345, -100, 0);
+      textMesh.position.set(3450, -1000, 0);
       threeInstance.mainGroup.add(textMesh);
 
       threeInstance.render();
@@ -63,12 +63,12 @@ const createSize = (threeInstance: Three) => {
   const material = new THREE.LineBasicMaterial({ color: 0x999999 });
   let xPointsArr = [
     new THREE.Vector3(0, bottom, 0),
-    new THREE.Vector3(0, bottom - 10, 0),
-    new THREE.Vector3(160, bottom - 10, 0),
-    new THREE.Vector3(160, bottom, 0),
-    new THREE.Vector3(160, bottom - 10, 0),
-    new THREE.Vector3(320, bottom - 10, 0),
-    new THREE.Vector3(320, bottom, 0),
+    new THREE.Vector3(0, bottom - 100, 0),
+    new THREE.Vector3(1600, bottom - 100, 0),
+    new THREE.Vector3(1600, bottom, 0),
+    new THREE.Vector3(1600, bottom - 100, 0),
+    new THREE.Vector3(3200, bottom - 100, 0),
+    new THREE.Vector3(3200, bottom, 0),
   ];
 
   let geometry = new THREE.BufferGeometry();
@@ -77,10 +77,10 @@ const createSize = (threeInstance: Three) => {
   threeInstance.mainGroup.add(line);
 
   xPointsArr = [
-    new THREE.Vector3(330, 0, 0),
-    new THREE.Vector3(340, 0, 0),
-    new THREE.Vector3(340, bottom + 6, 0),
-    new THREE.Vector3(330, bottom + 6, 0),
+    new THREE.Vector3(3300, 0, 0),
+    new THREE.Vector3(3400, 0, 0),
+    new THREE.Vector3(3400, bottom + 60, 0),
+    new THREE.Vector3(3300, bottom + 60, 0),
   ];
   geometry = new THREE.BufferGeometry();
   geometry.setFromPoints(xPointsArr);

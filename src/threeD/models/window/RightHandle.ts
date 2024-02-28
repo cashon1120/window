@@ -39,6 +39,7 @@ class Handle {
     mesh.translateX(-1);
     mesh.translateZ(2);
     mesh.rotateY(Math.PI / 2);
+    mesh.scale.set(10, 10, 10)
     this.group.add(mesh);
 
     shape = createRoundedRect(0, 0, 1, 10, 1);
@@ -61,6 +62,7 @@ class Handle {
     mesh.translateX(-0.8);
     mesh.translateZ(2.1);
     mesh.rotateY(Math.PI / 2);
+    mesh.scale.set(10, 10, 10)
     this.group.add(mesh);
   }
 }

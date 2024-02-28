@@ -13,9 +13,9 @@ class RightFrame extends Bar {
   _tempHeight: number;
   handle: LeftHandle | RightHandle;
   constructor(params: BarProps) {
-    params.width = params.width || 5;
+    params.width = params.width || 50;
     super(params);
-    const { height, width = 5, color = "#4E646E", type } = params;
+    const { height, width = 50, color = "#4E646E", type } = params;
     const material = new THREE.MeshPhongMaterial({
       color,
       shininess: 100,

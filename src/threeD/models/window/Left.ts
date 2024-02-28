@@ -11,10 +11,10 @@ import { createRoundedRect, createRoundedGeometry } from "@/utils/roundedRect";
 class LeftFrame extends Bar {
   handle: LeftHandle | RightHandle;
   constructor(params: BarProps) {
-    params.width = params.width || 5;
+    params.width = params.width || 50;
     params.align = params.align || "left-top";
     super(params);
-    const { height, width = 5, color = "#4E646E", type } = params;
+    const { height, width = 50, color = "#4E646E", type } = params;
     const material = new THREE.MeshPhongMaterial({
       color,
       shininess: 100,

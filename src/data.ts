@@ -24,8 +24,8 @@ const data: Data = {
     attribute: {
       left: 0,
       top: 0,
-      height: 3,
-      width: 320,
+      height: 30,
+      width: 3200,
       color
     },
     ...JSON.parse(JSON.stringify(props)),
@@ -35,10 +35,10 @@ const data: Data = {
     type: "vertical",
     ...JSON.parse(JSON.stringify(props)),
     attribute: {
-      left: 317,
+      left: 3170,
       top: 0,
-      height: 178,
-      width: 3,
+      height: 1780,
+      width: 30,
       color
     },
   },
@@ -48,9 +48,9 @@ const data: Data = {
     ...JSON.parse(JSON.stringify(props)),
     attribute: {
       left: 0,
-      top: 175,
-      height: 3,
-      width: 320,
+      top: 1750,
+      height: 30,
+      width: 3200,
       color
     },
   },
@@ -61,8 +61,8 @@ const data: Data = {
     attribute: {
       left: 0,
       top: 0,
-      height: 178,
-      width: 3,
+      height: 1780,
+      width: 30,
       color
     },
   },
@@ -70,10 +70,10 @@ const data: Data = {
     model: "Window",
     type: "rect",
     attribute: {
-      left: 3,
-      top: 3,
-      height: 172,
-      width: 160,
+      left: 30,
+      top: 30,
+      height: 1720,
+      width: 1600,
       offsetZ: 2.5,
       // 暂时用这个来判断把手的样式
       type: 'left',
@@ -86,15 +86,15 @@ const data: Data = {
     model: "Window",
     type: "rect",
     attribute: {
-      left: 157,
-      top: 3,
-      height: 172,
-      width: 160,
+      left: 1570,
+      top: 30,
+      height: 1720,
+      width: 1600,
       offsetZ: -2.5,
       type: 'right',
       color
     },
-    minSize: 15,
+    minSize: 150,
     ...JSON.parse(JSON.stringify(props)),
   },
 };
