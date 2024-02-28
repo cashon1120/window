@@ -18,6 +18,10 @@ interface Params {
   };
   showGui?: boolean;
   showStats?: boolean;
+  controls?: {
+    minDistance?: number;
+    maxDistance?: number;
+  };
 }
 
 class Three {
@@ -31,16 +35,22 @@ class Three {
   guiInstance: Gui | undefined = undefined;
   objects: ThreeDObject; // 保存所有根据传入的数据渲染的3D对象，不包括灯光，辅助线等，以后可能会有用；
   constructor(params: Params) {
-    const { container, showHelper, showStats, showGui, data } = params;
+    const { container, showHelper, showStats, showGui, data, controls } =
+      params;
     this.containerDom = document.getElementById(container);
     if (!this.containerDom) {
       throw new Error(`${container} 容器不存在`);
     }
-    const { offsetWidth, offsetHeight} = this.containerDom;
+    const { offsetWidth, offsetHeight } = this.containerDom;
     this.objects = {};
     this.scene = new THREE.Scene();
     this.mainGroup = new THREE.Group();
-    this.camera = new THREE.PerspectiveCamera(45, offsetWidth / offsetHeight, 1, 10000);
+    this.camera = new THREE.PerspectiveCamera(
+      45,
+      offsetWidth / offsetHeight,
+      1,
+      10000
+    );
     const renderer = new THREE.WebGLRenderer({
       antialias: true, // 是否抗锯齿
       alpha: true, // 是否可以设置背景色透明
@@ -58,8 +68,8 @@ class Three {
     this.renderer = renderer;
 
     // 注意这里的位置，后面需要优化
-    this.controls.minDistance = 100;
-    this.controls.maxDistance = 500;
+    this.controls.minDistance = controls?.minDistance || 100;
+    this.controls.maxDistance = controls?.maxDistance || 1000;
     this.camera.position.set(155, -90, 310);
     this.camera.lookAt(155, -90, 0);
     this.controls.target.copy(new THREE.Vector3(155, -90, 0));
@@ -121,7 +131,17 @@ class Three {
         throw new Error(`没有找到 ${modelName} 模型`);
       }
     });
+    this.resetMainGroup();
     this.render();
+  };
+
+  resetMainGroup = () => {
+    const box = new THREE.Box3();
+    const { max, min } = box.expandByObject(this.mainGroup);
+    const offsetX = -max.x / 2;
+    const offsetY = -min.y / 2;
+    this.mainGroup.translateX(offsetX);
+    this.mainGroup.translateY(offsetY);
   };
 
   // 更新材质或颜色
