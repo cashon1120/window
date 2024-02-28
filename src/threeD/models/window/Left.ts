@@ -45,7 +45,7 @@ class LeftFrame extends Bar {
     }
 
     // 玻璃的那个胶套, 为了两边不重叠，稍微短一点
-    const geometry2 = new THREE.BoxGeometry(2, height - 0.05, 1);
+    const geometry2 = new THREE.BoxGeometry(20, height - 0.05, 1);
     const material2 = new THREE.MeshPhysicalMaterial({
       color: "#000",
       metalness: 0.5,
