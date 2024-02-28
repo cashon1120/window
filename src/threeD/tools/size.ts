@@ -1,14 +1,14 @@
 import * as THREE from "three";
-import { scene, renderer } from "../common";
 import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 import { FontLoader } from "three/addons/loaders/FontLoader.js";
+import Three from "../Three";
 
 // 修改文件后避免再次渲染
 let isCreated = false;
 const loader = new FontLoader();
 const bottom = -186
 
-const createSize = () => {
+const createSize = (threeInstance: Three) => {
   if (isCreated) return;
   loader.load(
     "fonts/optimer_regular.typeface.json",
@@ -41,22 +41,22 @@ const createSize = () => {
       let geometry = new TextGeometry("1600", textAttr);
       let textMesh = new THREE.Mesh(geometry, materials);
       textMesh.position.set(74, bottom - 5, 0);
-      scene.add(textMesh);
+      threeInstance.scene.add(textMesh);
 
       textMesh = new THREE.Mesh(geometry, materials);
       textMesh.position.set(230, bottom - 5, 0);
-      scene.add(textMesh);
+      threeInstance.scene.add(textMesh);
 
       geometry = new TextGeometry("3200", textAttr);
       textMesh = new THREE.Mesh(geometry, materials);
       textMesh.position.set(154, bottom - 20, 0);
-      scene.add(textMesh);
+      threeInstance.scene.add(textMesh);
 
       textMesh = new THREE.Mesh(geometry, materials);
       textMesh.position.set(345, -100, 0);
-      scene.add(textMesh);
+      threeInstance.scene.add(textMesh);
 
-      renderer.render();
+      threeInstance.render();
     }
   );
 
@@ -74,7 +74,7 @@ const createSize = () => {
   let geometry = new THREE.BufferGeometry();
   geometry.setFromPoints(xPointsArr);
   let line = new THREE.Line(geometry, material);
-  scene.add(line);
+  threeInstance.scene.add(line);
 
   xPointsArr = [
     new THREE.Vector3(330, 0, 0),
@@ -85,9 +85,9 @@ const createSize = () => {
   geometry = new THREE.BufferGeometry();
   geometry.setFromPoints(xPointsArr);
   line = new THREE.Line(geometry, material);
-  scene.add(line);
+  threeInstance.scene.add(line);
 
-  renderer.render();
+  threeInstance.render();
 };
 
 export default createSize;

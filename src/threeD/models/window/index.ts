@@ -1,7 +1,8 @@
 import * as THREE from "three";
 import { Rect, Bar } from "@/threeD/basicModel";
-import { createRaycaster, renderer } from "@/threeD/common";
 import TWEEN from "@tweenjs/tween.js";
+import createRaycaster from "@/threeD/common/raycaster";
+import Three from "@/threeD/Three";
 import Left from "./Left";
 import Top from "./Top";
 import Right from "./Right";
@@ -18,7 +19,7 @@ export const RIGHT_BAR_SIZE = 5;
 export const BOTTOM_BAR_SIZE = 5;
 
 export interface FrameProps {
-  mainGroup: THREE.Group; // 最外层的group，包裹所有的元素
+  threeInstance: Three; 
   width: number;
   height: number;
   leftBarSize?: number;
@@ -69,7 +70,7 @@ class Frame extends Rect {
         roughness: 0,
         metalness: 0,
         envMapIntensity: 1,
-        transmission: 0.5, // 折射度，表示光线经过材料时的衰减程度
+        // transmission: 0.5, // 折射度，表示光线经过材料时的衰减程度
         clearcoat: 1,
         clearcoatRoughness: 0,
         map: canvasTexture,
@@ -160,7 +161,7 @@ class Frame extends Rect {
           // }
 
           this.group.add(textGroup);
-          renderer.render();
+          this.threeInstance.render();
         }
       );
     }
@@ -172,6 +173,7 @@ class Frame extends Rect {
       left,
       top,
       color,
+      threeInstance: this.threeInstance
     });
     this.rightBar = new Right({
       height,
@@ -180,6 +182,7 @@ class Frame extends Rect {
       top,
       color,
       type,
+      threeInstance: this.threeInstance
     });
     this.leftBar = new Left({
       height,
@@ -188,6 +191,7 @@ class Frame extends Rect {
       top,
       color,
       type,
+      threeInstance: this.threeInstance
     });
     this.bottomBar = new Bottom({
       width,
@@ -195,9 +199,11 @@ class Frame extends Rect {
       top: this.height + top - BOTTOM_BAR_SIZE,
       left,
       color,
+      threeInstance: this.threeInstance
     });
     createRaycaster(
       [this.group],
+      this.threeInstance,
       (
         result: THREE.Intersection<THREE.Object3D<THREE.Object3DEventMap>>[]
       ) => {
@@ -218,7 +224,7 @@ class Frame extends Rect {
 
           const animation = () => {
             tween.update();
-            renderer.render();
+            this.threeInstance.render();
             if (!isEnd) {
               requestAnimationFrame(animation);
             }

@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import { renderer } from "./threeD/common";
+import Three from '@/threeD/Three'
+
 import { init3D, reset3D } from "./threeD/index";
 import { ValueObj } from '@/types'
 
@@ -17,18 +18,18 @@ const colorList: ValueObj[] = [
 
 
 function App() {
-  const [threeD, setThreeD] = useState<any>({});
+  const [three, setThree] = useState<Three | null>(null);
   const [activeValue, setActiveValue] = useState(colorList[0].value)
   const handleChangeColor = (obj: ValueObj) => {
+    if(!three){
+      return
+    }
     setActiveValue(obj.value)
-    Object.keys(threeD).forEach((key: string) => {
-      threeD[key].updateMaterial && threeD[key].updateMaterial(obj)
-    })
-    renderer.render()
+    three.updateMaterials(obj)
   }
 
   useEffect(() => {
-    setThreeD(init3D({
+    setThree(init3D({
       width: 320,
       height: 200,
       data: dataObj,

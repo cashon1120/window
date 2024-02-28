@@ -1,8 +1,8 @@
 import Bar from "./Bar";
 import * as THREE from "three";
-
+import Three from "../Three";
 export interface RectProps {
-  mainGroup: THREE.Group; // 最外层的group，包裹所有的元素
+  threeInstance: Three; 
   leftBarSize?: number;
   topBarSize?: number;
   rightBarSize?: number;
@@ -46,14 +46,13 @@ class Rect {
   topBarSize: number;
   rightBarSize: number;
   bottomBarSize: number;
-  mainGroup: THREE.Group;
+  threeInstance: Three;
   minSize: number;
   offsetZ: number;
   constructor(params: RectProps) {
     const {
       width,
       height,
-      mainGroup,
       left = 0,
       top = 0,
       z = 0,
@@ -62,7 +61,8 @@ class Rect {
       rightBarSize,
       bottomBarSize,
       minSize,
-      offsetZ = 0
+      offsetZ = 0,
+      threeInstance
     } = params;
     this.width = width;
     this.height = height;
@@ -71,7 +71,7 @@ class Rect {
     this.left = left;
     this.right = width + left;
     this.group = new THREE.Group();
-    this.mainGroup = mainGroup;
+    this.threeInstance = threeInstance;
     this.leftBarSize = leftBarSize || 5;
     this.topBarSize = topBarSize || 5;
     this.rightBarSize = rightBarSize || 5;
@@ -86,8 +86,7 @@ class Rect {
     this.bottomBar ? this.group.add(this.bottomBar.group) : null;
     this.leftBar ? this.group.add(this.leftBar.group) : null;
     this.group.translateZ(this.offsetZ);
-
-    this.mainGroup.add(this.group);
+    this.threeInstance.mainGroup.add(this.group);
   }
   transform = (params: TranformProps) => {
     const { type, value, time = 300 } = params;

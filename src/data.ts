@@ -30,72 +30,72 @@ const data: Data = {
     },
     ...JSON.parse(JSON.stringify(props)),
   },
-  rightFrame: {
-    model: "RightFrame",
-    type: "vertical",
-    ...JSON.parse(JSON.stringify(props)),
-    attribute: {
-      left: 317,
-      top: 0,
-      height: 178,
-      width: 3,
-      color
-    },
-  },
-  bottomFrame: {
-    model: "BottomFrame",
-    type: "horizontal",
-    ...JSON.parse(JSON.stringify(props)),
-    attribute: {
-      left: 0,
-      top: 175,
-      height: 3,
-      width: 320,
-      color
-    },
-  },
-  leftFrame: {
-    model: "LeftFrame",
-    type: "vertical",
-    ...JSON.parse(JSON.stringify(props)),
-    attribute: {
-      left: 0,
-      top: 0,
-      height: 178,
-      width: 3,
-      color
-    },
-  },
-  window1: {
-    model: "Window",
-    type: "rect",
-    attribute: {
-      left: 3,
-      top: 3,
-      height: 172,
-      width: 160,
-      offsetZ: 2.5,
-      // 暂时用这个来判断把手的样式
-      type: 'left',
-      color
-    },
-    minSize: 15,
-    ...JSON.parse(JSON.stringify(props)),
-  },
-  window2: {
-    model: "Window",
-    type: "rect",
-    attribute: {
-      left: 157,
-      top: 3,
-      height: 172,
-      width: 160,
-      offsetZ: -2.5,
-      type: 'right',
-      color
-    },
-    minSize: 15,
-    ...JSON.parse(JSON.stringify(props)),
-  },
+  // rightFrame: {
+  //   model: "RightFrame",
+  //   type: "vertical",
+  //   ...JSON.parse(JSON.stringify(props)),
+  //   attribute: {
+  //     left: 317,
+  //     top: 0,
+  //     height: 178,
+  //     width: 3,
+  //     color
+  //   },
+  // },
+  // bottomFrame: {
+  //   model: "BottomFrame",
+  //   type: "horizontal",
+  //   ...JSON.parse(JSON.stringify(props)),
+  //   attribute: {
+  //     left: 0,
+  //     top: 175,
+  //     height: 3,
+  //     width: 320,
+  //     color
+  //   },
+  // },
+  // leftFrame: {
+  //   model: "LeftFrame",
+  //   type: "vertical",
+  //   ...JSON.parse(JSON.stringify(props)),
+  //   attribute: {
+  //     left: 0,
+  //     top: 0,
+  //     height: 178,
+  //     width: 3,
+  //     color
+  //   },
+  // },
+  // window1: {
+  //   model: "Window",
+  //   type: "rect",
+  //   attribute: {
+  //     left: 3,
+  //     top: 3,
+  //     height: 172,
+  //     width: 160,
+  //     offsetZ: 2.5,
+  //     // 暂时用这个来判断把手的样式
+  //     type: 'left',
+  //     color
+  //   },
+  //   minSize: 15,
+  //   ...JSON.parse(JSON.stringify(props)),
+  // },
+  // window2: {
+  //   model: "Window",
+  //   type: "rect",
+  //   attribute: {
+  //     left: 157,
+  //     top: 3,
+  //     height: 172,
+  //     width: 160,
+  //     offsetZ: -2.5,
+  //     type: 'right',
+  //     color
+  //   },
+  //   minSize: 15,
+  //   ...JSON.parse(JSON.stringify(props)),
+  // },
 };
 export default data;

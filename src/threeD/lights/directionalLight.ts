@@ -1,8 +1,8 @@
 import * as THREE from "three";
-
-import { scene, gui, guiPosition, guiBoolean } from "../common";
+import Three from "../Three";
 
 interface Props {
+  threeInstance: Three;
   x: number;
   y: number;
   z: number;
@@ -12,21 +12,31 @@ interface Props {
   showGui?: boolean;
   castShadow?: boolean;
   target?: { x: number; y: number; z: number };
-
 }
 
 const createDirectionalLight = (props: Props) => {
-  const { x, y, z, showHelper, showGui, color='#ffffff', castShadow = false, intensity = 10, target } = props;
+  const {
+    threeInstance,
+    threeInstance: { scene },
+    x,
+    y,
+    z,
+    showHelper,
+    showGui,
+    color = "#ffffff",
+    castShadow = false,
+    intensity = 10,
+    target,
+  } = props;
   // 创建点光源
   const light = new THREE.DirectionalLight(color, intensity);
-  
+
   light.position.set(x, y, z);
   light.castShadow = castShadow;
   light.shadow.radius = 5;
   light.shadow.mapSize.set(2048, 2048);
   light.target.position.set(target?.x || 0, target?.y || 0, target?.z || 0);
 
-  
   // 设置三维场景计算阴影的范围
   // light.shadow.camera.left = -100;
   // light.shadow.camera.right = 4000;
@@ -42,18 +52,19 @@ const createDirectionalLight = (props: Props) => {
 
   scene.add(light);
 
-  if (showGui && gui) {
-    const pointFolder = gui.addFolder("平行光源");
+  if (showGui && threeInstance.guiInstance) {
+    const { guiInstance } = threeInstance;
+    const pointFolder = guiInstance.gui.addFolder("平行光源");
     pointFolder.close();
     pointFolder.add(light, "intensity", 0, 10000).name("平行光源");
-    guiPosition({
+    guiInstance.guiPosition({
       mesh: light,
       name: "平行光源",
       min: -400,
       max: 400,
       folder: pointFolder,
     });
-    guiBoolean({
+    guiInstance.guiBoolean({
       defaultValue: true,
       name: "显示/隐藏",
       folder: pointFolder,

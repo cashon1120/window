@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as THREE from "three";
 import TWEEN from "@tweenjs/tween.js";
-import { renderer } from "@/threeD/common";
+import Three from "../Three";
 import { ValueObj } from '@/types'
 
 
@@ -35,6 +35,7 @@ export type AlignType =
   | "right-bottom";
 
 export interface BarProps {
+  threeInstance: Three
   left: number;
   top: number;
   width: number; //模型的宽度
@@ -59,9 +60,9 @@ export interface BarAnimationParams {
  * @method transform 实现宽高的变化
  */
 class Bar {
+  threeInstance: Three;
   innerGroup: THREE.Group;
   group: THREE.Group;
-  mainGroup: THREE.Group;
   width: number;
   height: number;
   bottom: number;
@@ -83,8 +84,8 @@ class Bar {
       height = 10,
       left,
       top,
-      mainGroup,
       align = "left-top",
+      threeInstance
     } = params;
     this.width = width;
     this.height = height;
@@ -97,7 +98,7 @@ class Bar {
     this.y = top;
     this.z = 0;
     this.align = align;
-    this.mainGroup = mainGroup || new THREE.Group();
+    this.threeInstance = threeInstance;
     this.group = new THREE.Group();
 
     this.innerGroup = new THREE.Group();
@@ -133,8 +134,8 @@ class Bar {
     }
     this.group.position.set(this.x, this.y, this.z);
     this.group.add(this.innerGroup);
-    if (this.mainGroup) {
-      this.mainGroup.add(this.group);
+    if (this.threeInstance.mainGroup) {
+      this.threeInstance.mainGroup.add(this.group);
     }
   }
 
@@ -164,7 +165,7 @@ class Bar {
     });
     const render = () => {
       tween.update();
-      renderer.render();
+      this.threeInstance.render();
       if (!isEnd) {
         requestAnimationFrame(render);
       }
@@ -227,7 +228,7 @@ class Bar {
     const render = () => {
       tween.update();
       positionTween.update();
-      renderer.render();
+      this.threeInstance.render();
       if (!isEnd) {
         requestAnimationFrame(render);
       }
@@ -249,8 +250,6 @@ class Bar {
       this.setMapAttribute(obj.value.map)
     }
     findGroupChildren(this.group.children, obj);
-
-    renderer.render();
   };
 }
 

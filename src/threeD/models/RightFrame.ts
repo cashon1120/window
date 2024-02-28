@@ -24,7 +24,7 @@ class RightFrame extends Bar {
     //   this.innerGroup.add(gltf.scene);
     // });
     mesh.castShadow = true
-    mesh.receiveShadow = true
+    // mesh.receiveShadow = true
     this.innerGroup.add(mesh);
     this.init();
   }

@@ -1,18 +1,20 @@
 import createAmbientLight from "./ambientLight";
 import createSpotLight from "./spotLight";
+import Three from "../Three";
 
 // 修改文件后避免再次渲染灯光
 let isCreated = false;
 
 // 创建一系列的灯光, 每个灯光可传入 showHelper / showGui 来显示辅助线和调相关参数
-const createLight = (width: number, height: number) => {
+const createLight = (width: number, height: number, threeInstance: Three) => {
   if (isCreated) return;
   isCreated = true;
   // 环境光
-  createAmbientLight({ indensity: 0.5 });
+  createAmbientLight({ indensity: 0.5, threeInstance});
 
   // 上1-1
   createSpotLight({
+    threeInstance,
     x: width * (1 / 4),
     y: 130,
     z: 300,
@@ -32,6 +34,7 @@ const createLight = (width: number, height: number) => {
   });
   // 上1-2
   createSpotLight({
+    threeInstance,
     x: width * (1 / 4),
     y: 130,
     z: -150,
@@ -52,6 +55,7 @@ const createLight = (width: number, height: number) => {
 
   // 上2-1
   createSpotLight({
+    threeInstance,
     x: (width * 3) / 4,
     y: 130,
     z: 300,
@@ -71,6 +75,7 @@ const createLight = (width: number, height: number) => {
   });
   // 上2-2
   createSpotLight({
+    threeInstance,
     x: (width * 3) / 4,
     y: 130,
     z: -300,
@@ -91,6 +96,7 @@ const createLight = (width: number, height: number) => {
 
   //右阴影
   createSpotLight({
+    threeInstance,
     x: width + 80,
     y: -height / 2,
     z: 206,
@@ -111,6 +117,7 @@ const createLight = (width: number, height: number) => {
 
   // 右照亮
   createSpotLight({
+    threeInstance,
     x: width + 150,
     y: -height / 2,
     z: 0,
@@ -131,6 +138,7 @@ const createLight = (width: number, height: number) => {
 
   // 左照亮
   createSpotLight({
+    threeInstance,
     x: -width + 150,
     y: -height / 2,
     z: 0,
@@ -151,6 +159,7 @@ const createLight = (width: number, height: number) => {
 
   // 底部照亮
   createSpotLight({
+    threeInstance,
     x: width / 2,
     y: -height - 200,
     z: 0,
@@ -171,6 +180,7 @@ const createLight = (width: number, height: number) => {
 
   // 左
   createSpotLight({
+    threeInstance,
     x: -80,
     y: -height / 2,
     z: 206,
@@ -191,6 +201,7 @@ const createLight = (width: number, height: number) => {
 
   // 前
   createSpotLight({
+    threeInstance,
     x: width / 2,
     y: -height / 2,
     z: 300,
@@ -210,6 +221,7 @@ const createLight = (width: number, height: number) => {
 
   // 后
   createSpotLight({
+    threeInstance,
     x: width / 2,
     y: -height / 2,
     z: -300,
@@ -227,4 +239,5 @@ const createLight = (width: number, height: number) => {
     },
   });
 };
+
 export default createLight;

@@ -1,7 +1,8 @@
 import * as THREE from "three";
-import { scene, gui, guiPosition, guiBoolean } from "../common";
+import Three from "../Three";
 
 interface Props {
+  threeInstance: Three
   name?: string;
   x?: number;
   y?: number;
@@ -21,6 +22,7 @@ interface Props {
 
 const createSpotLight = (props: Props) => {
   const {
+    threeInstance, threeInstance: {scene} ,
     x = 0,
     y = 0,
     z = 0,
@@ -54,18 +56,19 @@ const createSpotLight = (props: Props) => {
 
   scene.add(light);
 
-  if (showGui && gui) {
-    const pointFolder = gui.addFolder(name);
+  if (showGui && threeInstance.guiInstance) {
+    const {guiInstance} = threeInstance
+    const pointFolder = guiInstance.gui.addFolder(name);
     pointFolder.close();
     pointFolder.add(light, "intensity", 0, 2000).name(name);
-    guiPosition({
+    guiInstance.guiPosition({
       name,
       mesh: light,
       min: -400,
       max: 400,
       folder: pointFolder,
     });
-    guiBoolean({
+    guiInstance.guiBoolean({
       defaultValue: true,
       name: "显示/隐藏",
       folder: pointFolder,

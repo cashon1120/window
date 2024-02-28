@@ -17,7 +17,7 @@ class TopFrame extends Bar {
     });
     const mesh = new THREE.Mesh(geometry, material);
     mesh.castShadow = true
-    mesh.receiveShadow = true
+    // mesh.receiveShadow = true
     this.innerGroup.add(mesh);
     this.init()
   }

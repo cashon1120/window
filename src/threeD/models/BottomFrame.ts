@@ -15,7 +15,7 @@ class BottomFrame extends Bar {
       shininess: 100,
     });
     const mesh = new THREE.Mesh(geometry, material);
-    mesh.castShadow = true
+    // mesh.castShadow = true
     mesh.receiveShadow = true
     this.innerGroup.add(mesh);
     
@@ -31,7 +31,7 @@ class BottomFrame extends Bar {
     mesh2.rotateZ(Math.PI / 2);
     mesh2.translateX(1.5);
     mesh2.translateZ(2.5);
-    mesh2.castShadow = true
+    // mesh2.castShadow = true
     mesh2.receiveShadow = true
     this.innerGroup.add(mesh2);
 
@@ -39,7 +39,7 @@ class BottomFrame extends Bar {
     mesh3.rotateZ(Math.PI / 2);
     mesh3.translateX(1.5);
     mesh3.translateZ(-2.5);
-    mesh3.castShadow = true
+    // mesh3.castShadow = true
     mesh3.receiveShadow = true
     this.innerGroup.add(mesh3);
 
