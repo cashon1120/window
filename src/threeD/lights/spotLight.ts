@@ -40,6 +40,7 @@ const createSpotLight = (props: Props) => {
   } = props;
   // 创建点光源
   const light = new THREE.SpotLight(color);
+  light.userData.disableRemove = true
   light.position.set(x, y, z);
   light.castShadow = castShadow;
   light.intensity = intensity;

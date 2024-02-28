@@ -3,11 +3,15 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import Stats from "three/addons/libs/stats.module.js";
 import Gui from "./common/gui";
 import Helper from "./common/helper";
-
-import { ValueObj, Model, ThreeDObject } from "./types";
+import { Data } from "../types";
+import * as Models from "./models";
+import createLight from "./lights";
+import createSize from "./tools/size";
+import { ValueObj, ThreeDObject } from "./types";
 
 interface Params {
   // 渲染容器的ID，注意是ID
+  data: Data;
   container: string;
   showHelper?: {
     color?: string;
@@ -25,18 +29,18 @@ class Three {
   controls: OrbitControls;
   stats: Stats | null = null;
   guiInstance: Gui | undefined = undefined;
-  objects: ThreeDObject; // 保存所有3d对象
+  objects: ThreeDObject; // 保存所有根据传入的数据渲染的3D对象，不包括灯光，辅助线等，以后可能会有用；
   constructor(params: Params) {
-    const { container, showHelper, showStats, showGui } = params;
+    const { container, showHelper, showStats, showGui, data } = params;
     this.containerDom = document.getElementById(container);
     if (!this.containerDom) {
       throw new Error(`${container} 容器不存在`);
     }
-    const { offsetWidth: width, offsetHeight: height } = this.containerDom;
+    const { offsetWidth, offsetHeight} = this.containerDom;
     this.objects = {};
     this.scene = new THREE.Scene();
     this.mainGroup = new THREE.Group();
-    this.camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
+    this.camera = new THREE.PerspectiveCamera(45, offsetWidth / offsetHeight, 1, 10000);
     const renderer = new THREE.WebGLRenderer({
       antialias: true, // 是否抗锯齿
       alpha: true, // 是否可以设置背景色透明
@@ -46,13 +50,30 @@ class Three {
       // physicallyCorrectLights: true, // 是否开启物理光照
     });
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(width, height);
+    renderer.setSize(offsetWidth, offsetHeight);
     // 设置渲染器，允许光源阴影渲染
     renderer.shadowMap.enabled = true;
     this.containerDom.appendChild(renderer.domElement);
-    this.scene.add(this.mainGroup);
     this.controls = new OrbitControls(this.camera, renderer.domElement);
     this.renderer = renderer;
+
+    // 注意这里的位置，后面需要优化
+    this.controls.minDistance = 100;
+    this.controls.maxDistance = 500;
+    this.camera.position.set(155, -90, 310);
+    this.camera.lookAt(155, -90, 0);
+    this.controls.target.copy(new THREE.Vector3(155, -90, 0));
+    this.controls.update();
+
+    // 创建所有模型,注意这里的位置，必须在render, scene, 创建之后执行
+    this.createModel(data);
+
+    // 创建相关尺寸
+    createSize(this);
+
+    // 创建一系列灯光，
+    createLight(320, 200, this);
+
     const { scene, camera } = this;
 
     // 性能监视插件
@@ -75,13 +96,33 @@ class Three {
       new Helper({
         scene,
         guiInstance: this.guiInstance,
-        color: showHelper.color
+        color: showHelper.color,
       });
     }
 
     this.addEventListener();
     this.render();
   }
+
+  /**
+   * 创建模型
+   */
+  createModel = (data: Data) => {
+    this.mainGroup = new THREE.Group();
+    this.scene.add(this.mainGroup);
+    Object.keys(data).forEach((key) => {
+      const modelName = data[key].model;
+      if (Models[modelName]) {
+        this.objects[key] = new Models[modelName]({
+          ...data[key].attribute,
+          threeInstance: this,
+        });
+      } else {
+        throw new Error(`没有找到 ${modelName} 模型`);
+      }
+    });
+    this.render();
+  };
 
   // 更新材质或颜色
   updateMaterials = (obj: ValueObj) => {
@@ -92,17 +133,13 @@ class Three {
     this.render();
   };
 
-  saveObjects = (model: Model, key: string) => {
-    this.objects[key] = model;
-  };
-
   /**
    * 渲染
    */
   render = () => {
     const { renderer, scene, camera, stats } = this;
-    renderer.render(scene, camera);
     stats && stats.update();
+    renderer.render(scene, camera);
   };
 
   /**
@@ -110,6 +147,22 @@ class Three {
    */
   add = (data: THREE.Object3D) => {
     this.scene.add(data);
+  };
+
+  /**
+   * 清空场景
+   */
+  clear = () => {
+    for (let i = 0; i < this.scene.children.length; i++) {
+      const obj = this.scene.children[i];
+      console.log(obj);
+      if (!obj.userData.disableRemove) {
+        this.scene.remove(obj);
+      }
+    }
+    this.objects = {};
+    // this.renderer.clear();
+    this.render();
   };
 
   /**

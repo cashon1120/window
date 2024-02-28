@@ -5,8 +5,8 @@ interface HelperParams {
   scene: THREE.Scene;
   guiInstance?: Gui;
   color?: string | number;
-  size?: number;
-  divisions?: number;
+  size?: number; // 坐标格尺寸. 默认为 10.
+  divisions?: number; // 坐标格细分次数. 默认为 10
 }
 
 class Helper {
@@ -16,7 +16,7 @@ class Helper {
     const {
       scene,
       guiInstance,
-      color = 0xfafafa,
+      color = 0x666666,
       size = 1000,
       divisions = 10,
     } = params;
@@ -28,9 +28,13 @@ class Helper {
     const { scene } = this;
     // 坐标辅助
     const axesHelper = new THREE.AxesHelper(350);
+    // 在清空的时候不删除
+    axesHelper.userData.disableRemove = true
+    scene.add(axesHelper);
     // 地面网格辅助
     const gridHelper = new THREE.GridHelper(size, divisions, color, color);
-    scene.add(axesHelper);
+    // 在清空的时候不删除
+    gridHelper.userData.disableRemove = true
     scene.add(gridHelper);
     if (this.guiInstance) {
       const folder = this.guiInstance.gui.addFolder("辅助");

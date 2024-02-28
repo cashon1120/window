@@ -12,6 +12,7 @@ const createAmbientLight = (props: Props) => {
   props = props || {};
   const { color = 0xffffff, indensity = 10, showGui = true, threeInstance, threeInstance: {scene} } = props;
   const light = new THREE.AmbientLight(color, indensity);
+  light.userData.disableRemove = true
   scene.add(light);
 
   if (showGui && threeInstance.guiInstance) {

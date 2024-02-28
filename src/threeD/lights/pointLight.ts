@@ -34,6 +34,7 @@ const createPointLight = (props: Props) => {
   } = props;
   // 创建点光源
   const light = new THREE.PointLight(color, intensity, distance);
+  light.userData.disableRemove = true
   light.position.set(x, y, z);
   light.castShadow = castShadow;
   light.decay = deacy;
