@@ -74,15 +74,8 @@ class Three {
 
     // 创建所有模型,注意这里的位置，必须在render, scene, 创建之后执行
     this.createModel(data);
-
-    // 创建相关尺寸
-    createSize(this);
-
-    // 创建一系列灯光，
-    createLight(this);
-
+    
     const { scene, camera } = this;
-
     // 性能监视插件
     if (showStats) {
       this.stats = new Stats();
@@ -107,6 +100,11 @@ class Three {
       });
     }
 
+    // 创建相关尺寸
+    createSize(this);
+
+    // 创建一系列灯光，
+    createLight(this);
     this.addEventListener();
     this.render();
   }
