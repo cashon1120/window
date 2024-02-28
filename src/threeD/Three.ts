@@ -51,6 +51,7 @@ class Three {
       1,
       10000
     );
+    this.camera.position.set(0, 0, (controls?.minDistance || 100) + 300)
     const renderer = new THREE.WebGLRenderer({
       antialias: true, // 是否抗锯齿
       alpha: true, // 是否可以设置背景色透明
@@ -70,10 +71,7 @@ class Three {
     // 注意这里的位置，后面需要优化
     this.controls.minDistance = controls?.minDistance || 100;
     this.controls.maxDistance = controls?.maxDistance || 1000;
-    this.camera.position.set(155, -90, 310);
-    this.camera.lookAt(155, -90, 0);
-    this.controls.target.copy(new THREE.Vector3(155, -90, 0));
-    this.controls.update();
+  
 
     // 创建所有模型,注意这里的位置，必须在render, scene, 创建之后执行
     this.createModel(data);
@@ -82,7 +80,7 @@ class Three {
     createSize(this);
 
     // 创建一系列灯光，
-    createLight(320, 200, this);
+    createLight(this);
 
     const { scene, camera } = this;
 

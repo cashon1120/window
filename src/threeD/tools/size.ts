@@ -41,20 +41,20 @@ const createSize = (threeInstance: Three) => {
       let geometry = new TextGeometry("1600", textAttr);
       let textMesh = new THREE.Mesh(geometry, materials);
       textMesh.position.set(74, bottom - 5, 0);
-      threeInstance.scene.add(textMesh);
+      threeInstance.mainGroup.add(textMesh);
 
       textMesh = new THREE.Mesh(geometry, materials);
       textMesh.position.set(230, bottom - 5, 0);
-      threeInstance.scene.add(textMesh);
+      threeInstance.mainGroup.add(textMesh);
 
       geometry = new TextGeometry("3200", textAttr);
       textMesh = new THREE.Mesh(geometry, materials);
       textMesh.position.set(154, bottom - 20, 0);
-      threeInstance.scene.add(textMesh);
+      threeInstance.mainGroup.add(textMesh);
 
       textMesh = new THREE.Mesh(geometry, materials);
       textMesh.position.set(345, -100, 0);
-      threeInstance.scene.add(textMesh);
+      threeInstance.mainGroup.add(textMesh);
 
       threeInstance.render();
     }
@@ -74,7 +74,7 @@ const createSize = (threeInstance: Three) => {
   let geometry = new THREE.BufferGeometry();
   geometry.setFromPoints(xPointsArr);
   let line = new THREE.Line(geometry, material);
-  threeInstance.scene.add(line);
+  threeInstance.mainGroup.add(line);
 
   xPointsArr = [
     new THREE.Vector3(330, 0, 0),
@@ -85,7 +85,7 @@ const createSize = (threeInstance: Three) => {
   geometry = new THREE.BufferGeometry();
   geometry.setFromPoints(xPointsArr);
   line = new THREE.Line(geometry, material);
-  threeInstance.scene.add(line);
+  threeInstance.mainGroup.add(line);
 
   threeInstance.render();
 };
