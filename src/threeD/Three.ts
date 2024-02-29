@@ -263,7 +263,7 @@ class Three {
    * 绑定一些事件
    */
   addEventListener = () => {
-    const { renderer, camera, render, containerDom } = this;
+    const { renderer, camera, containerDom } = this;
     window.addEventListener("resize", () => {
       if (!containerDom) {
         return;
@@ -272,7 +272,6 @@ class Three {
       renderer.setSize(offsetWidth, offsetHeight);
       camera.aspect = offsetWidth / offsetHeight;
       camera.updateProjectionMatrix();
-      render();
     });
   };
 }
