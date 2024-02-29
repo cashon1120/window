@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import Stats from "three/addons/libs/stats.module.js";
@@ -32,7 +33,7 @@ interface Params {
   // 控制器相关配置
   controls?: ControlsProps;
   // 是否禁用自动设置相机位置
-  disableAutoSetCameraPosition?: boolean
+  disableAutoSetCameraPosition?: boolean;
 }
 
 class Three {
@@ -47,8 +48,9 @@ class Three {
   // 保存所有根据传入的数据渲染的3D对象，不包括灯光，辅助线等，以后可能会有用；
   objects: ThreeDObject;
   scale: number = 1;
-  controlsParams = {minDistance: 0, maxDistance: 0};
+  controlsParams = { minDistance: 0, maxDistance: 0 };
   disableAutoSetCameraPosition: boolean;
+  isSetCameraPosition: boolean = false;
   constructor(params: Params) {
     const {
       container,
@@ -58,7 +60,7 @@ class Three {
       data,
       controls,
       scale = 1,
-      disableAutoSetCameraPosition = false
+      disableAutoSetCameraPosition = false,
     } = params;
     this.containerDom = document.getElementById(container);
     if (!this.containerDom) {
@@ -70,7 +72,7 @@ class Three {
       maxDistance: 500,
       ...controls,
     };
-    this.disableAutoSetCameraPosition = disableAutoSetCameraPosition
+    this.disableAutoSetCameraPosition = disableAutoSetCameraPosition;
     this.scale = scale;
     this.objects = {};
     this.scene = new THREE.Scene();
@@ -127,19 +129,32 @@ class Three {
   }
 
   /**
-   * 初始化相机位置
-  */
+   * 初始化相机位置, isSetCameraPosition 控制只设置一次
+   */
   private initCameraAndControls = (x: number, y: number) => {
-    const { controlsParams, renderer, containerDom, disableAutoSetCameraPosition } = this;
-    if(disableAutoSetCameraPosition){
+    const {
+      controlsParams,
+      renderer,
+      containerDom,
+      disableAutoSetCameraPosition,
+      isSetCameraPosition,
+    } = this;
+    if (isSetCameraPosition) {
+      return;
+    }
+    this.isSetCameraPosition = true;
+    if (disableAutoSetCameraPosition) {
       this.camera.position.set(0, 0, 200);
-    }else{
+    } else {
       // 这里按宽高比例设置相机在Z轴的位置,保证能完全看到模型
       const { offsetWidth, offsetHeight } = containerDom as HTMLElement;
       // 这个数字是试出来的，估计不怎么好，后面有机会再找更好的计算方法
-      const base = 1500
-      const z = Math.max(x / offsetWidth * base, Math.abs(y) / offsetHeight * base)
-      this.camera.position.set(0, 0,z);
+      const base = 1500;
+      const z = Math.max(
+        (x / offsetWidth) * base,
+        (Math.abs(y) / offsetHeight) * base
+      );
+      this.camera.position.set(0, 0, z);
     }
     this.controls = new OrbitControls(this.camera, renderer.domElement);
     this.controls.enableDamping = true; // 开启平滑移动效果
@@ -155,6 +170,7 @@ class Three {
    */
   createModel = (data: Data) => {
     this.mainGroup = new THREE.Group();
+    this.mainGroup.name = "MainGroup";
     this.scene.add(this.mainGroup);
     Object.keys(data).forEach((key) => {
       const modelName = data[key].model;
@@ -202,11 +218,11 @@ class Three {
    * 渲染
    */
   render = () => {
-    const { renderer, scene, camera, stats, controls} = this;
+    const { renderer, scene, camera, stats, controls } = this;
     stats?.update();
-    controls?.update()
+    controls?.update();
     renderer.render(scene, camera);
-    requestAnimationFrame(this.render)
+    requestAnimationFrame(this.render);
   };
 
   /**
@@ -217,9 +233,23 @@ class Three {
   };
 
   /**
-   * 清空场景
+   * 清空场景，这里需要删除GPU中的缓存，不然可能出造成内存泄漏
    */
   clear = () => {
+    this.scene.traverse((object: any) => {
+      try {
+        if (object.type === "Mesh") {
+          object.geometry &&
+            object.geometry.dispose &&
+            object.geometry.dispose();
+          object.material &&
+            object.material.dispose &&
+            object.material.dispose();
+        }
+      } catch (e) {
+        throw new Error("删除缓存出错");
+      }
+    });
     for (let i = 0; i < this.scene.children.length; i++) {
       const obj = this.scene.children[i];
       if (!obj.userData.disableRemove) {
@@ -227,14 +257,13 @@ class Three {
       }
     }
     this.objects = {};
-    // this.renderer.clear();
   };
 
   /**
    * 绑定一些事件
    */
   addEventListener = () => {
-    const { renderer, camera, render, containerDom} = this;
+    const { renderer, camera, render, containerDom } = this;
     window.addEventListener("resize", () => {
       if (!containerDom) {
         return;
