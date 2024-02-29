@@ -96,9 +96,9 @@ const createLight = (threeInstance: Three, x: number, y: number) => {
     threeInstance,
     x: 0,
     y: 0,
-    z: 200,
+    z: 100,
     name: "前",
-    intensity: 2000,
+    intensity: 10000,
     showHelper: true,
     showGui: true,
   });
