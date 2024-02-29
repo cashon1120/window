@@ -41,8 +41,9 @@ const createRaycaster = (
       if (intersects.length > 0) {
         callback && callback(intersects);
       }
+    // eslint-disable-next-line no-empty
     } catch (e) {
-      throw new Error('射线拾取出错, 不影响使用...')
+      // 这里是由于threejs的bug，当相机角度为0时，会导致相机的near和far值为0，导致相机无法渲染（AI回答的，不晓得是不是这个原因。。。）
     }
   };
 

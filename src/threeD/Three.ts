@@ -13,13 +13,17 @@ import { ValueObj, ThreeDObject } from "./types";
 interface ControlsProps {
   minDistance?: number;
   maxDistance?: number;
+  // 是否开启阻尼效果，默认为开启
+  enableDamping?: boolean;
+  // 阻尼惯性，默认0.05
+  dampingFactor?: number;
 }
 
 interface Params {
   // 渲染容器的ID，注意是ID
   container: string;
-  // 渲染数据
-  data: Data;
+  // 渲染数据, 也不是非得要传，可以在其它地方手动调用add()方法添加模型到场景
+  data?: Data;
   // 缩放比例，考虑到现实中应该是以毫米为单位，那样太大，这里给一个缩放比例
   scale?: number;
   // 是否显示辅助线
@@ -48,17 +52,23 @@ class Three {
   // 保存所有根据传入的数据渲染的3D对象，不包括灯光，辅助线等，以后可能会有用；
   objects: ThreeDObject;
   scale: number = 1;
-  controlsParams = { minDistance: 0, maxDistance: 0 };
+  controlsProps: Required<ControlsProps> = {
+    minDistance: 100,
+    maxDistance: 500,
+    enableDamping: true,
+    dampingFactor: 0.05,
+  };
   disableAutoSetCameraPosition: boolean;
+  // 是否设置相机位置，只需要在第一次创建的时候设置
   isSetCameraPosition: boolean = false;
   constructor(params: Params) {
     const {
-      container,
-      showHelper,
-      showStats,
-      showGui,
       data,
+      showGui,
       controls,
+      container,
+      showStats,
+      showHelper,
       scale = 1,
       disableAutoSetCameraPosition = false,
     } = params;
@@ -67,14 +77,13 @@ class Three {
       throw new Error(`${container} 容器不存在`);
     }
     const { offsetWidth, offsetHeight } = this.containerDom;
-    this.controlsParams = {
-      minDistance: 100,
-      maxDistance: 500,
+    this.controlsProps = {
+      ...this.controlsProps,
       ...controls,
     };
     this.disableAutoSetCameraPosition = disableAutoSetCameraPosition;
-    this.scale = scale;
     this.objects = {};
+    this.scale = scale;
     this.scene = new THREE.Scene();
     this.mainGroup = new THREE.Group();
     this.camera = new THREE.PerspectiveCamera(
@@ -98,13 +107,13 @@ class Three {
     this.renderer = renderer;
 
     const { scene, camera } = this;
-    // 性能监视插件
+    // 初始化性能监视插件
     if (showStats) {
       this.stats = new Stats();
       this.containerDom.appendChild(this.stats.dom);
     }
 
-    // 显示gui
+    // 初始化gui调试器
     if (showGui) {
       this.guiInstance = new Gui({
         renderer,
@@ -113,7 +122,7 @@ class Three {
       });
     }
 
-    // 显示相关辅助信息
+    // 显示相关辅助信息(这里包含坐标轴和平面辅助线)
     if (showHelper) {
       new Helper({
         scene,
@@ -132,7 +141,7 @@ class Three {
    */
   private initCameraAndControls = (x: number, y: number) => {
     const {
-      controlsParams,
+      controlsProps,
       renderer,
       containerDom,
       disableAutoSetCameraPosition,
@@ -156,11 +165,13 @@ class Three {
       this.camera.position.set(0, 0, z);
     }
     this.controls = new OrbitControls(this.camera, renderer.domElement);
-    this.controls.enableDamping = true; // 开启平滑移动效果
-    this.controls.dampingFactor = 1; // 平滑因子
+    const { enableDamping, dampingFactor, minDistance, maxDistance } =
+      controlsProps;
+    this.controls.enableDamping = enableDamping;
+    this.controls.dampingFactor = dampingFactor;
     this.controls.screenSpacePanning = false; // 不支持空格鼠标操作
-    this.controls.minDistance = controlsParams?.minDistance;
-    this.controls.maxDistance = controlsParams?.maxDistance;
+    this.controls.minDistance = minDistance;
+    this.controls.maxDistance = maxDistance;
     this.render();
   };
 
@@ -212,21 +223,23 @@ class Three {
   /**
    * 根据传入的数据创建模型
    */
-  createModel = (data: Data) => {
+  createModel = (data?: Data) => {
     this.mainGroup = new THREE.Group();
     this.mainGroup.name = "MainGroup";
     this.scene.add(this.mainGroup);
-    Object.keys(data).forEach((key) => {
-      const modelName = data[key].model;
-      if (Models[modelName]) {
-        this.objects[key] = new Models[modelName]({
-          ...data[key].attribute,
-          threeInstance: this,
-        });
-      } else {
-        throw new Error(`没有找到 ${modelName} 模型`);
-      }
-    });
+    if (data) {
+      Object.keys(data).forEach((key) => {
+        const modelName = data[key].model;
+        if (Models[modelName]) {
+          this.objects[key] = new Models[modelName]({
+            ...data[key].attribute,
+            threeInstance: this,
+          });
+        } else {
+          throw new Error(`没有找到 ${modelName} 模型`);
+        }
+      });
+    }
     this.resetMainGroup();
   };
 
