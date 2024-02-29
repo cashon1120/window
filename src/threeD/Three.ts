@@ -122,9 +122,8 @@ class Three {
       });
     }
 
-    // 创建所有模型,注意这里的位置，必须在render, scene, 创建之后执行
+    // 创建所有模型,注意这里的位置，必须在render, scene创建之后执行
     this.createModel(data);
-
     this.addEventListener();
   }
 
@@ -166,7 +165,52 @@ class Three {
   };
 
   /**
-   * 创建模型
+   * 把所有内容显示到正中间，并根据内容的宽高设置灯光及其位置
+   */
+  private resetMainGroup = () => {
+    const box = new THREE.Box3();
+    this.mainGroup.scale.set(this.scale, this.scale, this.scale);
+    const { max, min } = box.expandByObject(this.mainGroup);
+    const offsetX = -max.x / 2;
+    const offsetY = -min.y / 2;
+    this.mainGroup.translateX(offsetX);
+    this.mainGroup.translateY(offsetY);
+    // 创建相关尺寸
+    createSize(this);
+    // 创建灯光，需要在mainGroup位置调整之后调用，translate不会影响max, min的值，其中min.y是负数
+    createLight(this, max.x, min.y);
+    this.initCameraAndControls(max.x, min.y);
+  };
+
+  /**
+   * 渲染动画
+   */
+  private render = () => {
+    const { renderer, scene, camera, stats, controls } = this;
+    stats?.update();
+    controls?.update();
+    renderer.render(scene, camera);
+    requestAnimationFrame(this.render);
+  };
+
+  /**
+   * 绑定一些事件,这里是窗口大小变化事件
+   */
+  private addEventListener = () => {
+    const { renderer, camera, containerDom } = this;
+    window.addEventListener("resize", () => {
+      if (!containerDom) {
+        return;
+      }
+      const { offsetWidth, offsetHeight } = containerDom;
+      renderer.setSize(offsetWidth, offsetHeight);
+      camera.aspect = offsetWidth / offsetHeight;
+      camera.updateProjectionMatrix();
+    });
+  };
+
+  /**
+   * 根据传入的数据创建模型
    */
   createModel = (data: Data) => {
     this.mainGroup = new THREE.Group();
@@ -187,24 +231,6 @@ class Three {
   };
 
   /**
-   * 设置内容显示到中间，并根据内容的宽高调整灯光的位置
-   */
-  resetMainGroup = () => {
-    const box = new THREE.Box3();
-    this.mainGroup.scale.set(this.scale, this.scale, this.scale);
-    const { max, min } = box.expandByObject(this.mainGroup);
-    const offsetX = -max.x / 2;
-    const offsetY = -min.y / 2;
-    this.mainGroup.translateX(offsetX);
-    this.mainGroup.translateY(offsetY);
-    // 创建相关尺寸
-    createSize(this);
-    // 创建灯光，需要在mainGroup位置调整之后调用，translate不会影响max, min的值，其中min.y是负数
-    createLight(this, max.x, min.y);
-    this.initCameraAndControls(max.x, min.y);
-  };
-
-  /**
    * 更新材质或颜色
    */
   updateMaterials = (obj: ValueObj) => {
@@ -212,17 +238,6 @@ class Three {
     Object.keys(objects).forEach((key: string) => {
       objects[key].updateMaterial && objects[key].updateMaterial(obj);
     });
-  };
-
-  /**
-   * 渲染
-   */
-  render = () => {
-    const { renderer, scene, camera, stats, controls } = this;
-    stats?.update();
-    controls?.update();
-    renderer.render(scene, camera);
-    requestAnimationFrame(this.render);
   };
 
   /**
@@ -257,22 +272,6 @@ class Three {
       }
     }
     this.objects = {};
-  };
-
-  /**
-   * 绑定一些事件
-   */
-  addEventListener = () => {
-    const { renderer, camera, containerDom } = this;
-    window.addEventListener("resize", () => {
-      if (!containerDom) {
-        return;
-      }
-      const { offsetWidth, offsetHeight } = containerDom;
-      renderer.setSize(offsetWidth, offsetHeight);
-      camera.aspect = offsetWidth / offsetHeight;
-      camera.updateProjectionMatrix();
-    });
   };
 }
 
