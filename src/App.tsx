@@ -22,11 +22,7 @@ function App() {
       return;
     }
     setActiveValue(obj.value);
-    three.clear();
-    setTimeout(() => {
-      three.createModel(data)
-    }, 2000);
-    // three.updateMaterials(obj)
+    three.updateMaterials(obj)
   };
 
   useEffect(() => {
