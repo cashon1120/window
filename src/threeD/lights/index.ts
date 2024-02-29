@@ -34,7 +34,7 @@ const createLight = (threeInstance: Three, x: number, y: number) => {
     z: 70,
     name: "上-1",
     intensity: 10000,
-    showHelper: true,
+    showHelper: false,
     showGui: true,
     castShadow: true,
     penumbra: 0.1,
@@ -52,7 +52,7 @@ const createLight = (threeInstance: Three, x: number, y: number) => {
     z: 70,
     name: "上-2",
     intensity: 10000,
-    showHelper: true,
+    showHelper: false,
     showGui: true,
     castShadow: true,
     penumbra: 0.1,
@@ -71,7 +71,7 @@ const createLight = (threeInstance: Three, x: number, y: number) => {
     z: 80,
     name: "右阴影",
     intensity: 10000,
-    showHelper: true,
+    showHelper: false,
     showGui: true,
     castShadow: true,
     angle: 0.8,
@@ -86,7 +86,7 @@ const createLight = (threeInstance: Three, x: number, y: number) => {
     z: 70,
     name: "左",
     intensity: 1300,
-    showHelper: true,
+    showHelper: false,
     showGui: true,
     castShadow: true,
   });
@@ -99,7 +99,7 @@ const createLight = (threeInstance: Three, x: number, y: number) => {
     z: 100,
     name: "前",
     intensity: 10000,
-    showHelper: true,
+    showHelper: false,
     showGui: true,
   });
 
@@ -108,11 +108,11 @@ const createLight = (threeInstance: Three, x: number, y: number) => {
     threeInstance,
     x: 0,
     y: 0,
-    z: -200,
+    z: -100,
     name: "后",
-    intensity: 2000,
-    showHelper: true,
-    showGui: true,
+    intensity: 10000,
+    // showHelper: false,
+    // showGui: true,
   });
 };
 
