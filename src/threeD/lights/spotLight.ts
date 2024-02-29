@@ -2,7 +2,7 @@ import * as THREE from "three";
 import Three from "../Three";
 
 interface Props {
-  threeInstance: Three
+  threeInstance: Three;
   name?: string;
   x?: number;
   y?: number;
@@ -22,7 +22,8 @@ interface Props {
 
 const createSpotLight = (props: Props) => {
   const {
-    threeInstance, threeInstance: {scene} ,
+    threeInstance,
+    threeInstance: { scene },
     x = 0,
     y = 0,
     z = 0,
@@ -31,7 +32,7 @@ const createSpotLight = (props: Props) => {
     showGui,
     castShadow = false,
     intensity = 500,
-    angle = Math.PI,
+    angle = Math.PI / 3,
     decay = 2.0,
     target,
     name = "聚光源",
@@ -40,7 +41,7 @@ const createSpotLight = (props: Props) => {
   } = props;
   // 创建点光源
   const light = new THREE.SpotLight(color);
-  light.userData.disableRemove = true
+  light.userData.disableRemove = true;
   light.position.set(x, y, z);
   light.castShadow = castShadow;
   light.intensity = intensity;
@@ -58,10 +59,10 @@ const createSpotLight = (props: Props) => {
   scene.add(light);
 
   if (showGui && threeInstance.guiInstance) {
-    const {guiInstance} = threeInstance
+    const { guiInstance } = threeInstance;
     const pointFolder = guiInstance.gui.addFolder(name);
     pointFolder.close();
-    pointFolder.add(light, "intensity", 0, 2000).name(name);
+    pointFolder.add(light, "intensity", 0, 20000).name(name);
     guiInstance.guiPosition({
       name,
       mesh: light,

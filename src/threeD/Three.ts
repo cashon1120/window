@@ -12,6 +12,8 @@ import { ValueObj, ThreeDObject } from "./types";
 interface Params {
   // 渲染容器的ID，注意是ID
   data: Data;
+  // 缩放比例，考虑到现实中应该是以毫米为单位，那样太大，这里给一个缩放比例
+  scale?: number; 
   container: string;
   showHelper?: {
     color?: string;
@@ -34,14 +36,16 @@ class Three {
   stats: Stats | null = null;
   guiInstance: Gui | undefined = undefined;
   objects: ThreeDObject; // 保存所有根据传入的数据渲染的3D对象，不包括灯光，辅助线等，以后可能会有用；
+  scale: number = 1;
   constructor(params: Params) {
-    const { container, showHelper, showStats, showGui, data, controls } =
+    const { container, showHelper, showStats, showGui, data, controls, scale = 1 } =
       params;
     this.containerDom = document.getElementById(container);
     if (!this.containerDom) {
       throw new Error(`${container} 容器不存在`);
     }
     const { offsetWidth, offsetHeight } = this.containerDom;
+    this.scale = scale;
     this.objects = {};
     this.scene = new THREE.Scene();
     this.mainGroup = new THREE.Group();
@@ -132,8 +136,7 @@ class Three {
 
   resetMainGroup = () => {
     const box = new THREE.Box3();
-    const scale = 0.1
-    this.mainGroup.scale.set(scale, scale, scale);
+    this.mainGroup.scale.set(this.scale, this.scale, this.scale);
     const { max, min } = box.expandByObject(this.mainGroup);
     const offsetX = -max.x / 2;
     const offsetY = -min.y / 2;

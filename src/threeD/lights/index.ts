@@ -7,7 +7,7 @@ let isCreated = false;
 
 // 创建一系列的灯光, 每个灯光可传入 showHelper / showGui 来显示辅助线和调相关参数
 const createLight = (threeInstance: Three) => {
-  const width = 400;
+  const width = 200;
   const height = 300;
   if (isCreated) return;
   isCreated = true;
@@ -19,7 +19,7 @@ const createLight = (threeInstance: Three) => {
     threeInstance,
     x: 0,
     y: height / 2 + 10,
-    z: 0,
+    z: 50,
     name: "上-1",
     intensity: 1200,
     showHelper: true,
