@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import Stats from "three/addons/libs/stats.module.js";
 import createCamera from "./common/camera";
 import createRenderer from "./common/renderer";
+import createScene from "./common/scene";
+import createStats from "./common/stats";
+import createOrbitContros from "./common/orbitContros";
 import Gui from "./common/gui";
 import Helper from "./common/helper";
 import { Data } from "../types";
@@ -78,7 +80,6 @@ class Three {
     if (!this.containerDom) {
       throw new Error(`${container} 容器不存在`);
     }
-    const { offsetWidth, offsetHeight } = this.containerDom;
     this.controlsProps = {
       ...this.controlsProps,
       ...controls,
@@ -86,20 +87,18 @@ class Three {
     this.disableAutoSetCameraPosition = disableAutoSetCameraPosition;
     this.objects = {};
     this.scale = scale;
-    this.scene = new THREE.Scene();
     this.mainGroup = new THREE.Group();
-    this.camera = createCamera({ aspect: offsetWidth / offsetHeight });
-    this.renderer = createRenderer({
-      width: offsetWidth,
-      height: offsetHeight,
-    });
-    this.containerDom.appendChild(this.renderer.domElement);
+
+    // 创建三大件
+    this.scene = createScene();
+    this.camera = createCamera({ containerDom: this.containerDom  });
+    this.renderer = createRenderer({ containerDom: this.containerDom });
 
     const { scene, camera, renderer } = this;
+    
     // 初始化性能监视插件
     if (showStats) {
-      this.stats = new Stats();
-      this.containerDom.appendChild(this.stats.dom);
+      this.stats = createStats(this.containerDom);
     }
 
     // 初始化gui调试器
@@ -131,6 +130,7 @@ class Three {
   private initCameraAndControls = (x: number, y: number) => {
     const {
       controlsProps,
+      camera,
       renderer,
       containerDom,
       disableAutoSetCameraPosition,
@@ -153,14 +153,17 @@ class Three {
       );
       this.camera.position.set(0, 0, z);
     }
-    this.controls = new OrbitControls(this.camera, renderer.domElement);
     const { enableDamping, dampingFactor, minDistance, maxDistance } =
       controlsProps;
-    this.controls.enableDamping = enableDamping;
-    this.controls.dampingFactor = dampingFactor;
-    this.controls.screenSpacePanning = false; // 不支持空格鼠标操作
-    this.controls.minDistance = minDistance;
-    this.controls.maxDistance = maxDistance;
+    this.controls = createOrbitContros({
+      camera,
+      renderer,
+      enableDamping,
+      dampingFactor,
+      minDistance,
+      maxDistance,
+    });
+
     this.render();
   };
 

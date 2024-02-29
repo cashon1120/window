@@ -1,12 +1,12 @@
 import * as THREE from "three";
 
 interface RenderProps {
-  width: number;
-  height: number;
+  containerDom: HTMLElement;
 }
 
 const createRenderer = (params: RenderProps) => {
-  const { width, height } = params;
+  const {containerDom } = params;
+  const {offsetWidth, offsetHeight} = containerDom
   const renderer = new THREE.WebGLRenderer({
     antialias: true, // 是否抗锯齿
     alpha: true, // 是否可以设置背景色透明
@@ -14,9 +14,10 @@ const createRenderer = (params: RenderProps) => {
     premultipliedAlpha: true, // 表示是否可以设置像素深度（用来度量图像的分辨率）
   });
   renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(width, height);
+  renderer.setSize(offsetWidth, offsetHeight);
   // 设置渲染器，允许光源阴影渲染
   renderer.shadowMap.enabled = true;
+  containerDom.appendChild(renderer.domElement);
   return renderer;
 };
 
