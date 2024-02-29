@@ -2,8 +2,8 @@ import * as THREE from "three";
 import TWEEN from "@tweenjs/tween.js";
 import Bar, { BarAnimationParams, BarProps } from "@/threeD/basicModel/Bar";
 import { extrudeSettings } from "./config";
-import LeftHandle from "./LeftHandle";
-import RightHandle from "./RightHandle";
+import LeftHandle from "../ironware/LeftHandle";
+import RightHandle from "../ironware/RightHandle";
 import { createRoundedRect, createRoundedGeometry } from "@/utils/roundedRect";
 
 /**

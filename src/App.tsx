@@ -32,6 +32,7 @@ function App() {
   useEffect(() => {
     const three = new Three({
       data,
+      scale: 1/20,
       container: "threeD",
       showStats: true,
       showGui: true,

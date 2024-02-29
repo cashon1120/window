@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import Bar, { BarProps } from "@/threeD/basicModel/Bar";
-import LeftHandle from "./LeftHandle";
-import RightHandle from "./RightHandle";
+import LeftHandle from "../ironware/LeftHandle";
+import RightHandle from "../ironware/RightHandle";
 
 import { extrudeSettings } from "./config";
 import { createRoundedRect, createRoundedGeometry } from "@/utils/roundedRect";

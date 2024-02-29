@@ -9,21 +9,30 @@ import createLight from "./lights";
 import createSize from "./tools/size";
 import { ValueObj, ThreeDObject } from "./types";
 
+interface ControlsProps {
+  minDistance?: number;
+  maxDistance?: number;
+}
+
 interface Params {
   // 渲染容器的ID，注意是ID
+  container: string;
+  // 渲染数据
   data: Data;
   // 缩放比例，考虑到现实中应该是以毫米为单位，那样太大，这里给一个缩放比例
-  scale?: number; 
-  container: string;
+  scale?: number;
+  // 是否显示辅助线
   showHelper?: {
     color?: string;
   };
+  // 是否显示GUI
   showGui?: boolean;
+  // 是否显示性能查看器
   showStats?: boolean;
-  controls?: {
-    minDistance?: number;
-    maxDistance?: number;
-  };
+  // 控制器相关配置
+  controls?: ControlsProps;
+  // 是否禁用自动设置相机位置
+  disableAutoSetCameraPosition?: boolean
 }
 
 class Three {
@@ -32,19 +41,36 @@ class Three {
   renderer: THREE.WebGLRenderer;
   containerDom: HTMLElement | null;
   mainGroup: THREE.Group;
-  controls: OrbitControls;
+  controls: OrbitControls | undefined = undefined;
   stats: Stats | null = null;
   guiInstance: Gui | undefined = undefined;
-  objects: ThreeDObject; // 保存所有根据传入的数据渲染的3D对象，不包括灯光，辅助线等，以后可能会有用；
+  // 保存所有根据传入的数据渲染的3D对象，不包括灯光，辅助线等，以后可能会有用；
+  objects: ThreeDObject;
   scale: number = 1;
+  controlsParams = {minDistance: 0, maxDistance: 0};
+  disableAutoSetCameraPosition: boolean;
   constructor(params: Params) {
-    const { container, showHelper, showStats, showGui, data, controls, scale = 1 } =
-      params;
+    const {
+      container,
+      showHelper,
+      showStats,
+      showGui,
+      data,
+      controls,
+      scale = 1,
+      disableAutoSetCameraPosition = false
+    } = params;
     this.containerDom = document.getElementById(container);
     if (!this.containerDom) {
       throw new Error(`${container} 容器不存在`);
     }
     const { offsetWidth, offsetHeight } = this.containerDom;
+    this.controlsParams = {
+      minDistance: 100,
+      maxDistance: 500,
+      ...controls,
+    };
+    this.disableAutoSetCameraPosition = disableAutoSetCameraPosition
     this.scale = scale;
     this.objects = {};
     this.scene = new THREE.Scene();
@@ -55,29 +81,19 @@ class Three {
       1,
       10000
     );
-    this.camera.position.set(0, 0, (controls?.minDistance || 100) + 300);
+
     const renderer = new THREE.WebGLRenderer({
       antialias: true, // 是否抗锯齿
       alpha: true, // 是否可以设置背景色透明
       precision: "mediump", // highp/mediump/lowp 表示着色精度选择
       premultipliedAlpha: true, // 表示是否可以设置像素深度（用来度量图像的分辨率）
-      // preserveDrawingBuffer: false, // 是否保存绘图缓冲
-      // physicallyCorrectLights: true, // 是否开启物理光照
     });
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(offsetWidth, offsetHeight);
     // 设置渲染器，允许光源阴影渲染
     renderer.shadowMap.enabled = true;
     this.containerDom.appendChild(renderer.domElement);
-    this.controls = new OrbitControls(this.camera, renderer.domElement);
     this.renderer = renderer;
-
-    // 注意这里的位置，后面需要优化
-    this.controls.minDistance = controls?.minDistance || 100;
-    this.controls.maxDistance = controls?.maxDistance || 1000;
-
-    // 创建所有模型,注意这里的位置，必须在render, scene, 创建之后执行
-    this.createModel(data);
 
     const { scene, camera } = this;
     // 性能监视插件
@@ -104,14 +120,32 @@ class Three {
       });
     }
 
-    // 创建相关尺寸
-    createSize(this);
+    // 创建所有模型,注意这里的位置，必须在render, scene, 创建之后执行
+    this.createModel(data);
 
-    // 创建一系列灯光，
-    createLight(this);
     this.addEventListener();
     this.render();
   }
+
+  private initCameraAndControls = (x: number, y: number) => {
+    const { controlsParams, renderer, containerDom, disableAutoSetCameraPosition } = this;
+    if(disableAutoSetCameraPosition){
+      this.camera.position.set(0, 0, 200);
+    }else{
+      // 这里按宽高比例设置相机在Z轴的位置,保证能完全看到模型
+      const { offsetWidth, offsetHeight } = containerDom as HTMLElement;
+      // 这个数字是试出来的，估计不怎么好，后面有机会再找更好的计算方法
+      const base = 1600
+      const z = Math.max(x / offsetWidth * base, Math.abs(y) / offsetHeight * base)
+      this.camera.position.set(0, 0,z);
+    }
+    this.controls = new OrbitControls(this.camera, renderer.domElement);
+    this.controls.enableDamping = true; // 开启平滑移动效果
+    this.controls.dampingFactor = 0.25; // 平滑因子
+    this.controls.screenSpacePanning = false; // 不支持空格鼠标操作
+    this.controls.minDistance = controlsParams?.minDistance;
+    this.controls.maxDistance = controlsParams?.maxDistance;
+  };
 
   /**
    * 创建模型
@@ -131,9 +165,11 @@ class Three {
       }
     });
     this.resetMainGroup();
-    this.render();
   };
 
+  /**
+   * 设置内容显示到中间，并根据内容的宽高调整灯光的位置
+   */
   resetMainGroup = () => {
     const box = new THREE.Box3();
     this.mainGroup.scale.set(this.scale, this.scale, this.scale);
@@ -142,24 +178,32 @@ class Three {
     const offsetY = -min.y / 2;
     this.mainGroup.translateX(offsetX);
     this.mainGroup.translateY(offsetY);
+    // 创建相关尺寸
+    createSize(this);
+    // 创建灯光，需要在mainGroup位置调整之后调用，translate不会影响max, min的值，其中min.y是负数
+    createLight(this, max.x, min.y);
+    this.initCameraAndControls(max.x, min.y);
   };
 
-  // 更新材质或颜色
+  /**
+   * 更新材质或颜色
+   */
   updateMaterials = (obj: ValueObj) => {
     const { objects } = this;
     Object.keys(objects).forEach((key: string) => {
       objects[key].updateMaterial && objects[key].updateMaterial(obj);
     });
-    this.render();
   };
 
   /**
    * 渲染
    */
   render = () => {
-    const { renderer, scene, camera, stats } = this;
-    stats && stats.update();
+    const { renderer, scene, camera, stats, controls} = this;
+    stats?.update();
+    controls?.update()
     renderer.render(scene, camera);
+    requestAnimationFrame(this.render)
   };
 
   /**
@@ -181,14 +225,13 @@ class Three {
     }
     this.objects = {};
     // this.renderer.clear();
-    this.render();
   };
 
   /**
    * 绑定一些事件
    */
   addEventListener = () => {
-    const { renderer, camera, render, containerDom, controls, stats } = this;
+    const { renderer, camera, render, containerDom} = this;
     window.addEventListener("resize", () => {
       if (!containerDom) {
         return;
@@ -200,10 +243,7 @@ class Three {
       render();
     });
 
-    controls.addEventListener("change", () => {
-      stats && stats.update();
-      render();
-    });
+    
   };
 }
 

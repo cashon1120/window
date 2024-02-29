@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { createRoundedRect, createRoundedGeometry } from "@/utils/roundedRect";
 
 const extrudeSettings = {
-  depth: 2,
+  depth: 20,
   // 对挤出的形状应用是否斜角
   bevelEnabled: true,
   //斜角的分段层数
@@ -16,7 +16,7 @@ const extrudeSettings = {
 };
 
 const extrudeSettings2 = {
-  depth: 0.9,
+  depth: 9,
   // 对挤出的形状应用是否斜角
   bevelEnabled: true,
   //斜角的分段层数
@@ -33,9 +33,9 @@ class Handle {
   height: number;
   group: THREE.Group;
   constructor() {
-    this.height = 10;
+    this.height = 100;
     this.group = new THREE.Group();
-    let shape = createRoundedRect(0, 0, 1, 14, 0.8);
+    let shape = createRoundedRect(0, 0, 10, 140, 8);
     let geometry = createRoundedGeometry(shape, extrudeSettings);
 
     const material = new THREE.MeshPhysicalMaterial({
@@ -53,22 +53,21 @@ class Handle {
     mesh.userData.disableUpdate = true;
     // mesh.receiveShadow = true
     mesh.name = "handle";
-    mesh.translateY(-this.height / 2 - 10);
-    mesh.translateZ(3);
+    mesh.translateY(-this.height / 2 - 100);
+    mesh.translateZ(30);
     mesh.rotateY(Math.PI / 2);
-    mesh.scale.set(10, 10, 10)
     this.group.add(mesh);
 
-    const radius = 0.2;
+    const radius = 2;
 
     shape = new THREE.Shape();
     shape.moveTo(0, 0);
-    shape.lineTo(0, 15 - radius);
-    shape.quadraticCurveTo(0, 17, radius, 17);
-    shape.lineTo(3, 17);
-    shape.lineTo(3, 16);
-    shape.lineTo(1, 16);
-    shape.lineTo(1, 0);
+    shape.lineTo(0, 150 - radius);
+    shape.quadraticCurveTo(0, 170, radius, 170);
+    shape.lineTo(30, 170);
+    shape.lineTo(30, 160);
+    shape.lineTo(10, 160);
+    shape.lineTo(10, 0);
     shape.lineTo(0, 0);
     // shape.quadraticCurveTo(1, 0, 0.5, 1);
     // shape.lineTo(x + width, y + radius);
@@ -81,11 +80,10 @@ class Handle {
     mesh.castShadow = true;
     mesh.userData.disableUpdate = true;
     mesh.name = "handle";
-    mesh.translateY(-this.height / 2 - 22);
+    mesh.translateY(-this.height / 2 - 220);
     mesh.translateX(0.61);
-    mesh.translateZ(7);
+    mesh.translateZ(70);
     mesh.rotateY(Math.PI / 2);
-    mesh.scale.set(10, 10, 10)
     this.group.add(mesh);
   }
 }
