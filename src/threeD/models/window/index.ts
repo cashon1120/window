@@ -210,7 +210,7 @@ class Frame extends Rect {
         if (result[0].object.name === "handle") {
           const { type, isOpen } = this;
           const begin = type === "left" ? 0 : 0;
-          const end = type === "left" ? 154 : -120;
+          const end = type === "left" ? 1540 : -1200;
           const targetValue = isOpen ? begin : end;
           const tween = new TWEEN.Tween(this.group.position)
             .to({ x: targetValue }, 500)

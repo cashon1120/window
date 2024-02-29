@@ -37,12 +37,12 @@ class TopFrame extends Bar {
     this.innerGroup.add(mesh);
 
     // 玻璃的那个胶套, 为了两边不重叠，稍微短一点
-    const geometry2 = new THREE.BoxGeometry(width - 0.05, 2, 1);
+    const geometry2 = new THREE.BoxGeometry(width - 5, 20, 10);
     const material2 = new THREE.MeshPhongMaterial({
       color: "#000",
     });
     const mesh2 = new THREE.Mesh(geometry2, material2);
-    mesh2.translateY(-4);
+    mesh2.translateY(-40);
     mesh2.userData.disableUpdate = true;
     this.innerGroup.add(mesh2);
     this.init();

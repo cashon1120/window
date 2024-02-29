@@ -137,7 +137,7 @@ class Three {
       // 这里按宽高比例设置相机在Z轴的位置,保证能完全看到模型
       const { offsetWidth, offsetHeight } = containerDom as HTMLElement;
       // 这个数字是试出来的，估计不怎么好，后面有机会再找更好的计算方法
-      const base = 1600
+      const base = 1500
       const z = Math.max(x / offsetWidth * base, Math.abs(y) / offsetHeight * base)
       this.camera.position.set(0, 0,z);
     }

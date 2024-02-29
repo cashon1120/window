@@ -36,7 +36,7 @@ function App() {
       container: "threeD",
       showStats: true,
       showGui: true,
-      showHelper: {},
+      // showHelper: {},
     });
     setThree(three);
   }, []);

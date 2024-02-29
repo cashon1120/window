@@ -18,8 +18,8 @@ const createLight = (threeInstance: Three, x: number, y: number) => {
   isCreated = true;
   // 定义灯光上下左右大概的位置
   // x, y轴的偏移量, 暂时设为宽高的0.3
-  const offsetX = x * 0.2;
-  const offsetY = Math.abs(y) * 0.4;
+  const offsetX = x * 0.3;
+  const offsetY = Math.abs(y) * 0.3;
   const left = -x / 2;
   const right = x / 2;
   const top = -y / 2;
@@ -31,7 +31,7 @@ const createLight = (threeInstance: Three, x: number, y: number) => {
     threeInstance,
     x: left / 2,
     y: top + offsetY,
-    z: 40,
+    z: 70,
     name: "上-1",
     intensity: 10000,
     showHelper: true,
@@ -49,7 +49,7 @@ const createLight = (threeInstance: Three, x: number, y: number) => {
     threeInstance,
     x: right / 2,
     y: top + offsetY,
-    z: 40,
+    z: 70,
     name: "上-2",
     intensity: 10000,
     showHelper: true,
@@ -64,66 +64,56 @@ const createLight = (threeInstance: Three, x: number, y: number) => {
   });
 
   //右阴影
-  // createSpotLight({
-  //   threeInstance,
-  //   x: width / 2 + 200,
-  //   y: 0,
-  //   z: 100,
-  //   decay: 1,
-  //   name: "右阴影",
-  //   intensity: 1000,
-  //   showHelper: true,
-  //   showGui: true,
-  //   castShadow: true,
-  //   angle: 0.8,
-  //   penumbra: 1,
-  // });
+  createSpotLight({
+    threeInstance,
+    x: right + offsetX,
+    y: 0,
+    z: 80,
+    name: "右阴影",
+    intensity: 10000,
+    showHelper: true,
+    showGui: true,
+    castShadow: true,
+    angle: 0.8,
+    penumbra: 1,
+  });
 
   // 左
-  // createSpotLight({
-  //   threeInstance,
-  //   x: -width / 2 - 200,
-  //   y: 0,
-  //   z: 100,
-  //   decay: 1.2,
-  //   name: "左",
-  //   intensity: 1300,
-  //   // // showHelper: true,
-  //   // // showGui: true,
-  //   castShadow: true,
-  //   angle: 0.8,
-  //   penumbra: 1,
-  // });
+  createSpotLight({
+    threeInstance,
+    x: left - offsetX,
+    y: 0,
+    z: 70,
+    name: "左",
+    intensity: 1300,
+    showHelper: true,
+    showGui: true,
+    castShadow: true,
+  });
 
   // 前
-  // createSpotLight({
-  //   threeInstance,
-  //   x: 0,
-  //   y: 0,
-  //   z: 300,
-  //   decay: 1,
-  //   name: "前",
-  //   intensity: 200,
-  //   showHelper: true,
-  //   showGui: true,
-  //   angle: 0.6,
-  //   penumbra: 1,
-  // });
+  createSpotLight({
+    threeInstance,
+    x: 0,
+    y: 0,
+    z: 200,
+    name: "前",
+    intensity: 2000,
+    showHelper: true,
+    showGui: true,
+  });
 
   // 后
-  // createSpotLight({
-  //   threeInstance,
-  //   x: 0,
-  //   y: 0,
-  //   z: -300,
-  //   decay: 1,
-  //   name: "后",
-  //   intensity: 200,
-  //   showHelper: true,
-  //   showGui: true,
-  //   angle: 0.6,
-  //   penumbra: 1,
-  // });
+  createSpotLight({
+    threeInstance,
+    x: 0,
+    y: 0,
+    z: -200,
+    name: "后",
+    intensity: 2000,
+    showHelper: true,
+    showGui: true,
+  });
 };
 
 export default createLight;

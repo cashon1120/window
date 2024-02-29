@@ -74,12 +74,12 @@ const data: Data = {
       top: 30,
       height: 1720,
       width: 1600,
-      offsetZ: 2.5,
+      offsetZ: 25,
       // 暂时用这个来判断把手的样式
       type: 'left',
       color
     },
-    minSize: 15,
+    minSize: 150,
     ...JSON.parse(JSON.stringify(props)),
   },
   window2: {
@@ -90,7 +90,7 @@ const data: Data = {
       top: 30,
       height: 1720,
       width: 1600,
-      offsetZ: -2.5,
+      offsetZ: -25,
       type: 'right',
       color
     },

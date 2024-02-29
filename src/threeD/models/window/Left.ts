@@ -45,7 +45,7 @@ class LeftFrame extends Bar {
     }
 
     // 玻璃的那个胶套, 为了两边不重叠，稍微短一点
-    const geometry2 = new THREE.BoxGeometry(20, height - 0.05, 1);
+    const geometry2 = new THREE.BoxGeometry(20, height - 0.5, 10);
     const material2 = new THREE.MeshPhysicalMaterial({
       color: "#000",
       metalness: 0.5,
@@ -53,7 +53,7 @@ class LeftFrame extends Bar {
     });
     const mesh2 = new THREE.Mesh(geometry2, material2);
     mesh2.userData.disableUpdate = true;
-    mesh2.translateX(3);
+    mesh2.translateX(30);
     this.innerGroup.add(mesh2);
     this.init();
   }

@@ -6,13 +6,13 @@ const extrudeSettings = {
   // 对挤出的形状应用是否斜角
   bevelEnabled: true,
   //斜角的分段层数
-  bevelSegments: 3,
+  bevelSegments: 30,
   // 用于沿着挤出样条的深度细分的点的数量
-  steps: 1,
+  steps: 10,
   // 斜角与原始形状轮廓之间的延伸距离
-  bevelSize: 1,
+  bevelSize: 10,
   // 设置原始形状上斜角的厚度
-  bevelThickness: 0.6,
+  bevelThickness: 6,
 };
 
 const extrudeSettings2 = {
@@ -20,13 +20,13 @@ const extrudeSettings2 = {
   // 对挤出的形状应用是否斜角
   bevelEnabled: true,
   //斜角的分段层数
-  bevelSegments: 5,
+  bevelSegments: 10,
   // 用于沿着挤出样条的深度细分的点的数量
-  steps: 1,
+  steps: 10,
   // 斜角与原始形状轮廓之间的延伸距离
-  bevelSize: 0.6,
+  bevelSize: 6,
   // 设置原始形状上斜角的厚度
-  bevelThickness: 0.6,
+  bevelThickness: 6,
 };
 
 class Handle {
@@ -81,7 +81,7 @@ class Handle {
     mesh.userData.disableUpdate = true;
     mesh.name = "handle";
     mesh.translateY(-this.height / 2 - 220);
-    mesh.translateX(0.61);
+    mesh.translateX(7);
     mesh.translateZ(70);
     mesh.rotateY(Math.PI / 2);
     this.group.add(mesh);

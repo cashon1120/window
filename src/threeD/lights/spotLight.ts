@@ -33,7 +33,7 @@ const createSpotLight = (props: Props) => {
     castShadow = false,
     intensity = 500,
     angle = Math.PI / 3,
-    decay = 2.0,
+    decay = 1.8,
     target,
     name = "聚光源",
     distance = 0,
