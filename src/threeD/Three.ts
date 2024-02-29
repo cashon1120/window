@@ -2,6 +2,8 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import Stats from "three/addons/libs/stats.module.js";
+import createCamera from "./common/camera";
+import createRenderer from "./common/renderer";
 import Gui from "./common/gui";
 import Helper from "./common/helper";
 import { Data } from "../types";
@@ -86,27 +88,14 @@ class Three {
     this.scale = scale;
     this.scene = new THREE.Scene();
     this.mainGroup = new THREE.Group();
-    this.camera = new THREE.PerspectiveCamera(
-      45,
-      offsetWidth / offsetHeight,
-      1,
-      10000
-    );
-
-    const renderer = new THREE.WebGLRenderer({
-      antialias: true, // 是否抗锯齿
-      alpha: true, // 是否可以设置背景色透明
-      precision: "mediump", // highp/mediump/lowp 表示着色精度选择
-      premultipliedAlpha: true, // 表示是否可以设置像素深度（用来度量图像的分辨率）
+    this.camera = createCamera({ aspect: offsetWidth / offsetHeight });
+    this.renderer = createRenderer({
+      width: offsetWidth,
+      height: offsetHeight,
     });
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(offsetWidth, offsetHeight);
-    // 设置渲染器，允许光源阴影渲染
-    renderer.shadowMap.enabled = true;
-    this.containerDom.appendChild(renderer.domElement);
-    this.renderer = renderer;
+    this.containerDom.appendChild(this.renderer.domElement);
 
-    const { scene, camera } = this;
+    const { scene, camera, renderer } = this;
     // 初始化性能监视插件
     if (showStats) {
       this.stats = new Stats();
