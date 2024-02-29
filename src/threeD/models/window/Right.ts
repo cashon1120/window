@@ -107,7 +107,6 @@ class RightFrame extends Bar {
       tween.update();
       positionTween.update();
       handleTween.update();
-      this.threeInstance.render();
       if (!isEnd) {
         requestAnimationFrame(render);
       }

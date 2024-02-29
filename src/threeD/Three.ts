@@ -124,9 +124,11 @@ class Three {
     this.createModel(data);
 
     this.addEventListener();
-    this.render();
   }
 
+  /**
+   * 初始化相机位置
+  */
   private initCameraAndControls = (x: number, y: number) => {
     const { controlsParams, renderer, containerDom, disableAutoSetCameraPosition } = this;
     if(disableAutoSetCameraPosition){
@@ -141,10 +143,11 @@ class Three {
     }
     this.controls = new OrbitControls(this.camera, renderer.domElement);
     this.controls.enableDamping = true; // 开启平滑移动效果
-    this.controls.dampingFactor = 0.25; // 平滑因子
+    this.controls.dampingFactor = 1; // 平滑因子
     this.controls.screenSpacePanning = false; // 不支持空格鼠标操作
     this.controls.minDistance = controlsParams?.minDistance;
     this.controls.maxDistance = controlsParams?.maxDistance;
+    this.render();
   };
 
   /**
@@ -242,8 +245,6 @@ class Three {
       camera.updateProjectionMatrix();
       render();
     });
-
-    
   };
 }
 

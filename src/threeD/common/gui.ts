@@ -126,12 +126,7 @@ class Gui {
       .name(name)
       .onChange((value: boolean) => {
         onChange && onChange(value);
-        this.render();
       });
-  };
-
-  render = () => {
-    this.renderer.render(this.scene, this.camera);
   };
 }
 

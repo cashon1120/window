@@ -56,7 +56,6 @@ const createSize = (threeInstance: Three) => {
       textMesh.position.set(3450, -1000, 0);
       threeInstance.mainGroup.add(textMesh);
 
-      threeInstance.render();
     }
   );
 
@@ -87,7 +86,6 @@ const createSize = (threeInstance: Three) => {
   line = new THREE.Line(geometry, material);
   threeInstance.mainGroup.add(line);
 
-  threeInstance.render();
 };
 
 export default createSize;

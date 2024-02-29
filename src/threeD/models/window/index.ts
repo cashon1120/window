@@ -161,7 +161,6 @@ class Frame extends Rect {
           // }
 
           this.group.add(textGroup);
-          this.threeInstance.render();
         }
       );
     }
@@ -224,7 +223,6 @@ class Frame extends Rect {
 
           const animation = () => {
             tween.update();
-            this.threeInstance.render();
             if (!isEnd) {
               requestAnimationFrame(animation);
             }

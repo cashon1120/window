@@ -165,7 +165,6 @@ class Bar {
     });
     const render = () => {
       tween.update();
-      this.threeInstance.render();
       if (!isEnd) {
         requestAnimationFrame(render);
       }
@@ -228,7 +227,6 @@ class Bar {
     const render = () => {
       tween.update();
       positionTween.update();
-      this.threeInstance.render();
       if (!isEnd) {
         requestAnimationFrame(render);
       }
