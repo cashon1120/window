@@ -4,7 +4,7 @@ import Bar, { BarAnimationParams, BarProps } from "@/threeD/basicModel/Bar";
 import { extrudeSettings } from "./config";
 import LeftHandle from "../ironware/LeftHandle";
 import RightHandle from "../ironware/RightHandle";
-import { createRoundedRect, createRoundedGeometry } from "@/utils/roundedRect";
+import { createRoundedRect, createRoundedGeometry } from "../../utils/roundedRect";
 
 /**
  * 框架右侧,这里加了一个把手

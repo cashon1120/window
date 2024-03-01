@@ -96,24 +96,14 @@ const createLight = (threeInstance: Three, x: number, y: number) => {
     threeInstance,
     x: 0,
     y: 0,
-    z: 100,
+    z: 200,
     name: "前",
-    intensity: 10000,
+    intensity: 20000,
     showHelper: false,
     showGui: true,
   });
 
-  // 后
-  createSpotLight({
-    threeInstance,
-    x: 0,
-    y: 0,
-    z: -100,
-    name: "后",
-    intensity: 10000,
-    // showHelper: false,
-    // showGui: true,
-  });
+
 };
 
 export default createLight;

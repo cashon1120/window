@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import Bar, { BarProps } from "@/threeD/basicModel/Bar";
 import { extrudeSettings } from "./config";
-import { createRoundedRect, createRoundedGeometry } from "@/utils/roundedRect";
+import { createRoundedRect, createRoundedGeometry } from "../../utils/roundedRect";
 /**
  * 框架底部，可能会有轨道之类的元素
  */

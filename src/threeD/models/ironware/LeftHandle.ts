@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { createRoundedRect, createRoundedGeometry } from "@/utils/roundedRect";
+import { createRoundedRect, createRoundedGeometry } from "../../utils/roundedRect";
 
 const extrudeSettings = {
   depth: 20,

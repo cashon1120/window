@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import Three from "../Three";
-import { getMousePosition } from "@/utils/index";
+import { getMousePosition } from "../utils/index";
 
 type CallbackObject = THREE.Intersection<THREE.Object3D<THREE.Object3DEventMap>>[];
 

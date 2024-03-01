@@ -42,6 +42,9 @@ interface Params {
   controls?: ControlsProps;
   // 是否禁用自动设置相机位置
   disableAutoSetCameraPosition?: boolean;
+  // 旋转模型时是否用orbitControls轨道控制器，默认值为true, 这个旋转物体的时候灯光啥的都会跟着一起动，其实就是修改相机位置
+  // 传入false的话就会调用自己的旋转事件，只旋转模型，灯光那些不会动
+  useOrbitControls?: boolean;
 }
 
 class Three {
@@ -50,9 +53,8 @@ class Three {
   renderer: THREE.WebGLRenderer;
   containerDom: HTMLElement | null;
   mainGroup: THREE.Group;
-  controls: OrbitControls | undefined = undefined;
-  stats: Stats | null = null;
-  guiInstance: Gui | undefined = undefined;
+  // mainGroup用来放所有的模型， animationGroup用来放mainGroup，做动画的时候好固定在坐标原点
+  animationGroup: THREE.Group;
   // 保存所有根据传入的数据渲染的3D对象，不包括灯光，辅助线等，以后可能会有用；
   objects: ThreeDObject;
   scale: number = 1;
@@ -65,6 +67,10 @@ class Three {
   disableAutoSetCameraPosition: boolean;
   // 是否设置相机位置，只需要在第一次创建的时候设置
   isSetCameraPosition: boolean = false;
+  useOrbitControls: boolean = true;
+  controls?: OrbitControls;
+  guiInstance?: Gui;
+  stats?: Stats;
   constructor(params: Params) {
     const {
       data,
@@ -75,11 +81,16 @@ class Three {
       showHelper,
       scale = 1,
       disableAutoSetCameraPosition = false,
+      useOrbitControls,
     } = params;
     this.containerDom = document.getElementById(container);
     if (!this.containerDom) {
       throw new Error(`${container} 容器不存在`);
     }
+    if (useOrbitControls != void 0) {
+      this.useOrbitControls = useOrbitControls;
+    }
+
     this.controlsProps = {
       ...this.controlsProps,
       ...controls,
@@ -88,14 +99,15 @@ class Three {
     this.objects = {};
     this.scale = scale;
     this.mainGroup = new THREE.Group();
+    this.animationGroup = new THREE.Group();
 
     // 创建三大件
     this.scene = createScene();
-    this.camera = createCamera({ containerDom: this.containerDom  });
+    this.camera = createCamera({ containerDom: this.containerDom });
     this.renderer = createRenderer({ containerDom: this.containerDom });
 
     const { scene, camera, renderer } = this;
-    
+
     // 创建性能监视插件
     if (showStats) {
       this.stats = createStats(this.containerDom);
@@ -135,6 +147,7 @@ class Three {
       containerDom,
       disableAutoSetCameraPosition,
       isSetCameraPosition,
+      useOrbitControls,
     } = this;
     if (isSetCameraPosition) {
       return;
@@ -162,6 +175,7 @@ class Three {
       dampingFactor,
       minDistance,
       maxDistance,
+      enabled: useOrbitControls,
     });
     this.render();
   };
@@ -192,6 +206,7 @@ class Three {
     renderer.render(scene, camera);
     stats?.update();
     controls?.update();
+    // this.lightContainer?.position.copy(camera.position);
     // 其实作为一个没有动画的项目，可以不需要循环调用，可以在其它地方主动调用this.render()进行渲染，
     // 经研究证实，requestAnimationFrame循环调用也不会影响性能和帧数, 也就多耗一些电 主要如果controls加了阻尼效果的话就必须这样去更新 controls.update()
     requestAnimationFrame(this.render);
@@ -201,16 +216,42 @@ class Three {
    * 绑定一些事件,这里是窗口大小变化事件
    */
   private addEventListener = () => {
-    const { renderer, camera, containerDom } = this;
+    const { renderer, camera, containerDom, useOrbitControls } = this;
+    if (!containerDom) {
+      return;
+    }
     window.addEventListener("resize", () => {
-      if (!containerDom) {
-        return;
-      }
       const { offsetWidth, offsetHeight } = containerDom;
       renderer.setSize(offsetWidth, offsetHeight);
       camera.aspect = offsetWidth / offsetHeight;
       camera.updateProjectionMatrix();
     });
+    if (!useOrbitControls) {
+      let isMove = false;
+      let mouseX = 0;
+      let mouseY = 0;
+      const speed = 0.002;
+      containerDom.addEventListener("mousedown", (e) => {
+        isMove = true;
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+      document.addEventListener("mousemove", (e) => {
+        if (isMove) {
+          const x = e.pageX;
+          const y = e.pageY;
+          const _x = x - mouseX;
+          const _y = y - mouseY;
+          this.animationGroup.rotation.x += _y * speed * Math.PI;
+          this.animationGroup.rotation.y += _x * speed * Math.PI;
+          mouseX = x;
+          mouseY = y;
+        }
+      });
+      document.addEventListener("mouseup", () => {
+        isMove = false;
+      });
+    }
   };
 
   /**
@@ -219,7 +260,8 @@ class Three {
   createModel = (data?: Data) => {
     this.mainGroup = new THREE.Group();
     this.mainGroup.name = "MainGroup";
-    this.scene.add(this.mainGroup);
+    this.animationGroup.add(this.mainGroup);
+    this.scene.add(this.animationGroup);
     if (data) {
       Object.keys(data).forEach((key) => {
         const modelName = data[key].model;

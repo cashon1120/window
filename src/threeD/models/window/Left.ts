@@ -4,7 +4,7 @@ import LeftHandle from "../ironware/LeftHandle";
 import RightHandle from "../ironware/RightHandle";
 
 import { extrudeSettings } from "./config";
-import { createRoundedRect, createRoundedGeometry } from "@/utils/roundedRect";
+import { createRoundedRect, createRoundedGeometry } from "../../utils/roundedRect";
 /**
  * 框架左侧
  */

@@ -32,6 +32,7 @@ function App() {
       container: "threeD",
       showStats: true,
       showGui: true,
+      useOrbitControls: false,
       // showHelper: {},
     });
     setThree(three);

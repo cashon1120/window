@@ -7,6 +7,7 @@ interface ControlProps {
   renderer: THREE.Renderer;
   enableDamping: boolean;
   dampingFactor: number;
+  enabled: boolean;
   minDistance?: number;
   maxDistance?: number;
 }
@@ -20,13 +21,15 @@ const createOrbitContros = (params: ControlProps) => {
     dampingFactor,
     minDistance = 100,
     maxDistance = 500,
+    enabled
   } = params;
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = enableDamping;
   controls.dampingFactor = dampingFactor;
-  controls.screenSpacePanning = false; // 不支持空格鼠标操作
   controls.minDistance = minDistance;
   controls.maxDistance = maxDistance;
+  controls.enabled = enabled;
+  controls.enableRotate = enabled
   controls.addEventListener("change", () => {
     // change事件，暂时没有
   });

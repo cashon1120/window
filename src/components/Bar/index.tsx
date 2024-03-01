@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRef } from "react";
-import getDragRange from "@/utils/getDragRange";
+import getDragRange from "@/threeD/utils/getDragRange";
 import { ReactBarProps } from "@/types";
 import "../style/style.less";
 
