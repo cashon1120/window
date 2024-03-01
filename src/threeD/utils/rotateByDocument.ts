@@ -9,18 +9,24 @@ const rotateByCustom = (parmas: Props) => {
     let isMove = false;
     let mouseX = 0;
     let mouseY = 0;
+    let _x = 0;
+    let _y = 0
     const speed = 0.002;
+    let timer: ReturnType<typeof setTimeout>
     dom.addEventListener("mousedown", (e) => {
       isMove = true;
       mouseX = e.clientX;
       mouseY = e.clientY;
     });
     document.addEventListener("mousemove", (e) => {
+        clearInterval(timer)
       if (isMove) {
-        const x = e.pageX;
-        const y = e.pageY;
-        const _x = x - mouseX;
-        const _y = y - mouseY;
+        const x = e.clientX;
+        const y = e.clientY;
+        _x = x - mouseX;
+        _y = y - mouseY;
+        console.log(_x, _y)
+
         target.rotation.x += _y * speed * Math.PI;
         target.rotation.y += _x * speed * Math.PI;
         mouseX = x;
@@ -29,6 +35,11 @@ const rotateByCustom = (parmas: Props) => {
     });
     document.addEventListener("mouseup", () => {
       isMove = false;
+      console.log(_x, _y)
+      timer = setInterval(() => {
+        target.rotation.x += _y * speed * Math.PI;
+        // target.rotation.y += _x * speed * Math.PI;
+      }, 30)
     });
 }
 
