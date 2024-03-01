@@ -96,7 +96,7 @@ class Three {
 
     const { scene, camera, renderer } = this;
     
-    // 初始化性能监视插件
+    // 创建性能监视插件
     if (showStats) {
       this.stats = createStats(this.containerDom);
     }
@@ -163,7 +163,6 @@ class Three {
       minDistance,
       maxDistance,
     });
-
     this.render();
   };
 
@@ -186,13 +185,15 @@ class Three {
   };
 
   /**
-   * 渲染动画
+   * 渲染场景
    */
   private render = () => {
     const { renderer, scene, camera, stats, controls } = this;
+    renderer.render(scene, camera);
     stats?.update();
     controls?.update();
-    renderer.render(scene, camera);
+    // 其实作为一个没有动画的项目，可以不需要循环调用，可以在其它地方主动调用this.render()进行渲染，
+    // 经研究证实，requestAnimationFrame循环调用也不会影响性能和帧数, 也就多耗一些电 主要如果controls加了阻尼效果的话就必须这样去更新 controls.update()
     requestAnimationFrame(this.render);
   };
 
