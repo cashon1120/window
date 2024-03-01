@@ -6,6 +6,7 @@ import createRenderer from "./common/renderer";
 import createScene from "./common/scene";
 import createStats from "./common/stats";
 import createOrbitContros from "./common/orbitContros";
+import rotateByCustom from "./utils/rotateByDocument";
 import Gui from "./common/gui";
 import Helper from "./common/helper";
 import { Data } from "../types";
@@ -22,6 +23,8 @@ interface ControlsProps {
   // 阻尼惯性，默认0.05
   dampingFactor?: number;
 }
+
+type ControlType = 'system' | 'custom';
 
 interface Params {
   // 渲染容器的ID，注意是ID
@@ -42,9 +45,12 @@ interface Params {
   controls?: ControlsProps;
   // 是否禁用自动设置相机位置
   disableAutoSetCameraPosition?: boolean;
-  // 旋转模型时是否用orbitControls轨道控制器，默认值为true, 这个旋转物体的时候灯光啥的都会跟着一起动，其实就是修改相机位置
-  // 传入false的话就会调用自己的旋转事件，只旋转模型，灯光那些不会动
-  useOrbitControls?: boolean;
+  /**
+   * 控制模型旋转旋转方式，默认值为: system;
+   * system: 采用系统orbitControls轨道控制器，这个旋转物体的时候灯光啥的都会跟着一起动，其实就是修改相机位置；
+   * custom: 采用自定义的控制方式，旋转物体的时候灯光啥的都不会动；
+  */
+  controlType?: ControlType;
 }
 
 class Three {
@@ -67,7 +73,7 @@ class Three {
   disableAutoSetCameraPosition: boolean;
   // 是否设置相机位置，只需要在第一次创建的时候设置
   isSetCameraPosition: boolean = false;
-  useOrbitControls: boolean = true;
+  controlType: ControlType = 'system';
   controls?: OrbitControls;
   guiInstance?: Gui;
   stats?: Stats;
@@ -81,14 +87,14 @@ class Three {
       showHelper,
       scale = 1,
       disableAutoSetCameraPosition = false,
-      useOrbitControls,
+      controlType,
     } = params;
     this.containerDom = document.getElementById(container);
     if (!this.containerDom) {
       throw new Error(`${container} 容器不存在`);
     }
-    if (useOrbitControls != void 0) {
-      this.useOrbitControls = useOrbitControls;
+    if (controlType) {
+      this.controlType = controlType;
     }
 
     this.controlsProps = {
@@ -147,7 +153,7 @@ class Three {
       containerDom,
       disableAutoSetCameraPosition,
       isSetCameraPosition,
-      useOrbitControls,
+      controlType,
     } = this;
     if (isSetCameraPosition) {
       return;
@@ -175,7 +181,7 @@ class Three {
       dampingFactor,
       minDistance,
       maxDistance,
-      enabled: useOrbitControls,
+      enabled: controlType === 'system',
     });
     this.render();
   };
@@ -216,7 +222,7 @@ class Three {
    * 绑定一些事件,这里是窗口大小变化事件
    */
   private addEventListener = () => {
-    const { renderer, camera, containerDom, useOrbitControls } = this;
+    const { renderer, camera, containerDom, controlType, animationGroup } = this;
     if (!containerDom) {
       return;
     }
@@ -226,31 +232,8 @@ class Three {
       camera.aspect = offsetWidth / offsetHeight;
       camera.updateProjectionMatrix();
     });
-    if (!useOrbitControls) {
-      let isMove = false;
-      let mouseX = 0;
-      let mouseY = 0;
-      const speed = 0.002;
-      containerDom.addEventListener("mousedown", (e) => {
-        isMove = true;
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-      });
-      document.addEventListener("mousemove", (e) => {
-        if (isMove) {
-          const x = e.pageX;
-          const y = e.pageY;
-          const _x = x - mouseX;
-          const _y = y - mouseY;
-          this.animationGroup.rotation.x += _y * speed * Math.PI;
-          this.animationGroup.rotation.y += _x * speed * Math.PI;
-          mouseX = x;
-          mouseY = y;
-        }
-      });
-      document.addEventListener("mouseup", () => {
-        isMove = false;
-      });
+    if (controlType === 'custom') {
+      rotateByCustom({dom: containerDom, target:animationGroup})
     }
   };
 
