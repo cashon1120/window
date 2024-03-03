@@ -16,23 +16,21 @@ class Glass {
   rotate: number = 0;
   constructor(params: GlassProps) {
     const { width, height, left = 0, top = 0, depth = 5, group,colors = ["#5584e3", "#3664c1"], opacity = 0.2 } = params;
-    // 4个胶条
-    // let geometry = new THREE.BoxGeometry(width, height, depth);
+    // 胶条框框
     const material = new THREE.MeshPhysicalMaterial({
       color: "#000",
       metalness: 0.5,
       roughness: 0.5,
     });
-    // const mesh = new THREE.Mesh(geometry, material);
-
-    // 这里要注意height要用负数，因为是向下的
+    // 这里要注意height得用负数，因为是向下的
     const shape = new THREE.Shape()
       .moveTo(0, 0)
       .lineTo(width, 0)
       .lineTo(width, -height)
       .lineTo(0, -height)
       .lineTo(0, 0);
-    const size = 5;
+    // 这个决定胶条的大小 
+    const size = 4;
     const holes = new THREE.Shape()
       .moveTo(size, -size)
       .lineTo(width - size, -size)
@@ -45,11 +43,10 @@ class Glass {
       bevelEnabled: false,
       bevelThickness: 15, //倒角尺寸:拉伸方向
       bevelSize: 15, //倒角尺寸:垂直拉伸方向
-      bevelSegments: 20, //倒圆角：倒角细分精度，默认3
+      bevelSegments: 3, //倒圆角：倒角细分精度，默认3
     });
     const mesh = new THREE.Mesh(geometry, material);
     mesh.position.set(left, -top, 0);
-
     mesh.userData.disableUpdate = true;
     group.add(mesh);
 
