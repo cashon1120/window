@@ -7,7 +7,6 @@ import Left from "./Left";
 import Top from "./Top";
 import Right from "./Right";
 import Bottom from "./Bottom";
-import { ValueObj } from "@/types";
 import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 import { FontLoader } from "three/addons/loaders/FontLoader.js";
 
@@ -245,13 +244,6 @@ class Frame extends Rect {
     );
     this.init();
   }
-
-  updateMaterial = (obj: ValueObj) => {
-    this.topBar.updateMaterial(obj);
-    this.leftBar.updateMaterial(obj);
-    this.rightBar.updateMaterial(obj);
-    this.bottomBar.updateMaterial(obj);
-  };
 }
 
 export default Frame;

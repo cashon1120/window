@@ -279,7 +279,11 @@ class Three {
               object.material.normalMap = null;
               break;
             case "map":
+              obj.value.map.wrapS = THREE.RepeatWrapping;
+              obj.value.map.wrapT = THREE.RepeatWrapping;
               object.material.color = new THREE.Color(obj.value.color);
+              obj.value.map.offset.set(1, 1);
+              obj.value.map.repeat.set(2, 30);
               object.material.map = obj.value.map;
               break;
           }

@@ -2,30 +2,6 @@
 import * as THREE from "three";
 import TWEEN from "@tweenjs/tween.js";
 import Three from "../Three";
-import { ValueObj } from '@/types'
-
-
-const findGroupChildren = (children: any[], obj: ValueObj) => {
-  children.forEach((item: any) => {
-    if (item.isGroup) {
-      findGroupChildren(item.children, obj);
-    }
-    if (item.isMesh && !item.userData.disableUpdate) {
-      switch (obj.type) {
-        case "color":
-          item.material.color = new THREE.Color(obj.value.color);
-          item.material.map = null;
-          item.material.normalMap = null;
-          break;
-        case "map":
-          item.material.color = new THREE.Color(obj.value.color);
-          item.material.map = obj.value.map
-          break;
-      }
-
-    }
-  });
-};
 
 // threejs中是默认坐标在模型的中心点，这里根据 AlighType 进行偏移
 export type AlignType =
@@ -232,22 +208,6 @@ class Bar {
       }
     };
     render();
-  };
-
-  setMapAttribute = (map: any) => {
-    map.offset.set(1, 1);
-    map.repeat.set(2, 30);
-    return map
-  }
-
-  updateMaterial = (obj: ValueObj) => {
-    // 这里需要设置材质的相关属性
-    if(obj.type === 'map'){
-      obj.value.map.wrapS = THREE.RepeatWrapping;
-      obj.value.map.wrapT = THREE.RepeatWrapping;
-      this.setMapAttribute(obj.value.map)
-    }
-    findGroupChildren(this.group.children, obj);
   };
 }
 
