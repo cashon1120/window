@@ -24,7 +24,7 @@ interface ControlsProps {
   dampingFactor?: number;
 }
 
-type ControlType = 'system' | 'custom';
+type ControlType = "system" | "custom";
 
 interface Params {
   // 渲染容器的ID，注意是ID
@@ -49,7 +49,7 @@ interface Params {
    * 控制模型旋转旋转方式，默认值为: system;
    * system: 采用系统orbitControls轨道控制器，这个旋转物体的时候灯光啥的都会跟着一起动，其实就是修改相机位置；
    * custom: 采用自定义的控制方式，旋转物体的时候灯光啥的都不会动；
-  */
+   */
   controlType?: ControlType;
 }
 
@@ -73,7 +73,7 @@ class Three {
   disableAutoSetCameraPosition: boolean;
   // 是否设置相机位置，只需要在第一次创建的时候设置
   isSetCameraPosition: boolean = false;
-  controlType: ControlType = 'system';
+  controlType: ControlType = "system";
   controls?: OrbitControls;
   guiInstance?: Gui;
   stats?: Stats;
@@ -181,7 +181,7 @@ class Three {
       dampingFactor,
       minDistance,
       maxDistance,
-      enabled: controlType === 'system',
+      enabled: controlType === "system",
     });
     this.render();
   };
@@ -222,7 +222,8 @@ class Three {
    * 绑定一些事件,这里是窗口大小变化事件
    */
   private addEventListener = () => {
-    const { renderer, camera, containerDom, controlType, animationGroup } = this;
+    const { renderer, camera, containerDom, controlType, animationGroup } =
+      this;
     if (!containerDom) {
       return;
     }
@@ -232,8 +233,8 @@ class Three {
       camera.aspect = offsetWidth / offsetHeight;
       camera.updateProjectionMatrix();
     });
-    if (controlType === 'custom') {
-      rotateByCustom({dom: containerDom, target:animationGroup})
+    if (controlType === "custom") {
+      rotateByCustom({ dom: containerDom, target: animationGroup });
     }
   };
 
@@ -265,9 +266,27 @@ class Three {
    * 更新材质或颜色
    */
   updateMaterials = (obj: ValueObj) => {
-    const { objects } = this;
-    Object.keys(objects).forEach((key: string) => {
-      objects[key].updateMaterial && objects[key].updateMaterial(obj);
+    this.scene.traverse((object: any) => {
+      if (object.userData.disableUpdate) {
+        return;
+      }
+      try {
+        if (object.type === "Mesh") {
+          switch (obj.type) {
+            case "color":
+              object.material.color = new THREE.Color(obj.value.color);
+              object.material.map = null;
+              object.material.normalMap = null;
+              break;
+            case "map":
+              object.material.color = new THREE.Color(obj.value.color);
+              object.material.map = obj.value.map;
+              break;
+          }
+        }
+      } catch (e) {
+        throw new Error("删除缓存出错");
+      }
     });
   };
 

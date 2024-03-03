@@ -61,7 +61,6 @@ class Glass {
     if (!ctx) return;
     const gradient = ctx.createLinearGradient(0, 0, 0, height);
     colors.forEach((color: string, index: number) => {
-        console.log(index / ((colors.length - 1) || 1))
         gradient.addColorStop(index / ((colors.length - 1) || 1), color);
     })
     ctx.fillStyle = gradient;
