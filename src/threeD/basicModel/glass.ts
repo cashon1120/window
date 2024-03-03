@@ -8,14 +8,25 @@ export interface GlassProps {
   left?: number;
   top?: number;
   colors?: string[];
-    opacity?: number
+  opacity?: number;
+  name?: string;
 }
 
 class Glass {
   isOpen: boolean = false;
   rotate: number = 0;
   constructor(params: GlassProps) {
-    const { width, height, left = 0, top = 0, depth = 5, group,colors = ["#5584e3", "#3664c1"], opacity = 0.2 } = params;
+    const {
+      width,
+      height,
+      left = 0,
+      top = 0,
+      depth = 5,
+      group,
+      colors = ["#5584e3", "#3664c1"],
+      opacity = 0.2,
+      name = '玻璃'
+    } = params;
     // 胶条框框
     const material = new THREE.MeshPhysicalMaterial({
       color: "#000",
@@ -29,7 +40,7 @@ class Glass {
       .lineTo(width, -height)
       .lineTo(0, -height)
       .lineTo(0, 0);
-    // 这个决定胶条的大小 
+    // 这个决定胶条的大小
     const size = 4;
     const holes = new THREE.Shape()
       .moveTo(size, -size)
@@ -58,8 +69,8 @@ class Glass {
     if (!ctx) return;
     const gradient = ctx.createLinearGradient(0, 0, 0, height);
     colors.forEach((color: string, index: number) => {
-        gradient.addColorStop(index / ((colors.length - 1) || 1), color);
-    })
+      gradient.addColorStop(index / (colors.length - 1 || 1), color);
+    });
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, width, height);
     const canvasTexture = new THREE.CanvasTexture(canvas);
@@ -78,7 +89,7 @@ class Glass {
     const glassGemotery = new THREE.BoxGeometry(width, height, 0.1);
     const glassMesh = new THREE.Mesh(glassGemotery, glassMaterial);
     glassMesh.castShadow = true;
-    glassMesh.name = "glass";
+    glassMesh.name = name;
     const glassGroup = new THREE.Group();
     glassGroup.position.set(left, -top, 0);
     glassMesh.position.set(width / 2 + size, -height / 2 - size, 0);
