@@ -9,7 +9,7 @@ export interface Data {
     // 对应的3D模型， 在src/threeD/models中定义, 每新增一个需要在 src/threeD/models/index 里导出
     model: keyof typeof Models;
     type: CompentType;
-    attribute: Attribute;
+    attribute: any;
     tempAttribute: TempAttribute;
     // 上下左右的连接关系, 在拖动的时候会根据这个关系去更新对应模型的数据， 通过 utils/getModelLinks.ts 计算
     link: {
@@ -26,7 +26,9 @@ export interface Data {
 /**
  * 原始数据中模型的相关属性，具体是什么材质的应在model中定义和实现
 */
-export interface Attribute  extends BoxProps {}
+export interface Attribute  extends BoxProps {
+  [key: string]: any
+}
 export type AttributeKey = keyof BoxProps;
 
 /**

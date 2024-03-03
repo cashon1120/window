@@ -12,7 +12,7 @@ import Helper from "./common/helper";
 import { Data } from "../types";
 import * as Models from "./models";
 import createLight from "./lights";
-import createSize from "./tools/size";
+// import createSize from "./tools/size";
 import { ValueObj, ThreeDObject } from "./types";
 
 interface ControlsProps {
@@ -65,7 +65,7 @@ class Three {
   objects: ThreeDObject;
   scale: number = 1;
   controlsProps: Required<ControlsProps> = {
-    minDistance: 100,
+    minDistance: 10,
     maxDistance: 500,
     enableDamping: true,
     dampingFactor: 0.05,
@@ -197,8 +197,8 @@ class Three {
     const offsetY = -min.y / 2;
     this.mainGroup.translateX(offsetX);
     this.mainGroup.translateY(offsetY);
-    // 创建相关尺寸
-    createSize(this);
+    // 创建相关尺寸,应该在模型创建完成后创建
+    // createSize(this);
     // 创建灯光，需要在mainGroup位置调整之后调用，translate不会影响max, min的值，其中min.y是负数
     createLight(this, max.x, min.y);
     this.initCameraAndControls(max.x, min.y);

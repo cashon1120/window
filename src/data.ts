@@ -12,90 +12,91 @@ const props = {
   },
 };
 
-const color = '#435962'
+const color = '#939393'
 
 /**
  * 测试数据的格式要按 Data 来
  */
 const data: Data = {
-  topFrame: {
-    model: "TopFrame",
-    type: "horizontal",
-    attribute: {
-      left: 0,
-      top: 0,
-      height: 30,
-      width: 3200,
-      color
-    },
-    ...JSON.parse(JSON.stringify(props)),
-  },
-  rightFrame: {
-    model: "RightFrame",
-    type: "vertical",
-    ...JSON.parse(JSON.stringify(props)),
-    attribute: {
-      left: 3170,
-      top: 0,
-      height: 1780,
-      width: 30,
-      color
-    },
-  },
-  bottomFrame: {
-    model: "BottomFrame",
-    type: "horizontal",
-    ...JSON.parse(JSON.stringify(props)),
-    attribute: {
-      left: 0,
-      top: 1750,
-      height: 30,
-      width: 3200,
-      color
-    },
-  },
-  leftFrame: {
-    model: "LeftFrame",
-    type: "vertical",
-    ...JSON.parse(JSON.stringify(props)),
-    attribute: {
-      left: 0,
-      top: 0,
-      height: 1780,
-      width: 30,
-      color
-    },
-  },
-  window1: {
-    model: "Window",
+  // topFrame: {
+  //   model: "TopFrame",
+  //   type: "horizontal",
+  //   attribute: {
+  //     left: 0,
+  //     top: 0,
+  //     height: 30,
+  //     width: 3200,
+  //     color
+  //   },
+  //   ...JSON.parse(JSON.stringify(props)),
+  // },
+  // rightFrame: {
+  //   model: "RightFrame",
+  //   type: "vertical",
+  //   ...JSON.parse(JSON.stringify(props)),
+  //   attribute: {
+  //     left: 3170,
+  //     top: 0,
+  //     height: 1780,
+  //     width: 30,
+  //     color
+  //   },
+  // },
+  // bottomFrame: {
+  //   model: "BottomFrame",
+  //   type: "horizontal",
+  //   ...JSON.parse(JSON.stringify(props)),
+  //   attribute: {
+  //     left: 0,
+  //     top: 1750,
+  //     height: 30,
+  //     width: 3200,
+  //     color
+  //   },
+  // },
+  // leftFrame: {
+  //   model: "LeftFrame",
+  //   type: "vertical",
+  //   ...JSON.parse(JSON.stringify(props)),
+  //   attribute: {
+  //     left: 0,
+  //     top: 0,
+  //     height: 1780,
+  //     width: 30,
+  //     color
+  //   },
+  // },
+  Model_1: {
+    model: "Model_1",
     type: "rect",
     attribute: {
-      left: 30,
-      top: 30,
-      height: 1720,
-      width: 1600,
-      offsetZ: 25,
-      // 暂时用这个来判断把手的样式
-      type: 'left',
+      left: 0,
+      top: 0,
+      height: 1000,
+      width: 1200,
+      windowProps: {
+        width: 330,
+        height: 750,
+        position: 'left'
+      },
       color
     },
-    minSize: 150,
     ...JSON.parse(JSON.stringify(props)),
   },
-  window2: {
-    model: "Window",
-    type: "rect",
-    attribute: {
-      left: 1570,
-      top: 30,
-      height: 1720,
-      width: 1600,
-      offsetZ: -25,
-      type: 'right',
-      color
-    },
-    minSize: 150,
-    ...JSON.parse(JSON.stringify(props)),
-  },
+  // window2: {
+  //   model: "Window",
+  //   type: "rect",
+  //   attribute: {
+  //     left: 1570,
+  //     top: 30,
+  //     height: 1720,
+  //     width: 1600,
+  //     offsetZ: -25,
+  //     type: 'right',
+  //     color
+  //   },
+  //   minSize: 150,
+  //   ...JSON.parse(JSON.stringify(props)),
+  // },
 };
 export default data;
