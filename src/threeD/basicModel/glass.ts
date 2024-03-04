@@ -5,6 +5,7 @@ export interface GlassProps {
   height: number;
   left: number;
   top: number;
+  size?: number;
   depth?: number;
   colors?: string[];
   opacity?: number;
@@ -25,6 +26,7 @@ class Glass {
       left,
       top,
       name = "玻璃",
+      size = 30,
     } = params;
     // 胶条框框
     const material = new THREE.MeshPhongMaterial({
@@ -39,7 +41,6 @@ class Glass {
       .lineTo(0, -height)
       .lineTo(0, 0);
     // 这个决定胶条的大小
-    const size = 30;
     const holes = new THREE.Shape()
       .moveTo(size, -size)
       .lineTo(width - size, -size)
@@ -93,7 +94,7 @@ class Glass {
     glassMesh.position.set(width / 2 + size, -height / 2 - size, 0);
     glassGroup.add(glassMesh);
     glassMesh.userData.disableUpdate = true;
-    // group.add(glassGroup);
+    group.add(glassGroup);
   }
 }
 

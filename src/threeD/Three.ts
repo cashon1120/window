@@ -26,6 +26,7 @@ import {
 } from "./types";
 
 import { Bar, Glass } from "./basicModel";
+import LeftHandle from "./models/ironware/LeftHandle";
 
 interface ControlsProps {
   minDistance?: number;
@@ -282,6 +283,20 @@ class Three {
                   materialObj: fan.materialObj,
                 });
               });
+
+              if(fanObj.fixedSpace){
+                fanObj.fixedSpace.forEach((fixedSpace: FixedSpace) => {
+                  if(fixedSpace.glass){
+                    const { width, height, glassFrame } = fixedSpace.glass;
+                    const { left, top } = getPotinFromGlassFrame(glassFrame);
+                    new Glass({ width, height, left, top, group: this.mainGroup, size: 10 });
+                  }
+                })
+              }
+              
+              if(fanObj.handleInfo){
+                new LeftHandle()
+              }
             });
           });
         }

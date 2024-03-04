@@ -2,7 +2,7 @@ import * as THREE from "three";
 import {ExtudeGeometryProps} from '../../types'
 
 const material = new THREE.MeshPhongMaterial({
-  color: "#fafafa",
+  color: "#adadab",
   shininess: 100,
 });
 

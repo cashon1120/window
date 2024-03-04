@@ -29,7 +29,7 @@ const extrudeSettings2 = {
   bevelThickness: 6,
 };
 
-class Handle {
+class LeftHandle {
   height: number;
   group: THREE.Group;
   constructor() {
@@ -88,4 +88,4 @@ class Handle {
   }
 }
 
-export default Handle;
+export default LeftHandle;
