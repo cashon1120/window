@@ -36,9 +36,7 @@ const fanSpace = (data: FanSpace[], threeInstance: Three) => {
         //   new LeftHandle()
       }
     });
-    group.rotation.setFromVector3(
-      new THREE.Vector3(100, 10, 0)
-    ); // 也可以直接设置 xyz 分量的值
+
     const render = () => {
       group.rotation.y += 0.01 * Math.PI;
       requestAnimationFrame(render);
