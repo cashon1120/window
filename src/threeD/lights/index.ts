@@ -40,9 +40,9 @@ const createLight = (threeInstance: Three, x: number, y: number) => {
     penumbra: 0.1,
     target: {
       x: left / 2,
-      y:bottom,
+      y: bottom,
       z: 0,
-    }
+    },
   });
   // 上2
   createSpotLight({
@@ -58,13 +58,13 @@ const createLight = (threeInstance: Three, x: number, y: number) => {
     penumbra: 0.1,
     target: {
       x: right / 2,
-      y:bottom,
+      y: bottom,
       z: 0,
-    }
+    },
   });
 
-   // 上后1
-   createSpotLight({
+  // 上后1
+  createSpotLight({
     threeInstance,
     x: left / 2,
     y: top + offsetY,
@@ -77,9 +77,9 @@ const createLight = (threeInstance: Three, x: number, y: number) => {
     penumbra: 0.1,
     target: {
       x: left / 2,
-      y:bottom,
+      y: bottom,
       z: 0,
-    }
+    },
   });
   // 上后2
   createSpotLight({
@@ -95,9 +95,9 @@ const createLight = (threeInstance: Three, x: number, y: number) => {
     penumbra: 0.1,
     target: {
       x: right / 2,
-      y:bottom,
+      y: bottom,
       z: 0,
-    }
+    },
   });
 
   //右阴影
@@ -140,18 +140,17 @@ const createLight = (threeInstance: Three, x: number, y: number) => {
     showGui: true,
   });
 
-    // 后
-    createSpotLight({
-      threeInstance,
-      x: 0,
-      y: 0,
-      z: -200,
-      name: "后",
-      intensity: 20000,
-      showHelper: false,
-      showGui: true,
-    });
-
+  // 后
+  createSpotLight({
+    threeInstance,
+    x: 0,
+    y: 0,
+    z: -200,
+    name: "后",
+    intensity: 20000,
+    showHelper: false,
+    showGui: true,
+  });
 };
 
 export default createLight;

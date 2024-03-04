@@ -18,7 +18,7 @@ class Glass {
     const {
       width,
       height,
-      depth = 5,
+      depth = 10,
       group,
       colors = ["#e0eaff", "#3664c1"],
       opacity = 0.1,
@@ -27,10 +27,9 @@ class Glass {
       name = "玻璃",
     } = params;
     // 胶条框框
-    const material = new THREE.MeshPhysicalMaterial({
-      color: "#000",
-      metalness: 0.5,
-      roughness: 0.5,
+    const material = new THREE.MeshPhongMaterial({
+      color: "#333",
+      side: THREE.DoubleSide,
     });
     // 这里要注意height得用负数，因为是向下的
     const shape = new THREE.Shape()
@@ -40,7 +39,7 @@ class Glass {
       .lineTo(0, -height)
       .lineTo(0, 0);
     // 这个决定胶条的大小
-    const size = 4;
+    const size = 30;
     const holes = new THREE.Shape()
       .moveTo(size, -size)
       .lineTo(width - size, -size)
@@ -56,7 +55,7 @@ class Glass {
       bevelSegments: 3, //倒圆角：倒角细分精度，默认3
     });
     const mesh = new THREE.Mesh(geometry, material);
-    mesh.position.set(left, -top, 0);
+    mesh.position.set(left, -top, -depth / 2);
     mesh.userData.disableUpdate = true;
     group.add(mesh);
 
@@ -94,7 +93,7 @@ class Glass {
     glassMesh.position.set(width / 2 + size, -height / 2 - size, 0);
     glassGroup.add(glassMesh);
     glassMesh.userData.disableUpdate = true;
-    group.add(glassGroup);
+    // group.add(glassGroup);
   }
 }
 

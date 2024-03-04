@@ -291,8 +291,9 @@ class Three {
             if (item.glass) {
               const { width, height, glassFrame } = item.glass;
               const { left, top } = getPotinFromGlassFrame(glassFrame);
-              new Glass({ width, height, left: left + 34, top, group: this.mainGroup });
+              new Glass({ width, height, left, top, group: this.mainGroup });
             }
+            // 框架
             item.subObject.forEach((subObject: SubObject) => {
               new Bar({
                 threeInstance: this,
