@@ -5,7 +5,6 @@ import Top from "./frames/Top";
 import Right from "./frames/Right";
 import Bottom from "./frames/Bottom";
 import FixednessArea from "./fixednessArea";
-import { ValueObj } from "@/types";
 import config from "./config";
 
 export interface FrameProps {
@@ -88,13 +87,6 @@ class Model_1 extends Rect {
     });
     this.init();
   }
-
-  updateMaterial = (obj: ValueObj) => {
-    this.topBar.updateMaterial(obj);
-    this.leftBar.updateMaterial(obj);
-    this.rightBar.updateMaterial(obj);
-    this.bottomBar.updateMaterial(obj);
-  };
 }
 
 export default Model_1;

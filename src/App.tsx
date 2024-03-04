@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Three from "@/threeD/Three";
 import { ValueObj } from "@/types";
-import data from "./data";
+import data from "./data.json";
 
 import "./index.less";
 
