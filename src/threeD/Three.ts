@@ -1,32 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import createCamera from "./common/camera";
-import createRenderer from "./common/renderer";
-import createScene from "./common/scene";
-import createStats from "./common/stats";
-import createOrbitContros from "./common/orbitContros";
+import {
+  createCamera,
+  createRenderer,
+  createScene,
+  createStats,
+  createOrbitContros,
+  Gui,
+  Helper,
+} from "./common";
 import rotateByCustom from "./utils/rotateByDocument";
-import Gui from "./common/gui";
-import Helper from "./common/helper";
 import { Data } from "../types";
 import createLight from "./lights";
-import { getPotinFromGlassFrame } from "./utils";
-
+import { ValueObj, WindowObj } from "./types";
+import createModelFunctions from "./createModelFunctions";
 // import createSize from "./tools/size";
-import {
-  ValueObj,
-  WindowObj,
-  Frame,
-  CenterPillar,
-  SubObject,
-  FanSpace,
-  FixedSpace,
-  FanObject,
-} from "./types";
-
-import { Bar, Glass } from "./basicModel";
-import LeftHandle from "./models/ironware/LeftHandle";
 
 interface ControlsProps {
   minDistance?: number;
@@ -260,76 +249,16 @@ class Three {
     this.animationGroup.add(this.mainGroup);
     this.scene.add(this.animationGroup);
     if (data) {
-      data.drawData.windowObj.forEach((obj: WindowObj) => {
-        if (obj.frame) {
-          obj.frame.forEach((item: Frame) => {
-            new Bar({
-              threeInstance: this,
-              linePoint: item.linePoint,
-              shapePoint: item.shapePoint,
-              materialObj: item.materialObj,
-            });
-          });
-        }
-
-        if (obj.fanSpace) {
-          obj.fanSpace.forEach((item: FanSpace) => {
-            item.fanObject.forEach((fanObj: FanObject) => {
-              fanObj.fanFrame.forEach((fan: Frame) => {
-                new Bar({
-                  threeInstance: this,
-                  linePoint: fan.linePoint,
-                  shapePoint: fan.shapePoint,
-                  materialObj: fan.materialObj,
-                });
-              });
-
-              if(fanObj.fixedSpace){
-                fanObj.fixedSpace.forEach((fixedSpace: FixedSpace) => {
-                  if(fixedSpace.glass){
-                    const { width, height, glassFrame } = fixedSpace.glass;
-                    const { left, top } = getPotinFromGlassFrame(glassFrame);
-                    new Glass({ width, height, left, top, group: this.mainGroup, size: 10 });
-                  }
-                })
-              }
-              
-              if(fanObj.handleInfo){
-                new LeftHandle()
-              }
-            });
-          });
-        }
-
-        if (obj.fixedSpace) {
-          obj.fixedSpace.forEach((item: FixedSpace) => {
-            if (item.glass) {
-              const { width, height, glassFrame } = item.glass;
-              const { left, top } = getPotinFromGlassFrame(glassFrame);
-              new Glass({ width, height, left, top, group: this.mainGroup });
-            }
-            // 框架
-            item.subObject.forEach((subObject: SubObject) => {
-              new Bar({
-                threeInstance: this,
-                linePoint: subObject.linePoint,
-                shapePoint: subObject.shapePoint,
-                materialObj: subObject.materialObj,
-              });
-            });
-          });
-        }
-
-        if (obj.centerPillar) {
-          obj.centerPillar.forEach((item: CenterPillar) => {
-            new Bar({
-              threeInstance: this,
-              linePoint: item.linePoint,
-              shapePoint: item.shapePoint,
-              materialObj: item.materialObj,
-            });
-          });
-        }
+      const { windowObj } = data.drawData;
+      /**
+       * 遍历windowObj中的Key,匹配createModelFunctions里创建模型的方法
+       */
+      windowObj.forEach((obj: WindowObj) => {
+        Object.keys(obj).map((key: string) => {
+          if (createModelFunctions[key]) {
+            createModelFunctions[key](obj[key as keyof WindowObj], this);
+          }
+        });
       });
     }
     this.resetMainGroup();
