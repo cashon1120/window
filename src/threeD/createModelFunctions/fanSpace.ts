@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import { Frame, FanSpace, FixedSpace, FanObject } from "../types";
 import Three from "../Three";
 import { Bar, Glass } from "../basicModel";
@@ -5,10 +6,11 @@ import { getPotinFromGlassFrame } from "../utils";
 
 const fanSpace = (data: FanSpace[], threeInstance: Three) => {
   data.forEach((item: FanSpace) => {
+    const group = new THREE.Group();
     item.fanObject.forEach((fanObj: FanObject) => {
       fanObj.fanFrame.forEach((fan: Frame) => {
         new Bar({
-          threeInstance,
+          group: group,
           linePoint: fan.linePoint,
           shapePoint: fan.shapePoint,
           materialObj: fan.materialObj,
@@ -24,7 +26,7 @@ const fanSpace = (data: FanSpace[], threeInstance: Three) => {
               height,
               left,
               top,
-              group: threeInstance.mainGroup,
+              group,
               size: 10,
             });
           }
@@ -34,6 +36,15 @@ const fanSpace = (data: FanSpace[], threeInstance: Three) => {
         //   new LeftHandle()
       }
     });
+    group.rotation.setFromVector3(
+      new THREE.Vector3(100, 10, 0)
+    ); // 也可以直接设置 xyz 分量的值
+    const render = () => {
+      group.rotation.y += 0.01 * Math.PI;
+      requestAnimationFrame(render);
+    };
+    render();
+    threeInstance.mainGroup.add(group);
   });
 };
 

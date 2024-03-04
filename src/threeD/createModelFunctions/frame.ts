@@ -5,7 +5,7 @@ import Three from "../Three";
 const frame = (data: Frame[], threeInstance: Three) => {
   data.forEach((item: Frame) => {
     new Bar({
-      threeInstance,
+      group: threeInstance.mainGroup,
       linePoint: item.linePoint,
       shapePoint: item.shapePoint,
       materialObj: item.materialObj,

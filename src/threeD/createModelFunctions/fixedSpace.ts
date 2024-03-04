@@ -14,7 +14,7 @@ const fixedSpace = (data: FixedSpace[], threeInstance: Three) => {
     // 框架
     item.subObject.forEach((subObject: SubObject) => {
       new Bar({
-        threeInstance,
+        group: threeInstance.mainGroup,
         linePoint: subObject.linePoint,
         shapePoint: subObject.shapePoint,
         materialObj: subObject.materialObj,

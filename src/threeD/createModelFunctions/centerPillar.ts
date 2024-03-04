@@ -5,7 +5,7 @@ import Three from "../Three";
 const centerPillar = (data: CenterPillar[], threeInstance: Three) => {
   data.forEach((item: CenterPillar) => {
     new Bar({
-      threeInstance,
+      group: threeInstance.mainGroup,
       linePoint: item.linePoint,
       shapePoint: item.shapePoint,
       materialObj: item.materialObj,
