@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { Data, BoxProps } from "@/types";
+import { BoxProps, ShapePoint, ExtudeGeometryProps } from "../types";
 
 /**
  * 指定范围随机数
@@ -73,43 +73,20 @@ export const transformPosition = (params: BoxProps) => {
 };
 
 
-/**
- * 计算所有模型组合后的最大尺寸和左上角位置
- */
-export const getComposeSize = (
-  data: Data
-): {
-  left: number;
-  top: number;
-  width: number;
-  height: number;
-} => {
-  let minLeft = Infinity;
-  let maxLeft = -Infinity;
-  let minTop = Infinity;
-  let maxTop = -Infinity;
-  Object.keys(data).forEach((key) => {
-    const {
-      attribute: { left, top, width, height },
-    } = data[key];
-    if (left < minLeft) {
-      minLeft = left;
-    }
-    if (left + width > maxLeft) {
-      maxLeft = left + width;
-    }
-    if (top < minTop) {
-      minTop = top;
-    }
-    if (top + height > maxTop) {
-      maxTop = top + height;
-    }
-  });
-  const size = {
-    left: minLeft,
-    top: minTop,
-    width: maxLeft - minLeft,
-    height: maxTop - minTop,
-  };
-  return size;
-};
+export const createGeometryByShapePoint = (point: ShapePoint, extrudeConfig: ExtudeGeometryProps) => {
+  // 注意和2d坐标系的不同，y轴要取负数
+  const shape = new THREE.Shape()
+      .moveTo(point[0], -point[1])
+      .lineTo(point[2], -point[3])
+      .lineTo(point[4], -point[5])
+      .lineTo(point[6], -point[7])
+      .lineTo(point[0], -point[1]);
+      const geometry = new THREE.ExtrudeGeometry(shape, extrudeConfig);
+      geometry.translate(0, 0, -extrudeConfig.depth / 2)
+      return geometry
+}
+
+export const getModelSize = (obj: THREE.Object3D) => {
+  const box = new THREE.Box3()
+  return box.expandByObject(obj)
+}

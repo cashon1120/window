@@ -3187,7 +3187,675 @@
           }
         ]
       }
-    ]
+    ],
+    "windowCase": [],
+    "spliceFrame": [],
+    "bLineOtherData": {
+      "data": [
+        {
+          "id": "f1a13f3b6d76b61f73904a6484424665",
+          "type": "h",
+          "value": 2625,
+          "drawData": {
+            "id": "856ad27aa8d0622292d979443957e53f",
+            "otherProps": {
+              "type": "kuang",
+              "data": {
+                "id": "b_d6fd76505df38f769d7a0692ed1a9a3e",
+                "pid": "856ad27aa8d0622292d979443957e53f",
+                "type": "line",
+                "length": 5330,
+                "location": "bottom",
+                "relation": [
+                  {
+                    "id": "space_ce121b4ecf52c2099fe65836144c941d",
+                    "type": "fixedSpace",
+                    "location": "top"
+                  },
+                  {
+                    "id": "szhu344da134098ef7887c3163ad2450b50e",
+                    "type": "centerPillar",
+                    "location": "top"
+                  },
+                  {
+                    "id": "space_28c2e4ac4a81957de59dfcb37daf86c4",
+                    "type": "fixedSpace",
+                    "location": "top"
+                  },
+                  {
+                    "id": "szhu8a0ebdd22306850607435868c2899491",
+                    "type": "centerPillar",
+                    "location": "top"
+                  },
+                  {
+                    "id": "space_93b79cb01ba908ff12a70a6942554784",
+                    "type": "fixedSpace",
+                    "location": "top"
+                  }
+                ],
+                "linePoint": {
+                  "endX": 6319,
+                  "endY": 2906,
+                  "startX": 989,
+                  "startY": 2906
+                },
+                "shapePoint": [989, 2906, 6319, 2906, 6284, 2871, 1024, 2871],
+                "materialObj": {
+                  "id": 249,
+                  "code": "GPN11501",
+                  "name": "窗框",
+                  "type": 1,
+                  "position": 1,
+                  "lookWidth": 35,
+                  "spliceType": 1,
+                  "lapRelation": [],
+                  "calculatedWidth": 35
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": "33fbdc8a390ec8c659055eaec0269178",
+          "type": "s",
+          "value": 800,
+          "position": "856ad27aa8d0622292d979443957e53f_1789",
+          "drawData": {
+            "id": "856ad27aa8d0622292d979443957e53f",
+            "otherProps": {
+              "type": "szhu",
+              "data": {
+                "id": "szhu344da134098ef7887c3163ad2450b50e",
+                "pid": "856ad27aa8d0622292d979443957e53f",
+                "type": "line",
+                "cpType": 1,
+                "length": 2555,
+                "location": "szhu",
+                "relation": [
+                  {
+                    "id": "fanSpace_f9f06bf36d6a490ea2379e00eaae4e70",
+                    "type": "fanSpace",
+                    "location": "left"
+                  },
+                  {
+                    "id": "hzhu6555679b631a4e61c9d62c150935ee54",
+                    "type": "centerPillar",
+                    "location": "left"
+                  },
+                  {
+                    "id": "space_ce121b4ecf52c2099fe65836144c941d",
+                    "type": "fixedSpace",
+                    "location": "left"
+                  },
+                  {
+                    "id": "space_28c2e4ac4a81957de59dfcb37daf86c4",
+                    "type": "fixedSpace",
+                    "location": "right"
+                  },
+                  {
+                    "id": "b_90505f8ba7d12722ef775f274442bc2c",
+                    "type": "frame",
+                    "location": "top"
+                  },
+                  {
+                    "id": "b_d6fd76505df38f769d7a0692ed1a9a3e",
+                    "type": "frame",
+                    "location": "bottom"
+                  }
+                ],
+                "linePoint": {
+                  "endX": 1789,
+                  "endY": 2871,
+                  "startX": 1789,
+                  "startY": 316
+                },
+                "shapePoint": [
+                  1776.5, 316, 1776.5, 2871, 1801.5, 2871, 1801.5, 316
+                ],
+                "materialObj": {
+                  "id": 255,
+                  "name": "中柱",
+                  "code": "GPN11503",
+                  "type": 9,
+                  "position": 1,
+                  "spliceType": 8,
+                  "calculatedWidth": 25,
+                  "lookWidth": 25,
+                  "lapRelation": [
+                    {
+                      "id": 249,
+                      "calculatedType": 1,
+                      "position": 1,
+                      "horizontalNum": 4.5,
+                      "verticalNum": 4.5
+                    },
+                    {
+                      "id": 255,
+                      "calculatedType": 1,
+                      "position": 1,
+                      "horizontalNum": 4.5,
+                      "verticalNum": 4.5
+                    },
+                    {
+                      "id": 255,
+                      "calculatedType": 1,
+                      "position": 2,
+                      "horizontalNum": 7,
+                      "verticalNum": 7
+                    }
+                  ]
+                },
+                "offsetLocation": "left"
+              }
+            }
+          }
+        },
+        {
+          "id": "2754a17b0e1a8201d7900d7036b1e0a2",
+          "type": "s",
+          "value": 3730,
+          "position": "856ad27aa8d0622292d979443957e53f_5519",
+          "drawData": {
+            "id": "856ad27aa8d0622292d979443957e53f",
+            "otherProps": {
+              "type": "szhu",
+              "data": {
+                "id": "szhu8a0ebdd22306850607435868c2899491",
+                "pid": "856ad27aa8d0622292d979443957e53f",
+                "type": "line",
+                "cpType": 1,
+                "length": 2555,
+                "location": "szhu",
+                "relation": [
+                  {
+                    "id": "space_28c2e4ac4a81957de59dfcb37daf86c4",
+                    "type": "fixedSpace",
+                    "location": "left"
+                  },
+                  {
+                    "id": "fanSpace_63fda4ca978d5e436b9c3146d7ddd669",
+                    "type": "fanSpace",
+                    "location": "right"
+                  },
+                  {
+                    "id": "hzhu78fe3e1ffd103d3c86643b4273843b28",
+                    "type": "centerPillar",
+                    "location": "right"
+                  },
+                  {
+                    "id": "space_93b79cb01ba908ff12a70a6942554784",
+                    "type": "fixedSpace",
+                    "location": "right"
+                  },
+                  {
+                    "id": "b_90505f8ba7d12722ef775f274442bc2c",
+                    "type": "frame",
+                    "location": "top"
+                  },
+                  {
+                    "id": "b_d6fd76505df38f769d7a0692ed1a9a3e",
+                    "type": "frame",
+                    "location": "bottom"
+                  }
+                ],
+                "linePoint": {
+                  "endX": 5519,
+                  "endY": 2871,
+                  "startX": 5519,
+                  "startY": 316
+                },
+                "shapePoint": [
+                  5506.5, 316, 5506.5, 2871, 5531.5, 2871, 5531.5, 316
+                ],
+                "materialObj": {
+                  "id": 255,
+                  "name": "中柱",
+                  "code": "GPN11503",
+                  "type": 9,
+                  "position": 1,
+                  "spliceType": 8,
+                  "calculatedWidth": 25,
+                  "lookWidth": 25,
+                  "lapRelation": [
+                    {
+                      "id": 249,
+                      "calculatedType": 1,
+                      "position": 1,
+                      "horizontalNum": 4.5,
+                      "verticalNum": 4.5
+                    },
+                    {
+                      "id": 255,
+                      "calculatedType": 1,
+                      "position": 1,
+                      "horizontalNum": 4.5,
+                      "verticalNum": 4.5
+                    },
+                    {
+                      "id": 255,
+                      "calculatedType": 1,
+                      "position": 2,
+                      "horizontalNum": 7,
+                      "verticalNum": 7
+                    }
+                  ]
+                },
+                "offsetLocation": "right"
+              }
+            }
+          }
+        },
+        {
+          "id": "0d9fa371bf7177dcfad1bad71371bdc3",
+          "type": "s",
+          "value": 800,
+          "position": "856ad27aa8d0622292d979443957e53f_6319",
+          "drawData": {
+            "id": "856ad27aa8d0622292d979443957e53f",
+            "otherProps": {
+              "type": "szhu",
+              "data": {
+                "id": "szhu8a0ebdd22306850607435868c2899491",
+                "pid": "856ad27aa8d0622292d979443957e53f",
+                "type": "line",
+                "cpType": 1,
+                "length": 2555,
+                "location": "szhu",
+                "relation": [
+                  {
+                    "id": "space_28c2e4ac4a81957de59dfcb37daf86c4",
+                    "type": "fixedSpace",
+                    "location": "left"
+                  },
+                  {
+                    "id": "fanSpace_63fda4ca978d5e436b9c3146d7ddd669",
+                    "type": "fanSpace",
+                    "location": "right"
+                  },
+                  {
+                    "id": "hzhu78fe3e1ffd103d3c86643b4273843b28",
+                    "type": "centerPillar",
+                    "location": "right"
+                  },
+                  {
+                    "id": "space_93b79cb01ba908ff12a70a6942554784",
+                    "type": "fixedSpace",
+                    "location": "right"
+                  },
+                  {
+                    "id": "b_90505f8ba7d12722ef775f274442bc2c",
+                    "type": "frame",
+                    "location": "top"
+                  },
+                  {
+                    "id": "b_d6fd76505df38f769d7a0692ed1a9a3e",
+                    "type": "frame",
+                    "location": "bottom"
+                  }
+                ],
+                "linePoint": {
+                  "endX": 5519,
+                  "endY": 2871,
+                  "startX": 5519,
+                  "startY": 316
+                },
+                "shapePoint": [
+                  5506.5, 316, 5506.5, 2871, 5531.5, 2871, 5531.5, 316
+                ],
+                "materialObj": {
+                  "id": 255,
+                  "name": "中柱",
+                  "code": "GPN11503",
+                  "type": 9,
+                  "position": 1,
+                  "spliceType": 8,
+                  "calculatedWidth": 25,
+                  "lookWidth": 25,
+                  "lapRelation": [
+                    {
+                      "id": 249,
+                      "calculatedType": 1,
+                      "position": 1,
+                      "horizontalNum": 4.5,
+                      "verticalNum": 4.5
+                    },
+                    {
+                      "id": 255,
+                      "calculatedType": 1,
+                      "position": 1,
+                      "horizontalNum": 4.5,
+                      "verticalNum": 4.5
+                    },
+                    {
+                      "id": 255,
+                      "calculatedType": 1,
+                      "position": 2,
+                      "horizontalNum": 7,
+                      "verticalNum": 7
+                    }
+                  ]
+                },
+                "offsetLocation": "right"
+              },
+              "isLast": true
+            }
+          }
+        },
+        {
+          "id": "c4ba06d77dfd9b89717b11ee77ce6487",
+          "type": "s",
+          "value": 5330,
+          "drawData": {
+            "id": "856ad27aa8d0622292d979443957e53f",
+            "otherProps": {
+              "type": "kuang",
+              "data": {
+                "id": "b_d0996de4bb07c65ddd865c073e13da44",
+                "pid": "856ad27aa8d0622292d979443957e53f",
+                "type": "line",
+                "length": 2625,
+                "location": "right",
+                "relation": [
+                  {
+                    "id": "fanSpace_63fda4ca978d5e436b9c3146d7ddd669",
+                    "type": "fanSpace",
+                    "location": "left"
+                  },
+                  {
+                    "id": "hzhu78fe3e1ffd103d3c86643b4273843b28",
+                    "type": "centerPillar",
+                    "location": "left"
+                  },
+                  {
+                    "id": "space_93b79cb01ba908ff12a70a6942554784",
+                    "type": "fixedSpace",
+                    "location": "left"
+                  }
+                ],
+                "linePoint": {
+                  "endX": 6319,
+                  "endY": 2906,
+                  "startX": 6319,
+                  "startY": 281
+                },
+                "shapePoint": [6319, 281, 6319, 2906, 6284, 2871, 6284, 316],
+                "materialObj": {
+                  "id": 249,
+                  "code": "GPN11501",
+                  "name": "窗框",
+                  "type": 1,
+                  "position": 1,
+                  "lookWidth": 35,
+                  "spliceType": 1,
+                  "lapRelation": [],
+                  "calculatedWidth": 35
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": "caae3b36b621b23111b4b9820999d0b9",
+          "type": "h",
+          "value": 2125,
+          "position": "856ad27aa8d0622292d979443957e53f_2406",
+          "drawData": {
+            "id": "856ad27aa8d0622292d979443957e53f",
+            "otherProps": {
+              "type": "hzhu",
+              "data": {
+                "id": "hzhu6555679b631a4e61c9d62c150935ee54",
+                "pid": "856ad27aa8d0622292d979443957e53f",
+                "type": "line",
+                "cpType": 1,
+                "length": 752.5,
+                "location": "hzhu",
+                "relation": [
+                  {
+                    "id": "fanSpace_f9f06bf36d6a490ea2379e00eaae4e70",
+                    "type": "fanSpace",
+                    "location": "top"
+                  },
+                  {
+                    "id": "space_ce121b4ecf52c2099fe65836144c941d",
+                    "type": "fixedSpace",
+                    "location": "bottom"
+                  },
+                  {
+                    "id": "szhu344da134098ef7887c3163ad2450b50e",
+                    "type": "centerPillar",
+                    "location": "right"
+                  },
+                  {
+                    "id": "b_f15d78e8418011433dc346c7d1542e3e",
+                    "type": "frame",
+                    "location": "left"
+                  }
+                ],
+                "linePoint": {
+                  "endX": 1776.5,
+                  "endY": 2406,
+                  "startX": 1024,
+                  "startY": 2406
+                },
+                "shapePoint": [
+                  1024, 2393.5, 1776.5, 2393.5, 1776.5, 2418.5, 1024, 2418.5
+                ],
+                "materialObj": {
+                  "id": 255,
+                  "name": "中柱",
+                  "code": "GPN11503",
+                  "type": 9,
+                  "position": 1,
+                  "spliceType": 8,
+                  "calculatedWidth": 25,
+                  "lookWidth": 25,
+                  "lapRelation": [
+                    {
+                      "id": 249,
+                      "calculatedType": 1,
+                      "position": 1,
+                      "horizontalNum": 4.5,
+                      "verticalNum": 4.5
+                    },
+                    {
+                      "id": 255,
+                      "calculatedType": 1,
+                      "position": 1,
+                      "horizontalNum": 4.5,
+                      "verticalNum": 4.5
+                    },
+                    {
+                      "id": 255,
+                      "calculatedType": 1,
+                      "position": 2,
+                      "horizontalNum": 7,
+                      "verticalNum": 7
+                    }
+                  ]
+                },
+                "offsetLocation": "top"
+              }
+            }
+          }
+        },
+        {
+          "id": "8abadc208d4aff2f7f5ec50905a57d84",
+          "type": "h",
+          "value": 2125,
+          "position": "856ad27aa8d0622292d979443957e53f_2406",
+          "drawData": {
+            "id": "856ad27aa8d0622292d979443957e53f",
+            "otherProps": {
+              "type": "hzhu",
+              "data": {
+                "id": "hzhu78fe3e1ffd103d3c86643b4273843b28",
+                "pid": "856ad27aa8d0622292d979443957e53f",
+                "type": "line",
+                "cpType": 1,
+                "length": 752.5,
+                "location": "hzhu",
+                "relation": [
+                  {
+                    "id": "fanSpace_63fda4ca978d5e436b9c3146d7ddd669",
+                    "type": "fanSpace",
+                    "location": "top"
+                  },
+                  {
+                    "id": "space_93b79cb01ba908ff12a70a6942554784",
+                    "type": "fixedSpace",
+                    "location": "bottom"
+                  },
+                  {
+                    "id": "szhu8a0ebdd22306850607435868c2899491",
+                    "type": "centerPillar",
+                    "location": "left"
+                  },
+                  {
+                    "id": "b_d0996de4bb07c65ddd865c073e13da44",
+                    "type": "frame",
+                    "location": "right"
+                  }
+                ],
+                "linePoint": {
+                  "endX": 6284,
+                  "endY": 2406,
+                  "startX": 5531.5,
+                  "startY": 2406
+                },
+                "shapePoint": [
+                  5531.5, 2393.5, 6284, 2393.5, 6284, 2418.5, 5531.5, 2418.5
+                ],
+                "materialObj": {
+                  "id": 255,
+                  "name": "中柱",
+                  "code": "GPN11503",
+                  "type": 9,
+                  "position": 1,
+                  "spliceType": 8,
+                  "calculatedWidth": 25,
+                  "lookWidth": 25,
+                  "lapRelation": [
+                    {
+                      "id": 249,
+                      "calculatedType": 1,
+                      "position": 1,
+                      "horizontalNum": 4.5,
+                      "verticalNum": 4.5
+                    },
+                    {
+                      "id": 255,
+                      "calculatedType": 1,
+                      "position": 1,
+                      "horizontalNum": 4.5,
+                      "verticalNum": 4.5
+                    },
+                    {
+                      "id": 255,
+                      "calculatedType": 1,
+                      "position": 2,
+                      "horizontalNum": 7,
+                      "verticalNum": 7
+                    }
+                  ]
+                },
+                "offsetLocation": "top"
+              }
+            }
+          }
+        },
+        {
+          "id": "6a8ddd9341d3ee013d9ac820a48e9bec",
+          "type": "h",
+          "value": 500,
+          "position": "856ad27aa8d0622292d979443957e53f_2906",
+          "drawData": {
+            "id": "856ad27aa8d0622292d979443957e53f",
+            "otherProps": {
+              "type": "hzhu",
+              "data": {
+                "id": "hzhu78fe3e1ffd103d3c86643b4273843b28",
+                "pid": "856ad27aa8d0622292d979443957e53f",
+                "type": "line",
+                "cpType": 1,
+                "length": 752.5,
+                "location": "hzhu",
+                "relation": [
+                  {
+                    "id": "fanSpace_63fda4ca978d5e436b9c3146d7ddd669",
+                    "type": "fanSpace",
+                    "location": "top"
+                  },
+                  {
+                    "id": "space_93b79cb01ba908ff12a70a6942554784",
+                    "type": "fixedSpace",
+                    "location": "bottom"
+                  },
+                  {
+                    "id": "szhu8a0ebdd22306850607435868c2899491",
+                    "type": "centerPillar",
+                    "location": "left"
+                  },
+                  {
+                    "id": "b_d0996de4bb07c65ddd865c073e13da44",
+                    "type": "frame",
+                    "location": "right"
+                  }
+                ],
+                "linePoint": {
+                  "endX": 6284,
+                  "endY": 2406,
+                  "startX": 5531.5,
+                  "startY": 2406
+                },
+                "shapePoint": [
+                  5531.5, 2393.5, 6284, 2393.5, 6284, 2418.5, 5531.5, 2418.5
+                ],
+                "materialObj": {
+                  "id": 255,
+                  "name": "中柱",
+                  "code": "GPN11503",
+                  "type": 9,
+                  "position": 1,
+                  "spliceType": 8,
+                  "calculatedWidth": 25,
+                  "lookWidth": 25,
+                  "lapRelation": [
+                    {
+                      "id": 249,
+                      "calculatedType": 1,
+                      "position": 1,
+                      "horizontalNum": 4.5,
+                      "verticalNum": 4.5
+                    },
+                    {
+                      "id": 255,
+                      "calculatedType": 1,
+                      "position": 1,
+                      "horizontalNum": 4.5,
+                      "verticalNum": 4.5
+                    },
+                    {
+                      "id": 255,
+                      "calculatedType": 1,
+                      "position": 2,
+                      "horizontalNum": 7,
+                      "verticalNum": 7
+                    }
+                  ]
+                },
+                "offsetLocation": "top"
+              },
+              "isLast": true
+            }
+          }
+        }
+      ],
+      "diTai": {
+        "height": 0,
+        "isEdit": false
+      }
+    }
   },
   "offset": {
     "x": -17.420960000000036,

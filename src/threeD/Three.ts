@@ -10,10 +10,11 @@ import rotateByCustom from "./utils/rotateByDocument";
 import Gui from "./common/gui";
 import Helper from "./common/helper";
 import { Data } from "../types";
-import * as Models from "./models";
 import createLight from "./lights";
 // import createSize from "./tools/size";
-import { ValueObj, ThreeDObject } from "./types";
+import { ValueObj, WindowObj, Frame } from "./types";
+
+import { Bar } from "./basicModel";
 
 interface ControlsProps {
   minDistance?: number;
@@ -62,7 +63,7 @@ class Three {
   // mainGroup用来放所有的模型， animationGroup用来放mainGroup，做动画的时候好固定在坐标原点
   animationGroup: THREE.Group;
   // 保存所有根据传入的数据渲染的3D对象，不包括灯光，辅助线等，以后可能会有用；
-  objects: ThreeDObject;
+  objects: any;
   scale: number = 1;
   controlsProps: Required<ControlsProps> = {
     minDistance: 10,
@@ -193,8 +194,9 @@ class Three {
     const box = new THREE.Box3();
     this.mainGroup.scale.set(this.scale, this.scale, this.scale);
     const { max, min } = box.expandByObject(this.mainGroup);
-    const offsetX = -max.x / 2;
-    const offsetY = -min.y / 2;
+    console.log(max, min)
+    const offsetX = -max.x / 2 - min.x / 2;
+    const offsetY = -min.y / 2 - max.y / 2;
     this.mainGroup.translateX(offsetX);
     this.mainGroup.translateY(offsetY);
     // 创建相关尺寸,应该在模型创建完成后创建
@@ -247,17 +249,18 @@ class Three {
     this.animationGroup.add(this.mainGroup);
     this.scene.add(this.animationGroup);
     if (data) {
-      Object.keys(data).forEach((key) => {
-        const modelName = data[key].model;
-        if (Models[modelName]) {
-          this.objects[key] = new Models[modelName]({
-            ...data[key].attribute,
-            threeInstance: this,
-          });
-        } else {
-          throw new Error(`没有找到 ${modelName} 模型`);
+      data.drawData.windowObj.forEach((obj: WindowObj) => {
+        if(obj.frame){
+          obj.frame.forEach((frame: Frame) => {
+            new Bar({
+              threeInstance: this,
+              linePoint: frame.linePoint,
+              shapePoint: frame.shapePoint,
+              materialObj: frame.materialObj,
+            })
+          })
         }
-      });
+      })
     }
     this.resetMainGroup();
   };

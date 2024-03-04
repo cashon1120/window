@@ -20,7 +20,7 @@ interface CenterPillar {
   offsetLocation: string;
 }
 
-interface WindowObj {
+export interface WindowObj {
   id: string;
   type: string;
   frame: Frame[];
@@ -270,3 +270,4 @@ export interface ValueObj {
     normalmap?: any;
   };
 }
+

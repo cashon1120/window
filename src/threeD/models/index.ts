@@ -1,20 +1,12 @@
-import BottomFrame from "./BottomFrame";
-import TopFrame from "./TopFrame";
-import LeftFrame from "./LeftFrame";
-import RightFrame from "./RightFrame";
-import NormalBar from './NormalBar'
-import Window from "./window"
-import Model_115 from "./model_115";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import * as GPN11501 from "./GPN11501";
 
 /**
  * 每添加一个模型就从这里导出去
 */
-export {
-    BottomFrame,
-    TopFrame,
-    LeftFrame,
-    RightFrame,
-    NormalBar,
-    Window,
-    Model_115
+
+const models: any = {
+    GPN11501
 }
+export default models
