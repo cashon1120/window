@@ -5,7 +5,7 @@ import Top from "./Top";
 import Right from "./Right";
 import Bottom from "./Bottom";
 import config from "../config";
-import Glass from "@/threeD/basicModel/glass";
+import Glass from "@/threeD/basicModel/Glass";
 
 const { fixednessAreaBarSize } = config;
 

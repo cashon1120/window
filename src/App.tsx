@@ -33,7 +33,7 @@ function App() {
       showStats: true,
       showGui: true,
       // controlType: 'custom',
-      showHelper: {},
+      // showHelper: {},
     });
     setThree(three);
   }, []);

@@ -1,5 +1,10 @@
 import * as THREE from "three";
-import { BoxProps, ShapePoint, ExtudeGeometryProps } from "../types";
+import {
+  BoxProps,
+  ShapePoint,
+  ExtudeGeometryProps,
+  GlassFrame,
+} from "../types";
 
 /**
  * 指定范围随机数
@@ -72,21 +77,38 @@ export const transformPosition = (params: BoxProps) => {
   };
 };
 
-
-export const createGeometryByShapePoint = (point: ShapePoint, extrudeConfig: ExtudeGeometryProps) => {
+export const createGeometryByShapePoint = (
+  point: ShapePoint,
+  extrudeConfig: ExtudeGeometryProps
+) => {
   // 注意和2d坐标系的不同，y轴要取负数
   const shape = new THREE.Shape()
-      .moveTo(point[0], -point[1])
-      .lineTo(point[2], -point[3])
-      .lineTo(point[4], -point[5])
-      .lineTo(point[6], -point[7])
-      .lineTo(point[0], -point[1]);
-      const geometry = new THREE.ExtrudeGeometry(shape, extrudeConfig);
-      geometry.translate(0, 0, -extrudeConfig.depth / 2)
-      return geometry
-}
+    .moveTo(point[0], -point[1])
+    .lineTo(point[2], -point[3])
+    .lineTo(point[4], -point[5])
+    .lineTo(point[6], -point[7])
+    .lineTo(point[0], -point[1]);
+  const geometry = new THREE.ExtrudeGeometry(shape, extrudeConfig);
+  geometry.translate(0, 0, -extrudeConfig.depth / 2);
+  return geometry;
+};
 
 export const getModelSize = (obj: THREE.Object3D) => {
-  const box = new THREE.Box3()
-  return box.expandByObject(obj)
-}
+  const box = new THREE.Box3();
+  return box.expandByObject(obj);
+};
+
+export const getPotinFromGlassFrame = (data: GlassFrame[]) => {
+  let left = 0, top = 0;
+  data.forEach((item: GlassFrame) => {
+    if (item.location === "top") {
+      left = item.linePoint.startX;
+      top = item.linePoint.startY;
+    }
+  });
+
+  return {
+    left,
+    top,
+  };
+};

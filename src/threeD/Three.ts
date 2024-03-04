@@ -11,10 +11,21 @@ import Gui from "./common/gui";
 import Helper from "./common/helper";
 import { Data } from "../types";
 import createLight from "./lights";
-// import createSize from "./tools/size";
-import { ValueObj, WindowObj, Frame } from "./types";
+import { getPotinFromGlassFrame } from "./utils";
 
-import { Bar } from "./basicModel";
+// import createSize from "./tools/size";
+import {
+  ValueObj,
+  WindowObj,
+  Frame,
+  CenterPillar,
+  SubObject,
+  FanSpace,
+  FixedSpace,
+  FanObject,
+} from "./types";
+
+import { Bar, Glass } from "./basicModel";
 
 interface ControlsProps {
   minDistance?: number;
@@ -194,7 +205,6 @@ class Three {
     const box = new THREE.Box3();
     this.mainGroup.scale.set(this.scale, this.scale, this.scale);
     const { max, min } = box.expandByObject(this.mainGroup);
-    console.log(max, min)
     const offsetX = -max.x / 2 - min.x / 2;
     const offsetY = -min.y / 2 - max.y / 2;
     this.mainGroup.translateX(offsetX);
@@ -250,17 +260,61 @@ class Three {
     this.scene.add(this.animationGroup);
     if (data) {
       data.drawData.windowObj.forEach((obj: WindowObj) => {
-        if(obj.frame){
-          obj.frame.forEach((frame: Frame) => {
+        if (obj.frame) {
+          obj.frame.forEach((item: Frame) => {
             new Bar({
               threeInstance: this,
-              linePoint: frame.linePoint,
-              shapePoint: frame.shapePoint,
-              materialObj: frame.materialObj,
-            })
-          })
+              linePoint: item.linePoint,
+              shapePoint: item.shapePoint,
+              materialObj: item.materialObj,
+            });
+          });
         }
-      })
+
+        if (obj.fanSpace) {
+          obj.fanSpace.forEach((item: FanSpace) => {
+            item.fanObject.forEach((fanObj: FanObject) => {
+              fanObj.fanFrame.forEach((fan: Frame) => {
+                new Bar({
+                  threeInstance: this,
+                  linePoint: fan.linePoint,
+                  shapePoint: fan.shapePoint,
+                  materialObj: fan.materialObj,
+                });
+              });
+            });
+          });
+        }
+
+        if (obj.fixedSpace) {
+          obj.fixedSpace.forEach((item: FixedSpace) => {
+            if (item.glass) {
+              const { width, height, glassFrame } = item.glass;
+              const { left, top } = getPotinFromGlassFrame(glassFrame);
+              new Glass({ width, height, left: left + 34, top, group: this.mainGroup });
+            }
+            item.subObject.forEach((subObject: SubObject) => {
+              new Bar({
+                threeInstance: this,
+                linePoint: subObject.linePoint,
+                shapePoint: subObject.shapePoint,
+                materialObj: subObject.materialObj,
+              });
+            });
+          });
+        }
+
+        if (obj.centerPillar) {
+          obj.centerPillar.forEach((item: CenterPillar) => {
+            new Bar({
+              threeInstance: this,
+              linePoint: item.linePoint,
+              shapePoint: item.shapePoint,
+              materialObj: item.materialObj,
+            });
+          });
+        }
+      });
     }
     this.resetMainGroup();
   };

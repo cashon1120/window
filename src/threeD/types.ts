@@ -6,7 +6,7 @@
 
 type ShapeType = string;
 
-interface CenterPillar {
+export interface CenterPillar {
   id: string;
   pid: string;
   type: string;
@@ -32,6 +32,16 @@ export interface WindowObj {
   centerPillar: CenterPillar[];
 }
 
+export interface GlassFrame  {
+  id: string;
+  type: string;
+  length: number;
+  location: Location;
+  linePoint: LinePoint;
+  shapePoint: ShapePoint;
+  pid?: string;
+}
+
 export interface Glass {
   id: string;
   pid: string;
@@ -41,15 +51,7 @@ export interface Glass {
   craftList: any[];
   glassCode: string;
   shapeType: ShapeType;
-  glassFrame: {
-    id: string;
-    type: string;
-    length: number;
-    location: Location;
-    linePoint: LinePoint;
-    shapePoint: ShapePoint;
-    pid?: string;
-  }[];
+  glassFrame: GlassFrame[];
   specificationId: number;
   specificationName: string;
 }

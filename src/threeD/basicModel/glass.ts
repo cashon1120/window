@@ -1,12 +1,11 @@
 import * as THREE from "three";
-
 export interface GlassProps {
   group: THREE.Group;
   width: number;
   height: number;
+  left: number;
+  top: number;
   depth?: number;
-  left?: number;
-  top?: number;
   colors?: string[];
   opacity?: number;
   name?: string;
@@ -19,13 +18,13 @@ class Glass {
     const {
       width,
       height,
-      left = 0,
-      top = 0,
       depth = 5,
       group,
-      colors = ["#5584e3", "#3664c1"],
-      opacity = 0.2,
-      name = '玻璃'
+      colors = ["#e0eaff", "#3664c1"],
+      opacity = 0.1,
+      left,
+      top,
+      name = "玻璃",
     } = params;
     // 胶条框框
     const material = new THREE.MeshPhysicalMaterial({
