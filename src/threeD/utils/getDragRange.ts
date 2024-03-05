@@ -69,6 +69,5 @@ export default (props: ReactBarProps) => {
     }
    
   });
-  console.log(result)
   return result;
 };

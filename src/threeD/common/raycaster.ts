@@ -2,7 +2,9 @@ import * as THREE from "three";
 import Three from "../Three";
 import { getMousePosition } from "../utils/index";
 
-type CallbackObject = THREE.Intersection<THREE.Object3D<THREE.Object3DEventMap>>[];
+type CallbackObject = THREE.Intersection<
+  THREE.Object3D<THREE.Object3DEventMap>
+>[];
 
 /**
  * 射线拾取器
@@ -18,7 +20,7 @@ const createRaycaster = (
   mousemoveCallback?: (result: CallbackObject) => void
 ) => {
   const raycaster = new THREE.Raycaster();
-  const domElement = threeInstance.renderer.domElement
+  const domElement = threeInstance.renderer.domElement;
 
   domElement.addEventListener("mouseup", () => {
     if (threeInstance.controls) {
@@ -38,28 +40,20 @@ const createRaycaster = (
     );
     try {
       const intersects = raycaster.intersectObjects(target);
-      if (intersects.length > 0) {
-        callback && callback(intersects);
-      }
-    // eslint-disable-next-line no-empty
+      callback && callback(intersects);
+      // eslint-disable-next-line no-empty
     } catch (e) {
       // 这里是由于threejs的bug，当相机角度为0时，会导致相机的near和far值为0，导致相机无法渲染（AI回答的，不晓得是不是这个原因。。。）
     }
   };
 
-  domElement.addEventListener(
-    "mousedown",
-    (event: MouseEvent) => {
-      handleCallBack(event, callback);
-    }
-  );
+  domElement.addEventListener("click", (event: MouseEvent) => {
+    handleCallBack(event, callback);
+  });
 
-  domElement.addEventListener(
-    "mousemove",
-    (event: MouseEvent) => {
-      handleCallBack(event, mousemoveCallback);
-    }
-  );
+  domElement.addEventListener("mousemove", (event: MouseEvent) => {
+    handleCallBack(event, mousemoveCallback);
+  });
 };
 
 export default createRaycaster;

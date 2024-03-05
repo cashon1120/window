@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { Handle, HanleProps } from "@/threeD/basicModel";
 import {
   createRoundedRect,
   createRoundedGeometry,
@@ -32,25 +33,11 @@ const extrudeSettings2 = {
   bevelThickness: 6,
 };
 
-interface Props {
-  x: number;
-  y: number;
-  width: number;
-  group: THREE.Group;
-  depth: number;
-  offset?: number;
-}
-
-class LeftHandle {
-  height: number;
-  group: THREE.Group;
-  constructor(parmas: Props) {
-    const { x, y, group, width, offset = 0, depth } = parmas;
-    this.height = 100;
-    this.group = new THREE.Group();
+class LeftHandle extends Handle {
+  constructor(pramas: HanleProps) {
+    super(pramas)
     let shape = createRoundedRect(0, 0, 10, 140, 8);
     let geometry = createRoundedGeometry(shape, extrudeSettings);
-
     const material = new THREE.MeshPhysicalMaterial({
       color: "#fafafa",
       side: THREE.DoubleSide,
@@ -63,12 +50,11 @@ class LeftHandle {
 
     const _offset = -150;
     let mesh = new THREE.Mesh(geometry, material);
-    mesh.castShadow = true;
     mesh.userData.disableUpdate = true;
-    // mesh.receiveShadow = true
+    mesh.receiveShadow = true
     mesh.name = "handle";
     mesh.translateY(_offset);
-    mesh.translateZ(depth - 50);
+    mesh.translateZ(30);
     mesh.rotateY(Math.PI / 2);
     this.group.add(mesh);
 
@@ -83,11 +69,7 @@ class LeftHandle {
     shape.lineTo(10, 160);
     shape.lineTo(10, 0);
     shape.lineTo(0, 0);
-    // shape.quadraticCurveTo(1, 0, 0.5, 1);
-    // shape.lineTo(x + width, y + radius);
-    // shape.quadraticCurveTo(x + width, y, x + width - radius, y);
-    // shape.lineTo(x + radius, y);
-    // shape.quadraticCurveTo(x, y, x, y + radius);
+
     geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings2);
 
     mesh = new THREE.Mesh(geometry, material);
@@ -96,16 +78,11 @@ class LeftHandle {
     mesh.name = "handle";
     mesh.translateY(_offset - 110);
     mesh.translateX(7);
-    mesh.translateZ(depth - 10);
+    mesh.translateZ(70);
     mesh.rotateY(Math.PI / 2);
     this.group.add(mesh);
-    // 为了让把手在中心位置，需要偏移
-    this.group.position.set(
-      x + width / 2 - 9 + offset,
-      -y + _offset - 110,
-      0
-    );
-    group.add(this.group);
+
+    this.init({...pramas, selfOffsetZ: 5, selfOffsetX: 2})
   }
 }
 
