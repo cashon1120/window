@@ -4,7 +4,7 @@ import TWEEN from "@tweenjs/tween.js";
 import { Frame, FanSpace, FixedSpace, FanObject } from "../types";
 import Three from "../Three";
 import { Glass, Bar } from "../basicModel";
-import LeftHandle from "../models/ironware/LeftHandle";
+import Handle115 from "../models/ironware/Handle115";
 import {
   getPotinFromGlassFrame,
   getModelSize,
@@ -80,7 +80,7 @@ const fanSpace = (data: FanSpace[], threeInstance: Three) => {
         handleType = HANDLE_POSITION[location];
         if (frames[handleType]) {
           const { x, width, depth } = getModelSize(frames[handleType].group);
-          new LeftHandle({
+          new Handle115({
             x,
             y: height,
             width,
