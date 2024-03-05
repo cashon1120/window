@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { Bar } from "../../basicModel";
 import { createGeometryByShapePoint } from "../../utils/index";
 import Three from "../../Three";
 import { Frame, ExtudeGeometryProps } from "../../types";
@@ -8,11 +9,11 @@ export interface BarProps {
   threeInstance: Three;
 }
 
-class GPN11503 {
+class GPN11503 extends Bar {
   constructor(params: BarProps) {
+    super(params.threeInstance);
     const {
       data: { shapePoint },
-      threeInstance,
     } = params;
     /**
      * 型材配置，后期看是不是需要从数据库获取
@@ -31,7 +32,7 @@ class GPN11503 {
     };
     const geometry = createGeometryByShapePoint(shapePoint, extrudeConfig);
     const mesh = new THREE.Mesh(geometry, material);
-    threeInstance.mainGroup.add(mesh);
+    this.group.add(mesh);
   }
 }
 
