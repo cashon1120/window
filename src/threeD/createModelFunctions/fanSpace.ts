@@ -83,6 +83,10 @@ const fanSpace = (data: FanSpace[], threeInstance: Three) => {
     threeInstance.mainGroup.add(group);
 
     console.log(getModelSize(group))
+    const box3 = new THREE.Box3();
+    box3.expandByObject(group)
+    const center = new THREE.Vector3()
+    console.log(box3.getCenter(center))
   });
 };
 

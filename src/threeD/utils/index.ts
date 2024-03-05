@@ -52,12 +52,13 @@ export const drawRect = (width: number, height: number): THREE.Shape => {
 };
 
 /**
- * 获取传入模型的大小
+ * 获取模型的中心位置，返回{x, y, z}
  */
-export const getSize = (mesh: THREE.Mesh) => {
-  const box = new THREE.Box3();
-  box.expandByObject(mesh);
-  return box.getSize(new THREE.Vector3());
+export const getCenter = (object: THREE.Object3D) => {
+  const box3 = new THREE.Box3();
+  box3.expandByObject(object);
+  const center = new THREE.Vector3();
+  return box3.getCenter(center);
 };
 
 /**
@@ -77,6 +78,9 @@ export const transformPosition = (params: BoxProps) => {
   };
 };
 
+/**
+ *根据数据里的 shapePoint 绘制平面几何体
+ */
 export const createGeometryByShapePoint = (
   point: ShapePoint,
   extrudeConfig: ExtudeGeometryProps
@@ -89,20 +93,23 @@ export const createGeometryByShapePoint = (
     .lineTo(point[6], -point[7])
     .lineTo(point[0], -point[1]);
   const geometry = new THREE.ExtrudeGeometry(shape, extrudeConfig);
+  // 默认
   geometry.translate(0, 0, -extrudeConfig.depth / 2);
   return geometry;
 };
 
 /**
- * 获取模型的大小
+ * 获取模型的大小和位置
  */
 export const getModelSize = (obj: THREE.Object3D) => {
   if (!obj.isObject3D) {
     throw new Error(`传入的对象不是Object3D: ${obj}`);
   }
+  // 获取位置信息,里面有{min, max}, 这里暂时只取了左上角的位置(下面返回的x,y)
   const box = new THREE.Box3();
   const box3 = box.expandByObject(obj);
-  box.setFromObject(obj)
+  // 获取大小信息
+  box.setFromObject(obj);
   const size = new THREE.Vector3();
   box.getSize(size);
   return {
@@ -114,6 +121,9 @@ export const getModelSize = (obj: THREE.Object3D) => {
   };
 };
 
+/**
+ * 获取窗体的左上角位置
+*/
 export const getPotinFromGlassFrame = (data: GlassFrame[]) => {
   let left = 0,
     top = 0;
@@ -123,7 +133,6 @@ export const getPotinFromGlassFrame = (data: GlassFrame[]) => {
       top = item.linePoint.startY;
     }
   });
-
   return {
     left,
     top,

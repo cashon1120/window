@@ -10,7 +10,7 @@ import {
   Gui,
   Helper,
 } from "./common";
-import rotateByCustom from "./utils/rotateByDocument";
+import rotateByCustom from "./utils/rotateByCustom";
 import { Data } from "../types";
 import createLight from "./lights";
 import { ValueObj, WindowObj } from "./types";
