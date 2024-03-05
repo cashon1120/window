@@ -1,5 +1,8 @@
 import * as THREE from "three";
-import { createRoundedRect, createRoundedGeometry } from "../../utils/roundedRect";
+import {
+  createRoundedRect,
+  createRoundedGeometry,
+} from "../../utils/roundedRect";
 
 const extrudeSettings = {
   depth: 20,
@@ -29,10 +32,20 @@ const extrudeSettings2 = {
   bevelThickness: 6,
 };
 
+interface Props {
+  x: number;
+  y: number;
+  width: number;
+  group: THREE.Group;
+  depth: number;
+  offset?: number;
+}
+
 class LeftHandle {
   height: number;
   group: THREE.Group;
-  constructor() {
+  constructor(parmas: Props) {
+    const { x, y, group, width, offset = 0, depth } = parmas;
     this.height = 100;
     this.group = new THREE.Group();
     let shape = createRoundedRect(0, 0, 10, 140, 8);
@@ -48,13 +61,14 @@ class LeftHandle {
       emissive: "#111111",
     });
 
+    const _offset = -150;
     let mesh = new THREE.Mesh(geometry, material);
     mesh.castShadow = true;
     mesh.userData.disableUpdate = true;
     // mesh.receiveShadow = true
     mesh.name = "handle";
-    mesh.translateY(-this.height / 2 - 100);
-    mesh.translateZ(30);
+    mesh.translateY(_offset);
+    mesh.translateZ(depth - 50);
     mesh.rotateY(Math.PI / 2);
     this.group.add(mesh);
 
@@ -80,11 +94,18 @@ class LeftHandle {
     mesh.castShadow = true;
     mesh.userData.disableUpdate = true;
     mesh.name = "handle";
-    mesh.translateY(-this.height / 2 - 220);
+    mesh.translateY(_offset - 110);
     mesh.translateX(7);
-    mesh.translateZ(70);
+    mesh.translateZ(depth - 10);
     mesh.rotateY(Math.PI / 2);
     this.group.add(mesh);
+    // 为了让把手在中心位置，需要偏移
+    this.group.position.set(
+      x + width / 2 - 9 + offset,
+      -y + _offset - 110,
+      0
+    );
+    group.add(this.group);
   }
 }
 

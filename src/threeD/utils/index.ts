@@ -93,13 +93,30 @@ export const createGeometryByShapePoint = (
   return geometry;
 };
 
+/**
+ * 获取模型的大小
+ */
 export const getModelSize = (obj: THREE.Object3D) => {
+  if (!obj.isObject3D) {
+    throw new Error(`传入的对象不是Object3D: ${obj}`);
+  }
   const box = new THREE.Box3();
-  return box.expandByObject(obj);
+  const box3 = box.expandByObject(obj);
+  box.setFromObject(obj)
+  const size = new THREE.Vector3();
+  box.getSize(size);
+  return {
+    x: box3.min.x,
+    y: box3.max.y,
+    width: size.x,
+    height: size.y,
+    depth: size.z,
+  };
 };
 
 export const getPotinFromGlassFrame = (data: GlassFrame[]) => {
-  let left = 0, top = 0;
+  let left = 0,
+    top = 0;
   data.forEach((item: GlassFrame) => {
     if (item.location === "top") {
       left = item.linePoint.startX;

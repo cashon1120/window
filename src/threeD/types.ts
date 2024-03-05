@@ -15,7 +15,7 @@ export interface GlassFrame {
   id: string;
   type: string;
   length: number;
-  location: Location;
+  location: ILocation;
   linePoint: LinePoint;
   shapePoint: ShapePoint;
   pid?: string;
@@ -39,7 +39,7 @@ export interface Frame {
   id: string;
   type: string;
   length: number;
-  location: Location;
+  location: ILocation;
   linePoint: LinePoint;
   shapePoint: ShapePoint;
   materialObj: MaterialObj;
@@ -75,10 +75,10 @@ export interface FixedSpace extends Frame {
 export interface Relation {
   id: string;
   type: string;
-  location: string;
+  location: ILocation;
 }
 
-type Location = string;
+export type ILocation = 'left' | 'top' | 'right' | 'bottom' ;
 
 export interface MaterialObj {
   id: number;
@@ -111,7 +111,7 @@ export interface LineList {
   id: string;
   type: string;
   length: number;
-  location: Location;
+  location: ILocation;
   linePoint: LinePoint;
   shapePoint: ShapePoint;
   pid?: string;
