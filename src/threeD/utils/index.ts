@@ -122,8 +122,8 @@ export const getModelSize = (obj: THREE.Object3D) => {
 };
 
 /**
- * 获取窗体的左上角位置
-*/
+ * 获取玻璃窗体的左上角位置
+ */
 export const getPotinFromGlassFrame = (data: GlassFrame[]) => {
   let left = 0,
     top = 0;
@@ -137,4 +137,43 @@ export const getPotinFromGlassFrame = (data: GlassFrame[]) => {
     left,
     top,
   };
+};
+
+/**
+ * 设置模型旋转中心
+ */
+export const setModelRotateCenter = (
+  obj: THREE.Object3D,
+  type: string = "left"
+) => {
+  const group = new THREE.Group();
+  group.add(obj);
+  group.position.set(0, 0, 0);
+  const { x, y, width, height, depth } = getModelSize(obj);
+  // 让旋转中心轴往正面移一点点，
+  const offsetZ = depth / 2 - 10;
+  obj.translateZ(-offsetZ);
+  console.log(type);
+  switch (type) {
+    case "left":
+      group.position.set(x, 0, offsetZ);
+      obj.translateX(-x);
+      break;
+    case "right":
+      group.position.set(x + width, 0, offsetZ);
+      obj.translateX(-x - width);
+      break;
+    case "top":
+      group.position.set(0, y, offsetZ);
+      obj.translateY(-y);
+      break;
+    case "bottom":
+      group.position.set(0, y - height, offsetZ);
+      obj.translateY(-y +height);
+      break;
+    default:
+      break;
+  }
+
+  return group;
 };

@@ -10,6 +10,7 @@ export interface HanleProps {
   width: number;
   threeInstance: Three;
   depth: number;
+  group?: THREE.Group;
   offset?: number;
   showCoursePointerWhenHover?: boolean;
   onClick?: () => void;
@@ -40,6 +41,7 @@ class Handle {
       showCoursePointerWhenHover = true,
       width: parentGroupWidth,
       depth: parentGroupDepth,
+      group,
       onClick,
       onMouseOver,
     } = params;
@@ -52,7 +54,11 @@ class Handle {
       -y - height + selfOffsetY,
       parentGroupDepth / 2 - depth / 2 + selfOffsetZ
     );
-    this.threeInstance.mainGroup.add(this.group);
+    if (group) {
+      group.add(this.group);
+    } else {
+      this.threeInstance.mainGroup.add(this.group);
+    }
 
     createRaycaster(
       [this.group],
