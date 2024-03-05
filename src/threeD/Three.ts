@@ -253,7 +253,7 @@ class Three {
       /**
        * 遍历windowObj中的Key,匹配createModelFunctions里创建模型的方法
        */
-      windowObj.forEach((obj: WindowObj) => {
+      windowObj.forEach((obj: any) => {
         Object.keys(obj).map((key: string) => {
           if (createModelFunctions[key]) {
             createModelFunctions[key](obj[key as keyof WindowObj], this);

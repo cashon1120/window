@@ -34,7 +34,6 @@ const rotateByCustom = (parmas: Props) => {
   });
   document.addEventListener("mouseup", () => {
     isMove = false;
-    console.log(_x, _y);
     timer = setInterval(() => {
       target.rotation.x += _y * speed * Math.PI;
       // target.rotation.y += _x * speed * Math.PI;

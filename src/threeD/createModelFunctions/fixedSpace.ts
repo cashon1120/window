@@ -1,8 +1,8 @@
-import { Bar } from "../basicModel";
 import { SubObject, FixedSpace } from "../types";
 import Three from "../Three";
 import { getPotinFromGlassFrame } from "../utils";
 import { Glass } from "../basicModel";
+import createModelByShapePoint from "./createModelByShapePoint";
 
 const fixedSpace = (data: FixedSpace[], threeInstance: Three) => {
   data.forEach((item: FixedSpace) => {
@@ -11,14 +11,11 @@ const fixedSpace = (data: FixedSpace[], threeInstance: Three) => {
       const { left, top } = getPotinFromGlassFrame(glassFrame);
       new Glass({ width, height, left, top, group: threeInstance.mainGroup });
     }
-    // 框架
+    /**
+     * 框架
+     */ 
     item.subObject.forEach((subObject: SubObject) => {
-      new Bar({
-        group: threeInstance.mainGroup,
-        linePoint: subObject.linePoint,
-        shapePoint: subObject.shapePoint,
-        materialObj: subObject.materialObj,
-      });
+      createModelByShapePoint(subObject, threeInstance)
     });
   });
 };

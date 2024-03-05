@@ -1,38 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 /**
- * 原始数据
+ * JSON数据的相关类型
  */
 
 type ShapeType = string;
 
-export interface CenterPillar {
-  id: string;
-  pid: string;
-  type: string;
+export interface CenterPillar extends Frame {
   cpType: number;
-  length: number;
-  location: Location;
-  relation: Relation[];
-  linePoint: LinePoint;
-  shapePoint: ShapePoint;
-  materialObj: MaterialObj;
   offsetLocation: string;
 }
 
-export interface WindowObj {
-  id: string;
-  type: string;
-  frame: Frame[];
-  fanSpace: FanSpace[];
-  relation: Relation[];
-  shapeType: ShapeType;
-  styleType: number;
-  fixedSpace: FixedSpace[];
-  centerPillar: CenterPillar[];
-}
-
-export interface GlassFrame  {
+export interface GlassFrame {
   id: string;
   type: string;
   length: number;
@@ -56,24 +35,39 @@ export interface Glass {
   specificationName: string;
 }
 
-export interface SubObject {
+export interface Frame {
   id: string;
   type: string;
+  length: number;
+  location: Location;
   linePoint: LinePoint;
   shapePoint: ShapePoint;
-  length: number;
   materialObj: MaterialObj;
-  location: Location;
+  relation?: Relation[];
   pid?: string;
 }
-export interface FixedSpace {
-  id: string;
-  pid: string;
+
+export interface IHandleData {
+  id: string; // 执手id
+  pid: string; // 执手的父id
+  isActive: boolean; // 是否是主动执手
+  handleType: number; // 执手类型 1 平开玻扇 2 平开纱扇 3 推拉玻扇执手 4推拉纱扇执手
+  LDHeight: number; // 执手离地高度
+  height: number; // 执手高度
+  location: number; // 执手位置 1 上 2 下 3左 4右
+  offsetDirection: number; // 偏移方向 0 无  1 上 2 下 3左 4右
+  offset: number; // 执手偏移
+}
+
+export interface SubObject extends Frame {
+  relation?: Relation[];
+}
+
+export interface FixedSpace extends Frame {
   glass: Glass;
   width: number;
   height: number;
   lineList: LineList[];
-  relation: Relation[];
   spaceType: ShapeType;
   subObject: SubObject[];
 }
@@ -83,7 +77,9 @@ export interface Relation {
   type: string;
   location: string;
 }
+
 type Location = string;
+
 export interface MaterialObj {
   id: number;
   code: string;
@@ -101,24 +97,16 @@ export interface MaterialObj {
   }[];
   calculatedWidth: number;
 }
-export interface Frame {
-  id: string;
-  pid: string;
-  type: string;
-  length: number;
-  location: Location;
-  relation: Relation[];
-  linePoint: LinePoint;
-  shapePoint: ShapePoint;
-  materialObj: MaterialObj;
-}
+
 export interface LinePoint {
   endX: number;
   endY: number;
   startX: number;
   startY: number;
 }
+
 export type ShapePoint = number[];
+
 export interface LineList {
   id: string;
   type: string;
@@ -137,33 +125,27 @@ export interface FanObject {
   fanFrame: Frame[];
   shapeType: string;
   fixedSpace: FixedSpace[];
-  handleInfo: {
-    id: string;
-    pid: string;
-    height: number;
-    offset: number;
-    LDHeight: number;
-    isActive: boolean;
-    location: number;
-    handleType: number;
-    offsetDirection: number;
-  };
+  handleInfo: IHandleData;
   centerPillar: any[];
   isDrivingFan: boolean;
 }
-export interface FanSpace {
-  id: string;
-  pid: string;
-  width: number;
+export interface FanSpace extends Frame {
   fanNum: number;
-  height: number;
-  lineList: LineList[];
-  relation: Relation[];
   fanObject: FanObject[];
-  spaceType: string;
-  subObject: SubObject[];
   antiTheftFence: boolean;
   screenFanObject: any[];
+}
+
+export interface WindowObj {
+  id: string;
+  type: string;
+  frame: Frame[];
+  relation: Relation[];
+  shapeType: ShapeType;
+  styleType: number;
+  centerPillar: CenterPillar[];
+  fanSpace?: FanSpace[];
+  fixedSpace?: FixedSpace[];
 }
 export interface Data {
   drawData: {
@@ -181,21 +163,6 @@ export interface Data {
     x: number;
     y: number;
   };
-  // [key: string]: {
-  //   // 对应的3D模型， 在src/threeD/models中定义, 每新增一个需要在 src/threeD/models/index 里导出
-  //   model: keyof typeof Models;
-  //   type: CompentType;
-  //   attribute: any;
-  //   tempAttribute: TempAttribute;
-  //   // 上下左右的连接关系, 在拖动的时候会根据这个关系去更新对应模型的数据， 通过 utils/getModelLinks.ts 计算
-  //   link: {
-  //     left: string[],
-  //     right: string[],
-  //     top: string[],
-  //     bottom: string[],
-  //   };
-  //   minSize?: number;
-  // };
 }
 
 /**

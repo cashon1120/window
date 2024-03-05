@@ -1,21 +1,21 @@
 import * as THREE from "three";
 import { Frame, FanSpace, FixedSpace, FanObject } from "../types";
 import Three from "../Three";
-import { Bar, Glass } from "../basicModel";
+import { Glass } from "../basicModel";
 import { getPotinFromGlassFrame } from "../utils";
+import createModelByShapePoint from "./createModelByShapePoint";
 
 const fanSpace = (data: FanSpace[], threeInstance: Three) => {
   data.forEach((item: FanSpace) => {
     const group = new THREE.Group();
     item.fanObject.forEach((fanObj: FanObject) => {
+      /**
+       * 创建框架
+      */
       fanObj.fanFrame.forEach((fan: Frame) => {
-        new Bar({
-          group: group,
-          linePoint: fan.linePoint,
-          shapePoint: fan.shapePoint,
-          materialObj: fan.materialObj,
-        });
+        createModelByShapePoint(fan, threeInstance)
       });
+
       if (fanObj.fixedSpace) {
         fanObj.fixedSpace.forEach((fixedSpace: FixedSpace) => {
           if (fixedSpace.glass) {
@@ -37,11 +37,11 @@ const fanSpace = (data: FanSpace[], threeInstance: Three) => {
       }
     });
 
-    const render = () => {
-      group.rotation.y += 0.01 * Math.PI;
-      requestAnimationFrame(render);
-    };
-    render();
+    // const render = () => {
+    //   group.rotation.y += 0.01 * Math.PI;
+    //   requestAnimationFrame(render);
+    // };
+    // render();
     threeInstance.mainGroup.add(group);
   });
 };
