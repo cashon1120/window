@@ -70,9 +70,6 @@ const fanSpace = (data: FanSpace[], threeInstance: Three) => {
             onClick: () => {
               console.log("把手点击事件");
             },
-            onMouseOver: () => {
-              console.log("mouseover事件");
-            }
           });
         }
       }
