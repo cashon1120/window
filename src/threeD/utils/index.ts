@@ -93,7 +93,7 @@ export const createGeometryByShapePoint = (
     .lineTo(point[6], -point[7])
     .lineTo(point[0], -point[1]);
   const geometry = new THREE.ExtrudeGeometry(shape, extrudeConfig);
-  // 默认
+  // 默认Z轴需要偏移到中间去，也就是0
   geometry.translate(0, 0, -extrudeConfig.depth / 2);
   return geometry;
 };

@@ -18,11 +18,12 @@ class GPN11502 extends Bar {
     });
 
     const extrudeConfig: ExtudeGeometryProps = {
+      steps: 2,
       depth: 100,
       bevelEnabled: false,
-      bevelThickness: 15, //倒角尺寸:拉伸方向
-      bevelSize: 15, //倒角尺寸:垂直拉伸方向
-      bevelSegments: 3, //倒圆角：倒角细分精度，默认3
+      bevelThickness: 20, //倒角尺寸:拉伸方向
+      bevelSize: 20, //倒角尺寸:垂直拉伸方向
+      bevelSegments: 10, //倒圆角：倒角细分精度，默认3
     };
     const geometry = createGeometryByShapePoint(shapePoint, extrudeConfig);
     const mesh = new THREE.Mesh(geometry, material);
