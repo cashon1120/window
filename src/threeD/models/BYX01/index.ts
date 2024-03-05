@@ -1,17 +1,11 @@
 import * as THREE from "three";
-import { Bar } from "../../basicModel";
+import { Bar, BarProps } from "../../basicModel";
 import { createGeometryByShapePoint } from "../../utils/index";
-import Three from "../../Three";
-import { Frame, ExtudeGeometryProps } from "../../types";
-
-export interface BarProps {
-  data: Frame;
-  threeInstance: Three;
-}
+import { ExtudeGeometryProps } from "../../types";
 
 class BYX01 extends Bar {
   constructor(params: BarProps) {
-    super(params.threeInstance);
+    super(params.threeInstance, params.group);
     const {
       data: { shapePoint },
     } = params;

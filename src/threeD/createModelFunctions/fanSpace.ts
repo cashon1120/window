@@ -29,7 +29,7 @@ const fanSpace = (data: FanSpace[], threeInstance: Three) => {
        * 注意这里需要需要获取框架的信息，后面好上把手
        */
       fanObj.fanFrame.forEach((frame: Frame) => {
-        frames[frame.location] = createModelByShapePoint(frame, threeInstance);
+        frames[frame.location] = createModelByShapePoint(frame, threeInstance, group);
       });
 
       if (fanObj.fixedSpace) {
@@ -81,6 +81,8 @@ const fanSpace = (data: FanSpace[], threeInstance: Three) => {
     // };
     // render();
     threeInstance.mainGroup.add(group);
+
+    console.log(getModelSize(group))
   });
 };
 
