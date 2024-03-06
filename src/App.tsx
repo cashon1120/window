@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import Three from "@/threeD/Three";
+import { Three } from "drawboard";
 import { ValueObj } from "@/types";
 import data from "./data.json";
 
@@ -13,7 +13,6 @@ const colorList: ValueObj[] = [
   { type: "color", value: { color: "#a8abad" } },
 ];
 
-
 function App() {
   const [three, setThree] = useState<Three | null>(null);
   const [activeValue, setActiveValue] = useState(colorList[0].value);
@@ -22,13 +21,21 @@ function App() {
       return;
     }
     setActiveValue(obj.value);
-    three.updateMaterials(obj)
+    if(obj.value.color === '#435962'){
+      console.log('in')
+      three.updateMaterials(obj, 'in');
+    }
+
+    if(obj.value.color === '#181e26'){
+      console.log('out')
+      three.updateMaterials(obj, 'out');
+    }
+
   };
 
   useEffect(() => {
     const three = new Three({
       data,
-      scale: 1/20,
       container: "threeD",
       showStats: true,
       showGui: true,
@@ -39,20 +46,18 @@ function App() {
   }, []);
 
   return (
-    <>
-      <ul className="colors">
-        {colorList.map((item) => (
-          <li
-            key={item.value.color}
-            className={activeValue === item.value ? "active" : ""}
-            style={{ background: item.value.color }}
-            onClick={() => {
-              handleChangeColor(item);
-            }}
-          ></li>
-        ))}
-      </ul>
-    </>
+    <ul className="colors">
+      {colorList.map((item) => (
+        <li
+          key={item.value.color}
+          className={activeValue === item.value ? "active" : ""}
+          style={{ background: item.value.color }}
+          onClick={() => {
+            handleChangeColor(item);
+          }}
+        ></li>
+      ))}
+    </ul>
   );
 }
 
