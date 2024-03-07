@@ -1,0 +1,1492 @@
+{
+  "windowObj": [
+    {
+      "id": "df44c86c79accbcca344d8e041611584",
+      "type": "tl_window",
+      "shapeType": "rect",
+      "frame": [
+        {
+          "id": "b_ee13c79b68fc2aa9c8e32403608bd286",
+          "pid": "df44c86c79accbcca344d8e041611584",
+          "type": "line",
+          "linePoint": {
+            "startX": 1175,
+            "startY": 381,
+            "endX": 4400,
+            "endY": 381
+          },
+          "shapePoint": [1225, 381, 4350, 381, 4350, 421, 1225, 421],
+          "length": 3125,
+          "materialObj": {
+            "id": "10",
+            "name": "窗框",
+            "code": "GLT16501",
+            "type": 1,
+            "position": 2,
+            "spliceType": 2,
+            "calculatedWidth": 50,
+            "lookWidth": 40,
+            "lapRelation": []
+          },
+          "location": "top",
+          "relation": [
+            {
+              "id": "space_06d2896c93f2faf529026f446914004b",
+              "type": "fixedSpace",
+              "location": "bottom"
+            },
+            {
+              "id": "szhu1c744e194eb423132490716d9f37b7ad",
+              "type": "centerPillar",
+              "location": "bottom"
+            },
+            {
+              "id": "space_e10ef8c1a11b72ae201f75628662afa3",
+              "type": "fixedSpace",
+              "location": "bottom"
+            },
+            {
+              "id": "szhub1e10449bb4f02497fd5c563680c7a48",
+              "type": "centerPillar",
+              "location": "bottom"
+            },
+            {
+              "id": "space_f60e7bf08264c75f9612a1c859223b06",
+              "type": "fixedSpace",
+              "location": "bottom"
+            }
+          ]
+        },
+        {
+          "id": "b_91e0d21d0b439559f9033c2d1573f688",
+          "pid": "df44c86c79accbcca344d8e041611584",
+          "type": "line",
+          "linePoint": {
+            "startX": 4400,
+            "startY": 381,
+            "endX": 4400,
+            "endY": 1800
+          },
+          "shapePoint": [4400, 381, 4400, 1800, 4350, 1800, 4350, 381],
+          "length": 1419,
+          "materialObj": {
+            "id": "1",
+            "name": "窗框",
+            "code": "GLT16502",
+            "type": 1,
+            "position": 1,
+            "spliceType": 2,
+            "calculatedWidth": 50,
+            "lookWidth": 50,
+            "lapRelation": []
+          },
+          "location": "right",
+          "relation": [
+            {
+              "id": "space_f60e7bf08264c75f9612a1c859223b06",
+              "type": "fixedSpace",
+              "location": "left"
+            }
+          ]
+        },
+        {
+          "id": "b_102d4fe0146dd69f2abce77fd82ee389",
+          "pid": "df44c86c79accbcca344d8e041611584",
+          "type": "line",
+          "linePoint": {
+            "startX": 1175,
+            "startY": 1800,
+            "endX": 4400,
+            "endY": 1800
+          },
+          "shapePoint": [1225, 1800, 4350, 1800, 4350, 1770, 1225, 1770],
+          "length": 3125,
+          "materialObj": {
+            "id": "11",
+            "name": "窗框",
+            "code": "GLT16503",
+            "type": 1,
+            "position": 3,
+            "spliceType": 2,
+            "calculatedWidth": 50,
+            "lookWidth": 30,
+            "lapRelation": []
+          },
+          "location": "bottom",
+          "relation": [
+            {
+              "id": "space_06d2896c93f2faf529026f446914004b",
+              "type": "fixedSpace",
+              "location": "top"
+            },
+            {
+              "id": "szhu1c744e194eb423132490716d9f37b7ad",
+              "type": "centerPillar",
+              "location": "top"
+            },
+            {
+              "id": "space_e10ef8c1a11b72ae201f75628662afa3",
+              "type": "fixedSpace",
+              "location": "top"
+            },
+            {
+              "id": "szhub1e10449bb4f02497fd5c563680c7a48",
+              "type": "centerPillar",
+              "location": "top"
+            },
+            {
+              "id": "space_f60e7bf08264c75f9612a1c859223b06",
+              "type": "fixedSpace",
+              "location": "top"
+            }
+          ]
+        },
+        {
+          "id": "b_3deeeac0147873041ca4f5b4804e7d0a",
+          "type": "line",
+          "linePoint": {
+            "startX": 1175,
+            "startY": 381,
+            "endX": 1175,
+            "endY": 1800
+          },
+          "shapePoint": [1175, 381, 1175, 1800, 1225, 1800, 1225, 381],
+          "length": 1419,
+          "materialObj": {
+            "id": "1",
+            "name": "窗框",
+            "code": "GLT16502",
+            "type": 1,
+            "position": 1,
+            "spliceType": 2,
+            "calculatedWidth": 50,
+            "lookWidth": 50,
+            "lapRelation": []
+          },
+          "location": "left",
+          "relation": [
+            {
+              "id": "space_06d2896c93f2faf529026f446914004b",
+              "type": "fixedSpace",
+              "location": "right"
+            }
+          ]
+        }
+      ],
+      "fixedSpace": [
+        {
+          "id": "space_06d2896c93f2faf529026f446914004b",
+          "pid": "df44c86c79accbcca344d8e041611584",
+          "spaceType": "rect",
+          "lineList": [
+            {
+              "id": "b_6f2beaa7e1096bf41d3ca504d5911f6b",
+              "pid": "space_06d2896c93f2faf529026f446914004b",
+              "type": "line",
+              "linePoint": {
+                "startX": 1225,
+                "startY": 421,
+                "endX": 1973,
+                "endY": 421
+              },
+              "shapePoint": [],
+              "length": 748,
+              "location": "top"
+            },
+            {
+              "id": "b_689a49b892ef006b70c3e77ad7beda5d",
+              "pid": "space_06d2896c93f2faf529026f446914004b",
+              "type": "line",
+              "linePoint": {
+                "startX": 1973,
+                "startY": 421,
+                "endX": 1973,
+                "endY": 1770
+              },
+              "shapePoint": [],
+              "length": 1349,
+              "location": "right"
+            },
+            {
+              "id": "b_16cd08d0273018f74b400fd1609b5f06",
+              "pid": "space_06d2896c93f2faf529026f446914004b",
+              "type": "line",
+              "linePoint": {
+                "startX": 1225,
+                "startY": 1770,
+                "endX": 1973,
+                "endY": 1770
+              },
+              "shapePoint": [],
+              "length": 748,
+              "location": "bottom"
+            },
+            {
+              "id": "b_ad7396226763e3492d6a7ce353ee7176",
+              "pid": "space_06d2896c93f2faf529026f446914004b",
+              "type": "line",
+              "linePoint": {
+                "startX": 1225,
+                "startY": 421,
+                "endX": 1225,
+                "endY": 1770
+              },
+              "shapePoint": [],
+              "length": 1349,
+              "location": "left"
+            }
+          ],
+          "subObject": [
+            {
+              "id": "b_6f2beaa7e1096bf41d3ca504d5911f6b",
+              "pid": "space_06d2896c93f2faf529026f446914004b",
+              "type": "line",
+              "linePoint": {
+                "startX": 1215,
+                "startY": 411,
+                "endX": 1983,
+                "endY": 411
+              },
+              "shapePoint": [1230, 411, 1968, 411, 1968, 426, 1230, 426],
+              "length": 738,
+              "materialObj": {
+                "id": "2",
+                "name": "固框压线",
+                "code": "windowFrame_yx",
+                "type": 13,
+                "position": 1,
+                "spliceType": 2,
+                "calculatedWidth": 15,
+                "lookWidth": 15,
+                "lapRelation": [
+                  {
+                    "id": "1",
+                    "calculatedType": 2,
+                    "horizontalNum": 10,
+                    "verticalNum": 0
+                  },
+                  {
+                    "id": "3",
+                    "calculatedType": 2,
+                    "horizontalNum": 10,
+                    "verticalNum": 0
+                  }
+                ]
+              },
+              "location": "top"
+            },
+            {
+              "id": "b_689a49b892ef006b70c3e77ad7beda5d",
+              "pid": "space_06d2896c93f2faf529026f446914004b",
+              "type": "line",
+              "linePoint": {
+                "startX": 1983,
+                "startY": 411,
+                "endX": 1983,
+                "endY": 1780
+              },
+              "shapePoint": [1983, 411, 1983, 1780, 1968, 1780, 1968, 411],
+              "length": 1369,
+              "materialObj": {
+                "id": "2",
+                "name": "固框压线",
+                "code": "windowFrame_yx",
+                "type": 13,
+                "position": 1,
+                "spliceType": 2,
+                "calculatedWidth": 15,
+                "lookWidth": 15,
+                "lapRelation": [
+                  {
+                    "id": "1",
+                    "calculatedType": 2,
+                    "horizontalNum": 10,
+                    "verticalNum": 0
+                  },
+                  {
+                    "id": "3",
+                    "calculatedType": 2,
+                    "horizontalNum": 10,
+                    "verticalNum": 0
+                  }
+                ]
+              },
+              "location": "right"
+            },
+            {
+              "id": "b_16cd08d0273018f74b400fd1609b5f06",
+              "pid": "space_06d2896c93f2faf529026f446914004b",
+              "type": "line",
+              "linePoint": {
+                "startX": 1215,
+                "startY": 1780,
+                "endX": 1983,
+                "endY": 1780
+              },
+              "shapePoint": [1230, 1780, 1968, 1780, 1968, 1765, 1230, 1765],
+              "length": 738,
+              "materialObj": {
+                "id": "2",
+                "name": "固框压线",
+                "code": "windowFrame_yx",
+                "type": 13,
+                "position": 1,
+                "spliceType": 2,
+                "calculatedWidth": 15,
+                "lookWidth": 15,
+                "lapRelation": [
+                  {
+                    "id": "1",
+                    "calculatedType": 2,
+                    "horizontalNum": 10,
+                    "verticalNum": 0
+                  },
+                  {
+                    "id": "3",
+                    "calculatedType": 2,
+                    "horizontalNum": 10,
+                    "verticalNum": 0
+                  }
+                ]
+              },
+              "location": "bottom"
+            },
+            {
+              "id": "b_ad7396226763e3492d6a7ce353ee7176",
+              "type": "line",
+              "linePoint": {
+                "startX": 1215,
+                "startY": 411,
+                "endX": 1215,
+                "endY": 1780
+              },
+              "shapePoint": [1215, 411, 1215, 1780, 1230, 1780, 1230, 411],
+              "length": 1369,
+              "materialObj": {
+                "id": "2",
+                "name": "固框压线",
+                "code": "windowFrame_yx",
+                "type": 13,
+                "position": 1,
+                "spliceType": 2,
+                "calculatedWidth": 15,
+                "lookWidth": 15,
+                "lapRelation": [
+                  {
+                    "id": "1",
+                    "calculatedType": 2,
+                    "horizontalNum": 10,
+                    "verticalNum": 0
+                  },
+                  {
+                    "id": "3",
+                    "calculatedType": 2,
+                    "horizontalNum": 10,
+                    "verticalNum": 0
+                  }
+                ]
+              },
+              "location": "left"
+            }
+          ],
+          "glass": {
+            "id": "gb72fbb8a78cec59f4f0eee50fe46a935a",
+            "pid": "space_06d2896c93f2faf529026f446914004b",
+            "type": 2,
+            "glassCode": "GB1",
+            "shapeType": "rect",
+            "glassFrame": [
+              {
+                "id": "b_6f2beaa7e1096bf41d3ca504d5911f6b",
+                "pid": "space_06d2896c93f2faf529026f446914004b",
+                "type": "line",
+                "linePoint": {
+                  "startX": 1225,
+                  "startY": 421,
+                  "endX": 1973,
+                  "endY": 421
+                },
+                "shapePoint": [],
+                "length": 748,
+                "location": "top"
+              },
+              {
+                "id": "b_689a49b892ef006b70c3e77ad7beda5d",
+                "pid": "space_06d2896c93f2faf529026f446914004b",
+                "type": "line",
+                "linePoint": {
+                  "startX": 1973,
+                  "startY": 421,
+                  "endX": 1973,
+                  "endY": 1770
+                },
+                "shapePoint": [],
+                "length": 1349,
+                "location": "right"
+              },
+              {
+                "id": "b_16cd08d0273018f74b400fd1609b5f06",
+                "pid": "space_06d2896c93f2faf529026f446914004b",
+                "type": "line",
+                "linePoint": {
+                  "startX": 1225,
+                  "startY": 1770,
+                  "endX": 1973,
+                  "endY": 1770
+                },
+                "shapePoint": [],
+                "length": 748,
+                "location": "bottom"
+              },
+              {
+                "id": "b_ad7396226763e3492d6a7ce353ee7176",
+                "pid": "space_06d2896c93f2faf529026f446914004b",
+                "type": "line",
+                "linePoint": {
+                  "startX": 1225,
+                  "startY": 421,
+                  "endX": 1225,
+                  "endY": 1770
+                },
+                "shapePoint": [],
+                "length": 1349,
+                "location": "left"
+              }
+            ],
+            "width": 748,
+            "height": 1349,
+            "specificationId": "2",
+            "specificationName": "6+27Ar+6",
+            "craftList": []
+          },
+          "relation": [
+            {
+              "id": "szhu1c744e194eb423132490716d9f37b7ad",
+              "type": "centerPillar",
+              "location": "right"
+            },
+            {
+              "id": "b_ee13c79b68fc2aa9c8e32403608bd286",
+              "type": "frame",
+              "location": "top"
+            },
+            {
+              "id": "b_102d4fe0146dd69f2abce77fd82ee389",
+              "type": "frame",
+              "location": "bottom"
+            },
+            {
+              "id": "b_3deeeac0147873041ca4f5b4804e7d0a",
+              "type": "frame",
+              "location": "left"
+            }
+          ],
+          "width": 748,
+          "height": 1349
+        },
+        {
+          "id": "space_e10ef8c1a11b72ae201f75628662afa3",
+          "pid": "df44c86c79accbcca344d8e041611584",
+          "spaceType": "rect",
+          "lineList": [
+            {
+              "id": "b_165783741dea9e1049ee7b3def6f0daa",
+              "pid": "space_e10ef8c1a11b72ae201f75628662afa3",
+              "type": "line",
+              "linePoint": {
+                "startX": 2013,
+                "startY": 421,
+                "endX": 3562,
+                "endY": 421
+              },
+              "shapePoint": [],
+              "length": 1549,
+              "location": "top"
+            },
+            {
+              "id": "b_4a2800b0dc45034af3f71fc8646b0255",
+              "pid": "space_e10ef8c1a11b72ae201f75628662afa3",
+              "type": "line",
+              "linePoint": {
+                "startX": 3562,
+                "startY": 421,
+                "endX": 3562,
+                "endY": 1770
+              },
+              "shapePoint": [],
+              "length": 1349,
+              "location": "right"
+            },
+            {
+              "id": "b_431b52c61d75e1618e62561cae589268",
+              "pid": "space_e10ef8c1a11b72ae201f75628662afa3",
+              "type": "line",
+              "linePoint": {
+                "startX": 2013,
+                "startY": 1770,
+                "endX": 3562,
+                "endY": 1770
+              },
+              "shapePoint": [],
+              "length": 1549,
+              "location": "bottom"
+            },
+            {
+              "id": "b_87a51c9598c516226068ff0ea9439195",
+              "pid": "space_e10ef8c1a11b72ae201f75628662afa3",
+              "type": "line",
+              "linePoint": {
+                "startX": 2013,
+                "startY": 421,
+                "endX": 2013,
+                "endY": 1770
+              },
+              "shapePoint": [],
+              "length": 1349,
+              "location": "left"
+            }
+          ],
+          "subObject": [
+            {
+              "id": "b_165783741dea9e1049ee7b3def6f0daa",
+              "pid": "space_e10ef8c1a11b72ae201f75628662afa3",
+              "type": "line",
+              "linePoint": {
+                "startX": 2003,
+                "startY": 411,
+                "endX": 3572,
+                "endY": 411
+              },
+              "shapePoint": [2018, 411, 3557, 411, 3557, 426, 2018, 426],
+              "length": 1539,
+              "materialObj": {
+                "id": "2",
+                "name": "固框压线",
+                "code": "windowFrame_yx",
+                "type": 13,
+                "position": 1,
+                "spliceType": 2,
+                "calculatedWidth": 15,
+                "lookWidth": 15,
+                "lapRelation": [
+                  {
+                    "id": "1",
+                    "calculatedType": 2,
+                    "horizontalNum": 10,
+                    "verticalNum": 0
+                  },
+                  {
+                    "id": "3",
+                    "calculatedType": 2,
+                    "horizontalNum": 10,
+                    "verticalNum": 0
+                  }
+                ]
+              },
+              "location": "top"
+            },
+            {
+              "id": "b_4a2800b0dc45034af3f71fc8646b0255",
+              "pid": "space_e10ef8c1a11b72ae201f75628662afa3",
+              "type": "line",
+              "linePoint": {
+                "startX": 3572,
+                "startY": 411,
+                "endX": 3572,
+                "endY": 1780
+              },
+              "shapePoint": [3572, 411, 3572, 1780, 3557, 1780, 3557, 411],
+              "length": 1369,
+              "materialObj": {
+                "id": "2",
+                "name": "固框压线",
+                "code": "windowFrame_yx",
+                "type": 13,
+                "position": 1,
+                "spliceType": 2,
+                "calculatedWidth": 15,
+                "lookWidth": 15,
+                "lapRelation": [
+                  {
+                    "id": "1",
+                    "calculatedType": 2,
+                    "horizontalNum": 10,
+                    "verticalNum": 0
+                  },
+                  {
+                    "id": "3",
+                    "calculatedType": 2,
+                    "horizontalNum": 10,
+                    "verticalNum": 0
+                  }
+                ]
+              },
+              "location": "right"
+            },
+            {
+              "id": "b_431b52c61d75e1618e62561cae589268",
+              "pid": "space_e10ef8c1a11b72ae201f75628662afa3",
+              "type": "line",
+              "linePoint": {
+                "startX": 2003,
+                "startY": 1780,
+                "endX": 3572,
+                "endY": 1780
+              },
+              "shapePoint": [2018, 1780, 3557, 1780, 3557, 1765, 2018, 1765],
+              "length": 1539,
+              "materialObj": {
+                "id": "2",
+                "name": "固框压线",
+                "code": "windowFrame_yx",
+                "type": 13,
+                "position": 1,
+                "spliceType": 2,
+                "calculatedWidth": 15,
+                "lookWidth": 15,
+                "lapRelation": [
+                  {
+                    "id": "1",
+                    "calculatedType": 2,
+                    "horizontalNum": 10,
+                    "verticalNum": 0
+                  },
+                  {
+                    "id": "3",
+                    "calculatedType": 2,
+                    "horizontalNum": 10,
+                    "verticalNum": 0
+                  }
+                ]
+              },
+              "location": "bottom"
+            },
+            {
+              "id": "b_87a51c9598c516226068ff0ea9439195",
+              "type": "line",
+              "linePoint": {
+                "startX": 2003,
+                "startY": 411,
+                "endX": 2003,
+                "endY": 1780
+              },
+              "shapePoint": [2003, 411, 2003, 1780, 2018, 1780, 2018, 411],
+              "length": 1369,
+              "materialObj": {
+                "id": "2",
+                "name": "固框压线",
+                "code": "windowFrame_yx",
+                "type": 13,
+                "position": 1,
+                "spliceType": 2,
+                "calculatedWidth": 15,
+                "lookWidth": 15,
+                "lapRelation": [
+                  {
+                    "id": "1",
+                    "calculatedType": 2,
+                    "horizontalNum": 10,
+                    "verticalNum": 0
+                  },
+                  {
+                    "id": "3",
+                    "calculatedType": 2,
+                    "horizontalNum": 10,
+                    "verticalNum": 0
+                  }
+                ]
+              },
+              "location": "left"
+            }
+          ],
+          "glass": {
+            "id": "gb6a5a1943c447fff23d12f1505acedce5",
+            "pid": "space_e10ef8c1a11b72ae201f75628662afa3",
+            "type": 2,
+            "glassCode": "GB2",
+            "shapeType": "rect",
+            "glassFrame": [
+              {
+                "id": "b_165783741dea9e1049ee7b3def6f0daa",
+                "pid": "space_e10ef8c1a11b72ae201f75628662afa3",
+                "type": "line",
+                "linePoint": {
+                  "startX": 2013,
+                  "startY": 421,
+                  "endX": 3562,
+                  "endY": 421
+                },
+                "shapePoint": [],
+                "length": 1549,
+                "location": "top"
+              },
+              {
+                "id": "b_4a2800b0dc45034af3f71fc8646b0255",
+                "pid": "space_e10ef8c1a11b72ae201f75628662afa3",
+                "type": "line",
+                "linePoint": {
+                  "startX": 3562,
+                  "startY": 421,
+                  "endX": 3562,
+                  "endY": 1770
+                },
+                "shapePoint": [],
+                "length": 1349,
+                "location": "right"
+              },
+              {
+                "id": "b_431b52c61d75e1618e62561cae589268",
+                "pid": "space_e10ef8c1a11b72ae201f75628662afa3",
+                "type": "line",
+                "linePoint": {
+                  "startX": 2013,
+                  "startY": 1770,
+                  "endX": 3562,
+                  "endY": 1770
+                },
+                "shapePoint": [],
+                "length": 1549,
+                "location": "bottom"
+              },
+              {
+                "id": "b_87a51c9598c516226068ff0ea9439195",
+                "pid": "space_e10ef8c1a11b72ae201f75628662afa3",
+                "type": "line",
+                "linePoint": {
+                  "startX": 2013,
+                  "startY": 421,
+                  "endX": 2013,
+                  "endY": 1770
+                },
+                "shapePoint": [],
+                "length": 1349,
+                "location": "left"
+              }
+            ],
+            "width": 1549,
+            "height": 1349,
+            "specificationId": "2",
+            "specificationName": "6+27Ar+6",
+            "craftList": []
+          },
+          "relation": [
+            {
+              "id": "szhub1e10449bb4f02497fd5c563680c7a48",
+              "type": "centerPillar",
+              "location": "right"
+            },
+            {
+              "id": "szhu1c744e194eb423132490716d9f37b7ad",
+              "type": "centerPillar",
+              "location": "left"
+            },
+            {
+              "id": "b_ee13c79b68fc2aa9c8e32403608bd286",
+              "type": "frame",
+              "location": "top"
+            },
+            {
+              "id": "b_102d4fe0146dd69f2abce77fd82ee389",
+              "type": "frame",
+              "location": "bottom"
+            }
+          ],
+          "width": 1549,
+          "height": 1349
+        },
+        {
+          "id": "space_f60e7bf08264c75f9612a1c859223b06",
+          "pid": "df44c86c79accbcca344d8e041611584",
+          "spaceType": "rect",
+          "lineList": [
+            {
+              "id": "b_138d323a9cc54c9442afbee9f900144e",
+              "pid": "space_f60e7bf08264c75f9612a1c859223b06",
+              "type": "line",
+              "linePoint": {
+                "startX": 3602,
+                "startY": 421,
+                "endX": 4350,
+                "endY": 421
+              },
+              "shapePoint": [],
+              "length": 748,
+              "location": "top"
+            },
+            {
+              "id": "b_0740289e151a20f2824ba325afd223e9",
+              "pid": "space_f60e7bf08264c75f9612a1c859223b06",
+              "type": "line",
+              "linePoint": {
+                "startX": 4350,
+                "startY": 421,
+                "endX": 4350,
+                "endY": 1770
+              },
+              "shapePoint": [],
+              "length": 1349,
+              "location": "right"
+            },
+            {
+              "id": "b_14e93e627cde7e8da1c44623d15aee45",
+              "pid": "space_f60e7bf08264c75f9612a1c859223b06",
+              "type": "line",
+              "linePoint": {
+                "startX": 3602,
+                "startY": 1770,
+                "endX": 4350,
+                "endY": 1770
+              },
+              "shapePoint": [],
+              "length": 748,
+              "location": "bottom"
+            },
+            {
+              "id": "b_2f9e0713824f11343502cbea2a3c3796",
+              "pid": "space_f60e7bf08264c75f9612a1c859223b06",
+              "type": "line",
+              "linePoint": {
+                "startX": 3602,
+                "startY": 421,
+                "endX": 3602,
+                "endY": 1770
+              },
+              "shapePoint": [],
+              "length": 1349,
+              "location": "left"
+            }
+          ],
+          "subObject": [
+            {
+              "id": "b_138d323a9cc54c9442afbee9f900144e",
+              "pid": "space_f60e7bf08264c75f9612a1c859223b06",
+              "type": "line",
+              "linePoint": {
+                "startX": 3592,
+                "startY": 411,
+                "endX": 4360,
+                "endY": 411
+              },
+              "shapePoint": [3607, 411, 4345, 411, 4345, 426, 3607, 426],
+              "length": 738,
+              "materialObj": {
+                "id": "2",
+                "name": "固框压线",
+                "code": "windowFrame_yx",
+                "type": 13,
+                "position": 1,
+                "spliceType": 2,
+                "calculatedWidth": 15,
+                "lookWidth": 15,
+                "lapRelation": [
+                  {
+                    "id": "1",
+                    "calculatedType": 2,
+                    "horizontalNum": 10,
+                    "verticalNum": 0
+                  },
+                  {
+                    "id": "3",
+                    "calculatedType": 2,
+                    "horizontalNum": 10,
+                    "verticalNum": 0
+                  }
+                ]
+              },
+              "location": "top"
+            },
+            {
+              "id": "b_0740289e151a20f2824ba325afd223e9",
+              "pid": "space_f60e7bf08264c75f9612a1c859223b06",
+              "type": "line",
+              "linePoint": {
+                "startX": 4360,
+                "startY": 411,
+                "endX": 4360,
+                "endY": 1780
+              },
+              "shapePoint": [4360, 411, 4360, 1780, 4345, 1780, 4345, 411],
+              "length": 1369,
+              "materialObj": {
+                "id": "2",
+                "name": "固框压线",
+                "code": "windowFrame_yx",
+                "type": 13,
+                "position": 1,
+                "spliceType": 2,
+                "calculatedWidth": 15,
+                "lookWidth": 15,
+                "lapRelation": [
+                  {
+                    "id": "1",
+                    "calculatedType": 2,
+                    "horizontalNum": 10,
+                    "verticalNum": 0
+                  },
+                  {
+                    "id": "3",
+                    "calculatedType": 2,
+                    "horizontalNum": 10,
+                    "verticalNum": 0
+                  }
+                ]
+              },
+              "location": "right"
+            },
+            {
+              "id": "b_14e93e627cde7e8da1c44623d15aee45",
+              "pid": "space_f60e7bf08264c75f9612a1c859223b06",
+              "type": "line",
+              "linePoint": {
+                "startX": 3592,
+                "startY": 1780,
+                "endX": 4360,
+                "endY": 1780
+              },
+              "shapePoint": [3607, 1780, 4345, 1780, 4345, 1765, 3607, 1765],
+              "length": 738,
+              "materialObj": {
+                "id": "2",
+                "name": "固框压线",
+                "code": "windowFrame_yx",
+                "type": 13,
+                "position": 1,
+                "spliceType": 2,
+                "calculatedWidth": 15,
+                "lookWidth": 15,
+                "lapRelation": [
+                  {
+                    "id": "1",
+                    "calculatedType": 2,
+                    "horizontalNum": 10,
+                    "verticalNum": 0
+                  },
+                  {
+                    "id": "3",
+                    "calculatedType": 2,
+                    "horizontalNum": 10,
+                    "verticalNum": 0
+                  }
+                ]
+              },
+              "location": "bottom"
+            },
+            {
+              "id": "b_2f9e0713824f11343502cbea2a3c3796",
+              "type": "line",
+              "linePoint": {
+                "startX": 3592,
+                "startY": 411,
+                "endX": 3592,
+                "endY": 1780
+              },
+              "shapePoint": [3592, 411, 3592, 1780, 3607, 1780, 3607, 411],
+              "length": 1369,
+              "materialObj": {
+                "id": "2",
+                "name": "固框压线",
+                "code": "windowFrame_yx",
+                "type": 13,
+                "position": 1,
+                "spliceType": 2,
+                "calculatedWidth": 15,
+                "lookWidth": 15,
+                "lapRelation": [
+                  {
+                    "id": "1",
+                    "calculatedType": 2,
+                    "horizontalNum": 10,
+                    "verticalNum": 0
+                  },
+                  {
+                    "id": "3",
+                    "calculatedType": 2,
+                    "horizontalNum": 10,
+                    "verticalNum": 0
+                  }
+                ]
+              },
+              "location": "left"
+            }
+          ],
+          "glass": {
+            "id": "gb90a44c5245a77ea09d76a7a155288612",
+            "pid": "space_f60e7bf08264c75f9612a1c859223b06",
+            "type": 2,
+            "glassCode": "GB3",
+            "shapeType": "rect",
+            "glassFrame": [
+              {
+                "id": "b_138d323a9cc54c9442afbee9f900144e",
+                "pid": "space_f60e7bf08264c75f9612a1c859223b06",
+                "type": "line",
+                "linePoint": {
+                  "startX": 3602,
+                  "startY": 421,
+                  "endX": 4350,
+                  "endY": 421
+                },
+                "shapePoint": [],
+                "length": 748,
+                "location": "top"
+              },
+              {
+                "id": "b_0740289e151a20f2824ba325afd223e9",
+                "pid": "space_f60e7bf08264c75f9612a1c859223b06",
+                "type": "line",
+                "linePoint": {
+                  "startX": 4350,
+                  "startY": 421,
+                  "endX": 4350,
+                  "endY": 1770
+                },
+                "shapePoint": [],
+                "length": 1349,
+                "location": "right"
+              },
+              {
+                "id": "b_14e93e627cde7e8da1c44623d15aee45",
+                "pid": "space_f60e7bf08264c75f9612a1c859223b06",
+                "type": "line",
+                "linePoint": {
+                  "startX": 3602,
+                  "startY": 1770,
+                  "endX": 4350,
+                  "endY": 1770
+                },
+                "shapePoint": [],
+                "length": 748,
+                "location": "bottom"
+              },
+              {
+                "id": "b_2f9e0713824f11343502cbea2a3c3796",
+                "pid": "space_f60e7bf08264c75f9612a1c859223b06",
+                "type": "line",
+                "linePoint": {
+                  "startX": 3602,
+                  "startY": 421,
+                  "endX": 3602,
+                  "endY": 1770
+                },
+                "shapePoint": [],
+                "length": 1349,
+                "location": "left"
+              }
+            ],
+            "width": 748,
+            "height": 1349,
+            "specificationId": "2",
+            "specificationName": "6+27Ar+6",
+            "craftList": []
+          },
+          "relation": [
+            {
+              "id": "szhub1e10449bb4f02497fd5c563680c7a48",
+              "type": "centerPillar",
+              "location": "left"
+            },
+            {
+              "id": "b_ee13c79b68fc2aa9c8e32403608bd286",
+              "type": "frame",
+              "location": "top"
+            },
+            {
+              "id": "b_91e0d21d0b439559f9033c2d1573f688",
+              "type": "frame",
+              "location": "right"
+            },
+            {
+              "id": "b_102d4fe0146dd69f2abce77fd82ee389",
+              "type": "frame",
+              "location": "bottom"
+            }
+          ],
+          "width": 748,
+          "height": 1349
+        }
+      ],
+      "fanSpace": [],
+      "centerPillar": [
+        {
+          "id": "szhu1c744e194eb423132490716d9f37b7ad",
+          "pid": "df44c86c79accbcca344d8e041611584",
+          "type": "line",
+          "linePoint": {
+            "startX": 1993,
+            "startY": 421,
+            "endX": 1993,
+            "endY": 1770
+          },
+          "shapePoint": [1973, 421, 1973, 1770, 2013, 1770, 2013, 421],
+          "length": 1349,
+          "location": "szhu",
+          "cpType": 1,
+          "relation": [
+            {
+              "id": "space_06d2896c93f2faf529026f446914004b",
+              "type": "fixedSpace",
+              "location": "left"
+            },
+            {
+              "id": "space_e10ef8c1a11b72ae201f75628662afa3",
+              "type": "fixedSpace",
+              "location": "right"
+            },
+            {
+              "id": "b_ee13c79b68fc2aa9c8e32403608bd286",
+              "type": "frame",
+              "location": "top"
+            },
+            {
+              "id": "b_102d4fe0146dd69f2abce77fd82ee389",
+              "type": "frame",
+              "location": "bottom"
+            }
+          ],
+          "materialObj": {
+            "id": "3",
+            "name": "中柱",
+            "code": "GLT16504",
+            "type": 8,
+            "position": 1,
+            "spliceType": 1,
+            "calculatedWidth": 40,
+            "lookWidth": 40,
+            "lapRelation": []
+          }
+        },
+        {
+          "id": "szhub1e10449bb4f02497fd5c563680c7a48",
+          "pid": "df44c86c79accbcca344d8e041611584",
+          "type": "line",
+          "linePoint": {
+            "startX": 3582,
+            "startY": 421,
+            "endX": 3582,
+            "endY": 1770
+          },
+          "shapePoint": [3562, 421, 3562, 1770, 3602, 1770, 3602, 421],
+          "length": 1349,
+          "location": "szhu",
+          "cpType": 1,
+          "relation": [
+            {
+              "id": "space_e10ef8c1a11b72ae201f75628662afa3",
+              "type": "fixedSpace",
+              "location": "left"
+            },
+            {
+              "id": "space_f60e7bf08264c75f9612a1c859223b06",
+              "type": "fixedSpace",
+              "location": "right"
+            },
+            {
+              "id": "b_ee13c79b68fc2aa9c8e32403608bd286",
+              "type": "frame",
+              "location": "top"
+            },
+            {
+              "id": "b_102d4fe0146dd69f2abce77fd82ee389",
+              "type": "frame",
+              "location": "bottom"
+            }
+          ],
+          "materialObj": {
+            "id": "3",
+            "name": "中柱",
+            "code": "GLT16504",
+            "type": 8,
+            "position": 1,
+            "spliceType": 1,
+            "calculatedWidth": 40,
+            "lookWidth": 40,
+            "lapRelation": []
+          }
+        }
+      ],
+      "relation": [],
+      "styleType": 1
+    }
+  ],
+  "spliceFrame": [],
+  "windowCase": [],
+  "subFrame": [],
+  "bLineOtherData": {
+    "data": [
+      {
+        "id": "58a2ef6a0747447557b50ffaf27e12c4",
+        "type": "h",
+        "value": 1419,
+        "drawData": {
+          "id": "df44c86c79accbcca344d8e041611584",
+          "otherProps": {
+            "type": "kuang",
+            "data": {
+              "id": "b_102d4fe0146dd69f2abce77fd82ee389",
+              "pid": "df44c86c79accbcca344d8e041611584",
+              "type": "line",
+              "linePoint": {
+                "startX": 1175,
+                "startY": 1800,
+                "endX": 4400,
+                "endY": 1800
+              },
+              "shapePoint": [1225, 1800, 4350, 1800, 4350, 1770, 1225, 1770],
+              "length": 3125,
+              "materialObj": {
+                "id": "11",
+                "name": "窗框",
+                "code": "windowFrame",
+                "type": 1,
+                "position": 3,
+                "spliceType": 2,
+                "calculatedWidth": 50,
+                "lookWidth": 30,
+                "lapRelation": []
+              },
+              "location": "bottom",
+              "relation": [
+                {
+                  "id": "space_06d2896c93f2faf529026f446914004b",
+                  "type": "fixedSpace",
+                  "location": "top"
+                },
+                {
+                  "id": "szhu1c744e194eb423132490716d9f37b7ad",
+                  "type": "centerPillar",
+                  "location": "top"
+                },
+                {
+                  "id": "space_e10ef8c1a11b72ae201f75628662afa3",
+                  "type": "fixedSpace",
+                  "location": "top"
+                },
+                {
+                  "id": "szhub1e10449bb4f02497fd5c563680c7a48",
+                  "type": "centerPillar",
+                  "location": "top"
+                },
+                {
+                  "id": "space_f60e7bf08264c75f9612a1c859223b06",
+                  "type": "fixedSpace",
+                  "location": "top"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "6f6971d9b390bfddc4cdef366d1fa412",
+        "type": "s",
+        "value": 818,
+        "position": "df44c86c79accbcca344d8e041611584_1993",
+        "drawData": {
+          "id": "df44c86c79accbcca344d8e041611584",
+          "otherProps": {
+            "type": "szhu",
+            "data": {
+              "id": "szhu1c744e194eb423132490716d9f37b7ad",
+              "pid": "df44c86c79accbcca344d8e041611584",
+              "type": "line",
+              "linePoint": {
+                "startX": 1993,
+                "startY": 421,
+                "endX": 1993,
+                "endY": 1770
+              },
+              "shapePoint": [1973, 421, 1973, 1770, 2013, 1770, 2013, 421],
+              "length": 1349,
+              "location": "szhu",
+              "cpType": 1,
+              "relation": [
+                {
+                  "id": "space_06d2896c93f2faf529026f446914004b",
+                  "type": "fixedSpace",
+                  "location": "left"
+                },
+                {
+                  "id": "space_e10ef8c1a11b72ae201f75628662afa3",
+                  "type": "fixedSpace",
+                  "location": "right"
+                },
+                {
+                  "id": "b_ee13c79b68fc2aa9c8e32403608bd286",
+                  "type": "frame",
+                  "location": "top"
+                },
+                {
+                  "id": "b_102d4fe0146dd69f2abce77fd82ee389",
+                  "type": "frame",
+                  "location": "bottom"
+                }
+              ],
+              "materialObj": {
+                "id": "3",
+                "name": "中柱",
+                "code": "zhu",
+                "type": 8,
+                "position": 1,
+                "spliceType": 1,
+                "calculatedWidth": 40,
+                "lookWidth": 40,
+                "lapRelation": []
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "96076f64e45b3af6e67ad02652c52713",
+        "type": "s",
+        "value": 1589,
+        "position": "df44c86c79accbcca344d8e041611584_3582",
+        "drawData": {
+          "id": "df44c86c79accbcca344d8e041611584",
+          "otherProps": {
+            "type": "szhu",
+            "data": {
+              "id": "szhub1e10449bb4f02497fd5c563680c7a48",
+              "pid": "df44c86c79accbcca344d8e041611584",
+              "type": "line",
+              "linePoint": {
+                "startX": 3582,
+                "startY": 421,
+                "endX": 3582,
+                "endY": 1770
+              },
+              "shapePoint": [3562, 421, 3562, 1770, 3602, 1770, 3602, 421],
+              "length": 1349,
+              "location": "szhu",
+              "cpType": 1,
+              "relation": [
+                {
+                  "id": "space_e10ef8c1a11b72ae201f75628662afa3",
+                  "type": "fixedSpace",
+                  "location": "left"
+                },
+                {
+                  "id": "space_f60e7bf08264c75f9612a1c859223b06",
+                  "type": "fixedSpace",
+                  "location": "right"
+                },
+                {
+                  "id": "b_ee13c79b68fc2aa9c8e32403608bd286",
+                  "type": "frame",
+                  "location": "top"
+                },
+                {
+                  "id": "b_102d4fe0146dd69f2abce77fd82ee389",
+                  "type": "frame",
+                  "location": "bottom"
+                }
+              ],
+              "materialObj": {
+                "id": "3",
+                "name": "中柱",
+                "code": "zhu",
+                "type": 8,
+                "position": 1,
+                "spliceType": 1,
+                "calculatedWidth": 40,
+                "lookWidth": 40,
+                "lapRelation": []
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "e085ef72c0a21cfb8b08a7d1bd4f1525",
+        "type": "s",
+        "value": 818,
+        "position": "df44c86c79accbcca344d8e041611584_4400",
+        "drawData": {
+          "id": "df44c86c79accbcca344d8e041611584",
+          "otherProps": {
+            "type": "kuang",
+            "data": {
+              "id": "b_91e0d21d0b439559f9033c2d1573f688",
+              "pid": "df44c86c79accbcca344d8e041611584",
+              "type": "line",
+              "linePoint": {
+                "startX": 4400,
+                "startY": 381,
+                "endX": 4400,
+                "endY": 1800
+              },
+              "shapePoint": [4400, 381, 4400, 1800, 4350, 1800, 4350, 381],
+              "length": 1419,
+              "materialObj": {
+                "id": "1",
+                "name": "窗框",
+                "code": "windowFrame",
+                "type": 1,
+                "position": 1,
+                "spliceType": 2,
+                "calculatedWidth": 50,
+                "lookWidth": 50,
+                "lapRelation": []
+              },
+              "location": "right",
+              "relation": [
+                {
+                  "id": "space_f60e7bf08264c75f9612a1c859223b06",
+                  "type": "fixedSpace",
+                  "location": "left"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "1819e27eec2b362b69203bbd34363b65",
+        "type": "s",
+        "value": 3225,
+        "drawData": {
+          "id": "df44c86c79accbcca344d8e041611584",
+          "otherProps": {
+            "type": "kuang",
+            "data": {
+              "id": "b_91e0d21d0b439559f9033c2d1573f688",
+              "pid": "df44c86c79accbcca344d8e041611584",
+              "type": "line",
+              "linePoint": {
+                "startX": 4400,
+                "startY": 381,
+                "endX": 4400,
+                "endY": 1800
+              },
+              "shapePoint": [4400, 381, 4400, 1800, 4350, 1800, 4350, 381],
+              "length": 1419,
+              "materialObj": {
+                "id": "1",
+                "name": "窗框",
+                "code": "windowFrame",
+                "type": 1,
+                "position": 1,
+                "spliceType": 2,
+                "calculatedWidth": 50,
+                "lookWidth": 50,
+                "lapRelation": []
+              },
+              "location": "right",
+              "relation": [
+                {
+                  "id": "space_f60e7bf08264c75f9612a1c859223b06",
+                  "type": "fixedSpace",
+                  "location": "left"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "diTai": {
+      "height": 0,
+      "isEdit": false
+    }
+  }
+}

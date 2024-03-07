@@ -22,20 +22,17 @@ function App() {
     }
     setActiveValue(obj.value);
     if(obj.value.color === '#435962'){
-      console.log('in')
-      three.updateMaterials(obj, 'in');
+      three.updateMaterials(obj, 300010);
     }
 
     if(obj.value.color === '#181e26'){
-      console.log('out')
-      three.updateMaterials(obj, 'out');
+      three.updateMaterials(obj, 300012);
     }
 
   };
 
   useEffect(() => {
     const three = new Three({
-      data,
       container: "threeD",
       showStats: true,
       showGui: true,
@@ -43,6 +40,10 @@ function App() {
       showHelper: {},
     });
     setThree(three);
+    three.createModel({
+      seriesCode: 'GPN80T', 
+      data,
+    });
   }, []);
 
   return (
